@@ -1,5 +1,7 @@
 syntax enable " 启用语法高亮
-set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
+ " 使用系统剪贴板，而不是“+”指令
+set clipboard=unnamed
+nnoremap <expr> p (v:register == '"' && &clipboard =~ 'unnamed' ? '"*p' : '"' . v:register . 'p')
 filetype on " 启用文件类型检测
 set number " 启用行号
 set history=1000  " 记录历史的行数
