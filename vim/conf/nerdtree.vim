@@ -1,5 +1,5 @@
 " 自动打开目录浏览工具
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 
 " 如果vim没有指定文件，则自动打开目录浏览
 autocmd StdinReadPre * let s:std_in=1
@@ -15,7 +15,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 " 在所有tab中自动打开tree
-let g:nerdtree_tabs_open_on_console_startup=1
+"let g:nerdtree_tabs_open_on_console_startup=1
 
 map <leader>e :NERDTreeToggle<CR>
 
