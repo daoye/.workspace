@@ -23,9 +23,9 @@ ln -s ${ROOT}/templates ~/.vim-template-extend
 pip install pynvim
 pip install neovim
 
-if["$(uname)"=="Darwin"];then
+if [ "$(uname)"=="Darwin" ];then
 	brew install -y tmux
-elif["$(expr substr $(uname -s) 1 5)"=="Linux"];then
+elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ];then
 	sudo apt -y install tmux
 fi
 

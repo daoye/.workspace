@@ -8,14 +8,12 @@ set history=1000  " 记录历史的行数
 set tabstop=4 " 设置tab键为4个空格
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
-" 设置pynvim版本
-"set pyxversion=3
 
 
 call plug#begin('~/.local/share/nvim/plugged')
 
 " 配色方案
-Plug 'altercation/vim-colors-solarized'
+Plug 'daoye/vim-colors-solarized'
 
 " 解决输入法切换的问题
 " Plug 'vim-scripts/fcitx.vim.git'
@@ -48,7 +46,7 @@ Plug 'w0rp/ale'
 " Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 " 文件查找
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 source ~/.config/nvim/conf/fzf.vim
 
@@ -68,5 +66,12 @@ source ~/.config/nvim/conf/vim-template.vim
 call plug#end()
 
 " 设置主题方案
+"let g:solarized_termcolors=256
 set background=dark
+if $COLORTERM == 'truecolor'
+    set termguicolors
+else
+    set term=xterm
+    set t_Co=256
+endif
 colorscheme solarized
