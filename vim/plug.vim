@@ -16,14 +16,14 @@ if !has('nvim')
 	Plug 'roxma/nvim-yarp'
 endif
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 " Python源
 Plug 'deoplete-plugins/deoplete-jedi'
 
-" c# 语法自动补全支持
+" C#源
 Plug 'OmniSharp/omnisharp-vim'
 
-" 语法检查
-Plug 'w0rp/ale'
+Plug 'w0rp/ale' " 语法检查
 
 " 文件查找插件，ctrlp的替代品
 " Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -32,7 +32,7 @@ Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" 文件目录插件
+" 文件目录
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -47,3 +47,7 @@ runtime! conf/*.vim
 
 call plug#end()
 
+
+call deoplete#custom#option('profile', v:true)
+call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
+call deoplete#enable_logging('DEBUG', '/tmp/deoplete.log')

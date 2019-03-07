@@ -1,7 +1,10 @@
-let g:OmniSharp_server_use_mono = 1
+if has('mac')
+	let g:OmniSharp_server_use_mono = 1
+else
+	let g:OmniSharp_server_use_mono = 0
+endif
 " let g:OmniSharp_proc_debug = 1
 " let g:OmniSharp_loglevel = 'debug'
-" autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 
 " Set the type lookup function to use the preview window instead of echoing it
 let g:OmniSharp_typeLookupInPreview = 1

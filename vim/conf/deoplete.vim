@@ -8,7 +8,7 @@ let g:deoplete#sources.cs = ['omni', 'file', 'buffer', 'ultisnips']
 
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.cs = ['\w*']
-"let g:deoplete#omni#input_patterns.clojure = ['\w*']
+let g:deoplete#omni#input_patterns.clojure = ['\w*']
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.]*'

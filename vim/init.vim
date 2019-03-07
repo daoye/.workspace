@@ -7,6 +7,10 @@ set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
 
+" 设置python路径
+let g:python3_host_prog=expand('~/.virtualenvs/nvim_py3/bin/python')
+let g:python_host_prog=expand('~/.virtualenvs/nvim_py2/bin/python')
+
 " 加载插件
 source ~/.config/nvim/plug.vim
 
@@ -19,3 +23,4 @@ else
     set t_Co=256
 endif
 colorscheme solarized8
+
