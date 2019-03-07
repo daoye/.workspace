@@ -47,7 +47,3 @@ runtime! conf/*.vim
 
 call plug#end()
 
-
-call deoplete#custom#option('profile', v:true)
-call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
-call deoplete#enable_logging('DEBUG', '/tmp/deoplete.log')

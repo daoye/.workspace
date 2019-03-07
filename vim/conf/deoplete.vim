@@ -1,7 +1,7 @@
 let g:deoplete#enable_at_startup = 1
 
 let g:deoplete#sources = {}
-let g:deoplete#sources._=['buffer', 'ultisnips', 'file', 'dictionary']
+"let g:deoplete#sources._=['buffer', 'ultisnips', 'file', 'dictionary']
 "let g:deoplete#sources.clojure=['omni', 'file']
 let g:deoplete#sources.clojure=['async_clj', 'file', 'dictionary', 'ultisnips']
 let g:deoplete#sources.cs = ['omni', 'file', 'buffer', 'ultisnips']
