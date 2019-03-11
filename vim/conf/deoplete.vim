@@ -5,9 +5,11 @@ let g:deoplete#sources = {}
 "let g:deoplete#sources.clojure=['omni', 'file']
 let g:deoplete#sources.clojure=['async_clj', 'file', 'dictionary', 'ultisnips']
 let g:deoplete#sources.cs = ['omni', 'file', 'buffer', 'ultisnips']
+let g:deoplete#sources.cshtml = ['omni', 'file', 'buffer', 'ultisnips']
 
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.cs = ['\w*']
+let g:deoplete#omni#input_patterns.cshtml = ['\w*']
 let g:deoplete#omni#input_patterns.clojure = ['\w*']
 
 let g:deoplete#keyword_patterns = {}

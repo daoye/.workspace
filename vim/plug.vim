@@ -20,7 +20,10 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Python源
 Plug 'deoplete-plugins/deoplete-jedi'
 
-" C#源
+" Python 扩展
+Plug 'davidhalter/jedi-vim'
+
+" C# 扩展及源
 Plug 'OmniSharp/omnisharp-vim'
 
 Plug 'w0rp/ale' " 语法检查
@@ -42,6 +45,15 @@ Plug 'ekalinin/Dockerfile.vim'
 
 " Vim 文件模版
 Plug 'aperezdc/vim-template'
+
+" 改善Buf操作
+Plug 'fholgado/minibufexpl.vim'
+
+" 文件修改历史查看
+Plug 'mbbill/undotree'
+
+" 括号自动完成和编辑
+Plug 'tpope/vim-surround'
 
 runtime! conf/*.vim
 
