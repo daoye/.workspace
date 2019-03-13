@@ -35,7 +35,7 @@ nnoremap <Leader>f :bn<CR>
 " 查看buffers
 nnoremap <Leader>l :ls<CR>
 
-" 通过索引快速跳转
+" 通过索引快速跳转Buffer
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
@@ -47,3 +47,9 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR><Paste>
 
+
+" 快速移动窗口
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-L> <C-W>l<C-W>_
+map <C-H> <C-W>h<C-W>_

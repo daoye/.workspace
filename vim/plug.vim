@@ -54,6 +54,15 @@ Plug 'mbbill/undotree'
 
 " 括号自动完成和编辑
 Plug 'tpope/vim-surround'
+"
+" 注释辅助
+Plug 'scrooloose/nerdcommenter'
+
+" 括号自动完成
+Plug 'spf13/vim-autoclose'
+
+" GIT支持
+Plug 'tpope/vim-fugitive'
 
 runtime! conf/*.vim
 
