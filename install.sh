@@ -17,11 +17,15 @@ done
 git submodule init
 git submodule update
 
-ln -s ${ROOT}/vim ~/.config/nvim
-ln -s ${ROOT}/vim ~/.vim
-ln -s ${ROOT}/vim/init.vim ~/.vimrc
-ln -s ${ROOT}/tmux/.tmux.conf.local ~/.tmux.conf.local
-ln -s ${ROOT}/templates ~/.vim-template-extend
+
+ln -s -f ${ROOT}/vim ~/.config/nvim
+ln -s -f ${ROOT}/vim ~/.vim
+ln -s -f ${ROOT}/vim/init.vim ~/.vimrc
+
+ln -s -f ${ROOT}/tmuxcnf/.tmux.conf ~/.tmux.conf
+ln -s -f ${ROOT}/tmux/.tmux.conf.local ~/.tmux.conf.local
+
+ln -s -f ${ROOT}/templates ~/.vim-template-extend
 
 
 #pip install pynvim
