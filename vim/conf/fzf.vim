@@ -109,3 +109,4 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " 增加 ctrl+p 快捷键映射
 nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-b> :BTags<CR>
