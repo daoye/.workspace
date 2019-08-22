@@ -64,6 +64,9 @@ Plug 'spf13/vim-autoclose'
 " GIT支持
 Plug 'tpope/vim-fugitive'
 
+" 调试器
+Plug 'vim-vdebug/vdebug'
+
 runtime! conf/*.vim
 
 call plug#end()
