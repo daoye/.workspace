@@ -1,11 +1,11 @@
 # Installation
 
-`
-cd ~
-git clone https://github.com/daoye/.workspace.git
-cd .workspace
-./install.sh
-`
+
+    cd ~
+    git clone https://github.com/daoye/.workspace.git
+    cd .workspace
+    ./install.sh
+
 
 
 
