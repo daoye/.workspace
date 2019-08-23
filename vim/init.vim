@@ -15,6 +15,9 @@ let mapleader="," " 修改<leader> 键为,
 " 加载插件
 source ~/.config/nvim/plug.vim
 
+" 加载插件自定义配置 
+runtime! conf/*.vim
+
 " 设置主题方案
 set background=dark
 " if $COLORTERM == 'truecolor'

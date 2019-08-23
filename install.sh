@@ -4,7 +4,7 @@ set -u # set -o nounset 禁止使用未初始化变量
 set -e # set -o errexit 发生任何非0返回时，停止执行后续脚本
 
 get_dist_name() {
-    if [ "$(uname)" == "Darwin" ];then
+    if [ "$(uname)" = "Darwin" ];then
         DISTRO='Darwin'
         PM='brew'
     elif grep -Eqi "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
@@ -86,10 +86,9 @@ eval "${root_prex} ${PM} -y install curl git zsh python \
 if [ $DISTRO = "Ubuntu" ]; then
 
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
-        libevent-dev ncurses-dev autotools-dev python3 \ 
+        libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip
-        " 
+        python-dev python3-dev python-pip python3-pip" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -97,13 +96,13 @@ if [ $DISTRO = "Ubuntu" ]; then
 
 elif [ $DISTRO = "CentOS" ]; then
 
-    eval "${root_prex} yum install epel-release && \
+    eval "${root_prex} yum install -y epel-release && \
               ${root_prex} yum update -y && \
               ${root_prex} yum install -y yum-utils \
               device-mapper-persistent-data \
-              lvm2 \
+              lvm2 which\
               libevent-devel ncurses-devel make \
-              python-devel python-pip python36 python36-devel python36-pip
+              neovim python36-neovim python-devel python-pip python36 python36-devel python36-pip
               "
     # 安装docker
     eval "${root_prex} yum remove docker \
@@ -226,7 +225,7 @@ ln -s -f ${ROOT}/templates ~/.vim-template-extend
 ln -s -f ${ROOT}/tmux/.tmux.conf.local ~/.tmux.conf.local
 
 
-nvim +PlugInstall +qa
+nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +qa
 
 #安装oh-my-zsh
 rm -rf ~/.oh-my-zsh
@@ -238,7 +237,7 @@ curl -L https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-them
 sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
 
 #设置插件
-zsh_plugs="git git-flow git-prompt autopep8 command-not-found common-aliases docker-compose docker emoji-clock emoji fzf tmux urltools vi-mode virtualenv"
+zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
 sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 #加载自定义配置
 echo "source ~/.zshrc.local" >> ~/.zshrc

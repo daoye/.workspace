@@ -67,7 +67,5 @@ Plug 'tpope/vim-fugitive'
 " 调试器
 Plug 'vim-vdebug/vdebug'
 
-runtime! conf/*.vim
-
 call plug#end()
 
