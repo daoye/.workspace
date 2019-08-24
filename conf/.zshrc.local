@@ -4,6 +4,11 @@ export PATH=$HOME/.local/bin:$PATH
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 source $HOME/.local/bin/virtualenvwrapper.sh
+#
+# proxy
+alias proxyon='export all_proxy=socks5://127.0.0.1:1080'
+alias hproxy_on='export all_proxy=http://127.0.0.1:1087'
+alias proxyoff='unset all_proxy'
 
 export COLORTERM='truecolor'
 export EDITOR='nvim'

@@ -34,7 +34,7 @@ get_dist_name() {
 }
 
 backup_conf_dir(){
-    for n in "${HOME}/.vim" "${HOME}/.vimrc" "${HOME}/.config/nvim" "${HOME}/.vim-template-extend" "${HOME}/.tmux.conf.local" "${HOME}/.zshrc.local"
+    for n in "${HOME}/.vim" "${HOME}/.config/nvim" "${HOME}/.vim-template-extend" 
     do
         if [ -d $n ]; then
             cp -r $n ${n}backup
@@ -49,7 +49,7 @@ backup_conf_dir(){
 
 backup_conf_file(){
 
-    for n in "${HOME}/.tmux.conf.local" "${HOME}/.zshrc.local"
+    for n in "${HOME}/.vimrc" "${HOME}/.tmux.conf.local" "${HOME}/.zshrc.local"
     do
         if [ -f $n ]; then
             cp -r $n ${n}backup
@@ -66,22 +66,26 @@ backup_conf_file(){
 get_dist_name
 
 
-if [ $DISTRO != "Ubuntu" ] && [ $DISTRO != "CentOS" ] && [ $DISTRO != "Darwin" ]; then
+if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "CentOS" ] && [ "$DISTRO" != "Darwin" ]; then
     echo This script just support ubuntu, centos and macos!!
     exit
 fi
 
 root_prex=''
-if [ "$(whoami)" != "root" ]; then
+if [ "$(whoami)" != "root" ] && [ "$DISTRO" != "Darwin" ] ; then
     root_prex='sudo'
 fi
 
 ROOT=$(cd `dirname $0`; pwd)
 
+
 # 安装基础库
-eval "${root_prex} ${PM} update -y"
-eval "${root_prex} ${PM} -y install curl git zsh python \
-                byacc automake  autoconf m4 libtool perl" 
+
+if [ $DISTRO != "Darwin" ]; then
+	eval "${root_prex} ${PM} update -y"
+	eval "${root_prex} ${PM} -y install curl git zsh python \
+		byacc automake  autoconf m4 libtool perl" 
+fi
 
 if [ $DISTRO = "Ubuntu" ]; then
 
@@ -120,12 +124,14 @@ elif [ $DISTRO = "CentOS" ]; then
 
 elif [ $DISTRO = "Darwin" ]; then
 
-    brew install docker-ce
+    brew cask reinstall docker
 
 fi
 
-eval "${PM} update -y"
-eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
+if [ $DISTRO != "Darwin" ]; then
+	eval "${PM} update -y"
+	eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
+fi
 
 # 启动ssclient
 echo "是否启用 Shadowsocks和Polipo (y/n)? [n]"
@@ -159,7 +165,7 @@ fi
 
 # 安装tmux
 if [ "$DISTRO" = "Darwin" ]; then
-	brew install tmux
+	brew reinstall tmux
 else
 	rm -rf /tmp/tmux
 	cd /tmp
@@ -171,12 +177,16 @@ fi
 
 
 # 安装proxychains-ng
-rm -rf /tmp/proxychains-ng
-cd /tmp
-git clone https://github.com/rofl0r/proxychains-ng.git
-cd proxychains-ng
-./configure --prefix=/usr --sysconfdir=/etc
-eval "${root_prex} make install && ${root_prex} cp -r ${ROOT}/conf/proxychains.conf /etc/"
+if [ $DISTRO = "Darwin" ]; then
+	brew reinstall proxychains-ng
+else
+	rm -rf /tmp/proxychains-ng
+	cd /tmp
+	git clone https://github.com/rofl0r/proxychains-ng.git
+	cd proxychains-ng
+	./configure --prefix=/usr --sysconfdir=/etc
+	eval "${root_prex} make install && ${root_prex} cp -r ${ROOT}/conf/proxychains.conf /etc/"
+fi
 
 # 安装powerline和字体
 pip install --user powerline-status
@@ -209,8 +219,6 @@ cd $ROOT
 backup_conf_dir
 backup_conf_file
 
-
-
 if [ ! -d  ~/.config ]; then
     mkdir -p ~/.config
 fi
@@ -222,9 +230,9 @@ ln -s -f ${ROOT}/vim ~/.vim
 ln -s -f ${ROOT}/vim/init.vim ~/.vimrc
 ln -s -f ${ROOT}/templates ~/.vim-template-extend
 
-ln -s -f ${ROOT}/tmux/.tmux.conf.local ~/.tmux.conf.local
+ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
-
+# 安装vim插件
 nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +qa
 
 #安装oh-my-zsh
@@ -233,9 +241,9 @@ echo "n"|sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-m
 
 #安装ZSH主题
 curl -L https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+
 #更换主题
 sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
-
 #设置插件
 zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
 sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
