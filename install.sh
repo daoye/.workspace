@@ -243,10 +243,10 @@ echo "n"|sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-m
 curl -L https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
 
 #更换主题
-sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
+sed -i "" 's/robbyrussell/bullet-train/g' ~/.zshrc
 #设置插件
 zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
-sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
+sed -i "" "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 #加载自定义配置
 echo "source ~/.zshrc.local" >> ~/.zshrc
 
