@@ -33,6 +33,7 @@ Plug 'w0rp/ale' " 语法检查
 
 " 文件查找
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug '/usr/local/bin/fzf'
 Plug 'junegunn/fzf.vim'
 
 " 文件目录

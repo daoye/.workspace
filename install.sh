@@ -211,7 +211,7 @@ ln -s -f .tmux/.tmux.conf
 # 安装fzf
 rm -rf ~/.fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-echo "y"|~/.fzf/install
+~/.fzf/install --all
 
 cd $ROOT
 
