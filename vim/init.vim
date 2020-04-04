@@ -57,3 +57,9 @@ map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 map <C-L> <C-W>l<C-W>_
 map <C-H> <C-W>h<C-W>_
+
+" 快速调整窗口大小
+map <S-J> <C-W>+<C-W>_
+map <S-K> <C-W>-<C-W>_
+map <S-L> <C-W>><C-W>_
+map <S-H> <C-W><<C-W>_
