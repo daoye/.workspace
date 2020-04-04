@@ -3,7 +3,7 @@
 set -u # set -o nounset 禁止使用未初始化变量 
 set -e # set -o errexit 发生任何非0返回时，停止执行后续脚本
 
-get_dist_name() {
+set_dist_name() {
     if [ "$(uname)" = "Darwin" ];then
         DISTRO='Darwin'
         PM='brew'
@@ -27,6 +27,9 @@ get_dist_name() {
         PM='apt'
     elif grep -Eqi "Raspbian" /etc/issue || grep -Eq "Raspbian" /etc/*-release; then
         DISTRO='Raspbian'
+        PM='apt'
+    elif grep -Eqi "Kali" /etc/issue || grep -Eq "Kali" /etc/*-release; then
+        DISTRO='Kali'
         PM='apt'
     else
         DISTRO='unknow'
@@ -63,10 +66,27 @@ backup_conf_file(){
 
 }
 
-get_dist_name
+cmd_exists(){
+
+    for n in "${HOME}/.vimrc" "${HOME}/.tmux.conf.local" "${HOME}/.zshrc.local"
+    do
+        if [ -f $n ]; then
+            cp -r $n ${n}backup
+            rm -rf $n
+        fi
+
+        if [ -L $n ]; then
+            rm $n
+        fi
+    done
+
+}
 
 
-if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "CentOS" ] && [ "$DISTRO" != "Darwin" ]; then
+set_dist_name
+
+
+if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "CentOS" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ]; then
     echo This script just support ubuntu, centos and macos!!
     exit
 fi
@@ -97,6 +117,17 @@ if [ $DISTRO = "Ubuntu" ]; then
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
     eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
+
+elif [ $DISTRO = "Kali" ]; then
+    eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
+        libevent-dev libncurses5-dev autotools-dev python3 \
+        neovim python3-neovim \
+        python-dev python3-dev python-pip python3-pip" 
+
+    # 安装docker
+    eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
+    eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
+    eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
 
 elif [ $DISTRO = "CentOS" ]; then
 
@@ -129,45 +160,16 @@ elif [ $DISTRO = "Darwin" ]; then
 fi
 
 if [ $DISTRO != "Darwin" ]; then
-	eval "${PM} update -y"
+	eval "${root_prex} ${PM} update -y"
 	eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
 fi
 
-# 启动ssclient
-echo "是否启用 Shadowsocks和Polipo (y/n)? [n]"
-read ssclient
-if [ "$ssclient" = "y" ] || [ "$ssclient" = "Y" ]; then
-    echo "Shadowsocks服务器IP或域名"
-    read sshost
-
-    echo "Shadowsocks服务器端口"
-    read ssport
-
-    echo "Shadowsocks密码"
-    read sspwd
-
-    if [ -z $("${root_prex} docker network ps | grep proxy_net") ]; then
-        eval "${root_prex} docker network create proxy_net"
-    fi
-
-    if [ -n $("${root_prex} docker ps | grep ssclient") ]; then
-        eval "${root_prex} docker rm -f ssclient"
-    fi
-    eval "${root_prex} docker run -dt --name --restart=always ssclient --network proxy_net -p 1080:1080 mritd/shadowsocks -m \
-            \"ss-local\" -s \"-s ${sshost} -p ${ssport} -b 0.0.0.0 -l 1080 -m aes-256-gcm -k ${sspwd}"
-
-    if [ -n $("${root_prex} docker ps | grep polipo") ]; then
-        eval "${root_prex} docker rm -f polipo"
-    fi
-    eval "docker run -dt --restart=always --name=polipo --network proxy_net \
-        -v ${ROOT}/conf/polipo.conf:/config -e PGID=$(id -g docker) -e PUID=$(id -u docker) -e TZ=Asina/Shanghai -p 8123:8123 lsiocommunity/polipo"
-fi
 
 # 安装tmux
 if [ "$DISTRO" = "Darwin" ]; then
 	brew reinstall tmux
 else
-	rm -rf /tmp/tmux
+	eval "${root_prex} rm -rf /tmp/tmux"
 	cd /tmp
 	git clone https://github.com/tmux/tmux.git
 	cd tmux
@@ -175,18 +177,6 @@ else
 	eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
-
-# 安装proxychains-ng
-if [ $DISTRO = "Darwin" ]; then
-	brew reinstall proxychains-ng
-else
-	rm -rf /tmp/proxychains-ng
-	cd /tmp
-	git clone https://github.com/rofl0r/proxychains-ng.git
-	cd proxychains-ng
-	./configure --prefix=/usr --sysconfdir=/etc
-	eval "${root_prex} make install && ${root_prex} cp -r ${ROOT}/conf/proxychains.conf /etc/"
-fi
 
 # 安装powerline和字体
 pip install --user powerline-status
