@@ -1,6 +1,7 @@
+let g:OmniSharp_server_stdio = 1
+
 if has('mac')
-	let g:OmniSharp_server_use_mono = 1
-else
+	let g:OmniSharp_server_use_mono = 1 else
 	let g:OmniSharp_server_use_mono = 0
 endif
 " let g:OmniSharp_proc_debug = 1
@@ -31,7 +32,7 @@ set previewheight=5
 let g:ale_linters = { 'cs': ['OmniSharp'] }
 
 " Fetch semantic type/interface/identifier names on BufEnter and highlight them
-let g:OmniSharp_highlight_types = 1
+let g:OmniSharp_highlight_types = 3
 
 augroup omnisharp_commands
     autocmd!

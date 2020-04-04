@@ -11,20 +11,24 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " 自动补全
-if !has('nvim')
-	Plug 'roxma/vim-hug-neovim-rpc'
-	Plug 'roxma/nvim-yarp'
-endif
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" if !has('nvim')
+" 	Plug 'roxma/vim-hug-neovim-rpc'
+" 	Plug 'roxma/nvim-yarp'
+" endif
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'prabirshrestha/asyncomplete.vim'
 
 " Python源
-Plug 'deoplete-plugins/deoplete-jedi'
+" Plug 'deoplete-plugins/deoplete-jedi'
 
 " Python 扩展
 Plug 'davidhalter/jedi-vim'
 
 " C# 扩展及源
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'OmniSharp/omnisharp-vim'
+
 
 Plug 'w0rp/ale' " 语法检查
 
