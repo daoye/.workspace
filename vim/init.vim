@@ -8,6 +8,15 @@ set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
 
+" 设置折叠的方式，"
+"  manual          手工定义折叠
+ " indent           更多的缩进表示更高级别的折叠
+ " expr              用表达式来定义折叠
+ " syntax           用语法高亮来定义折叠
+ " diff                对没有更改的文本进行折叠
+ " marker           对文中的标志折叠
+set fdm=syntax
+
 " 设置python路径
 " let g:python3_host_prog=expand('~/.virtualenvs/nvim_py3/bin/python')
 " let g:python_host_prog=expand('~/.virtualenvs/nvim_py2/bin/python')

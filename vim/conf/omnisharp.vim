@@ -1,14 +1,15 @@
 let g:OmniSharp_server_stdio = 1
 
 if has('mac')
-	let g:OmniSharp_server_use_mono = 1 else
+	let g:OmniSharp_server_use_mono = 1 
+else
 	let g:OmniSharp_server_use_mono = 0
 endif
 " let g:OmniSharp_proc_debug = 1
 " let g:OmniSharp_loglevel = 'debug'
 
 " Set the type lookup function to use the preview window instead of echoing it
-let g:OmniSharp_typeLookupInPreview = 1
+" let g:OmniSharp_typeLookupInPreview = 1
 
 " Timeout in seconds to wait for a response from the server
 let g:OmniSharp_timeout = 5
@@ -69,7 +70,7 @@ augroup omnisharp_commands
     autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
     autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
 	autocmd FileType cs nnoremap <buffer> <Leader>nm :OmniSharpRename<CR>
-	autocmd FileType cs nnoremap <buffer> <F2> :OmniSharpRename<CR>
+    autocmd FileType cs nnoremap <buffer> <F2> :OmniSharpRename<CR>
 augroup END
 
 " Contextual code actions (uses fzf, CtrlP or unite.vim when available)

@@ -28,7 +28,18 @@ Plug 'davidhalter/jedi-vim'
 " C# 扩展及源
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'nickspoons/vim-sharpenup' " omnisharp-vim 的通用配置
 
+" 代码片段
+" 片段引擎
+Plug 'SirVer/ultisnips'
+" 代码片段模板
+Plug 'honza/vim-snippets'
+
+
+
+" 用于突出显示当前自动补全函数的签名
+Plug 'Shougo/echodoc.vim'
 
 Plug 'w0rp/ale' " 语法检查
 
