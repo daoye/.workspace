@@ -8,6 +8,12 @@ set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
 
+" 解决文件乱码
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+
+
 " 设置折叠的方式，"
 "  manual          手工定义折叠
  " indent           更多的缩进表示更高级别的折叠
@@ -18,8 +24,8 @@ let mapleader="," " 修改<leader> 键为,
 set fdm=syntax
 
 " 设置python路径
-" let g:python3_host_prog=expand('~/.virtualenvs/nvim_py3/bin/python')
-" let g:python_host_prog=expand('~/.virtualenvs/nvim_py2/bin/python')
+let g:python3_host_prog=expand('/usr/bin/python3')
+let g:python_host_prog=expand('/usr/bin/python')
 "
 " 加载插件
 source ~/.config/nvim/plug.vim

@@ -29,6 +29,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'nickspoons/vim-sharpenup' " omnisharp-vim 的通用配置
+Plug 'OrangeT/vim-csharp' " csharp扩展
 
 " 代码片段
 " 片段引擎
