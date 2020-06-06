@@ -177,6 +177,8 @@ else
 	eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 安装powerline和字体
 pip install --user powerline-status
