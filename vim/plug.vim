@@ -68,5 +68,9 @@ Plug 'tpope/vim-fugitive'
 " 调试器
 Plug 'vim-vdebug/vdebug'
 
+" Json支持
+Plug 'elzr/vim-json'
+Plug 'Chiel92/vim-autoformat'
+
 call plug#end()
 

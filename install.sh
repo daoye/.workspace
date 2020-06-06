@@ -116,7 +116,7 @@ if [ $DISTRO = "Ubuntu" ]; then
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
-    eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
+    eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable\""
 
 elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
@@ -206,8 +206,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 cd $ROOT
 
 # 备份文件
-backup_conf_dir
-backup_conf_file
+#backup_conf_dir
+#backup_conf_file
 
 if [ ! -d  ~/.config ]; then
     mkdir -p ~/.config
@@ -227,16 +227,21 @@ nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +qa
 
 #安装oh-my-zsh
 rm -rf ~/.oh-my-zsh
-echo "n"|sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/ohmyzsh/ohmyzsh.git
+echo "y"| ./ohmyzsh/tools/install.sh
+rm -rf ohmyzsh
 
 #安装ZSH主题
-curl -L https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+rm ~/.oh-my-zsh-themes
+mkdir ~/.oh-my-zsh-themes
+git clone https://github.com/caiogondim/bullet-train.zsh.git ~/.oh-my-zsh-themes/bullet-train.zsh
+ln -s -f ~/.oh-my-zsh-themes/bullet-train.zsh/bullet-train.zsh-theme ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
 
 #更换主题
-sed -i "" 's/robbyrussell/bullet-train/g' ~/.zshrc
+sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
 #设置插件
 zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
-sed -i "" "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
+sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 #加载自定义配置
 echo "source ~/.zshrc.local" >> ~/.zshrc
 

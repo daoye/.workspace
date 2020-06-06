@@ -1,4 +1,4 @@
-export PATH=$HOME/.local/bin:$PATH 
+export PATH=$HOME/.local/platform-tools:$HOME/go/bin:$HOME/.local/bin:$PATH 
 
 #virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
@@ -35,3 +35,7 @@ export ZSH_TMUX_AUTOSTART=true	#Automatically starts tmux (default: false)
 #ZSH_TMUX_FIXTERM_WITHOUT_256COLOR	#$TERM to use for non 256-color terminals (default: screen)
 #ZSH_TMUX_FIXTERM_WITH_256COLOR	#$TERM to use for 256-color terminals (default: screen-256color
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
