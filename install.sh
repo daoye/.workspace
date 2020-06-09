@@ -234,7 +234,7 @@ echo "y"| ./ohmyzsh/tools/install.sh
 rm -rf ohmyzsh
 
 #安装ZSH主题
-rm ~/.oh-my-zsh-themes
+rm -rf ~/.oh-my-zsh-themes
 mkdir ~/.oh-my-zsh-themes
 git clone https://github.com/caiogondim/bullet-train.zsh.git ~/.oh-my-zsh-themes/bullet-train.zsh
 ln -s -f ~/.oh-my-zsh-themes/bullet-train.zsh/bullet-train.zsh-theme ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
