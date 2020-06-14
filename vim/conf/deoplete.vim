@@ -1,34 +1,35 @@
+" 自启动
 let g:deoplete#enable_at_startup = 1
+" smart case不解释
+call deoplete#custom#option('smart_case', v:true)
 
-let g:deoplete#sources = {}
-"let g:deoplete#sources._=['buffer', 'ultisnips', 'file', 'dictionary']
-"let g:deoplete#sources.clojure=['omni', 'file']
-let g:deoplete#sources.clojure=['async_clj', 'file', 'dictionary', 'ultisnips']
-let g:deoplete#sources.cs = ['omni', 'file', 'buffer', 'ultisnips']
-let g:deoplete#sources.cshtml = ['omni', 'file', 'buffer', 'ultisnips']
 
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.cs = ['\w*']
-let g:deoplete#omni#input_patterns.cshtml = ['\w*']
-let g:deoplete#omni#input_patterns.clojure = ['\w*']
+" 用户输入至少两个字符时再开始提示补全
+" call deoplete#custom#source('LanguageClient',
+            " \ 'min_pattern_length',
+            " \ 2)
 
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.]*'
+" 字符串中不补全
+" call deoplete#custom#source('_',
+            " \ 'disabled_syntaxes', ['String']
+            " \ )
 
-" Use smartcase.
-let g:deoplete#enable_smart_case = 1
+" 补全结束或离开插入模式时，关闭预览窗口
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+" 为每个语言定义completion source
+" 是的vim script和zsh script都有，这就是deoplete
+call deoplete#custom#option('sources', {
+            \ 'cpp': ['LanguageClient'],
+            \ 'c': ['LanguageClient'],
+            \ 'py': ['LanguageClient'],
+            \ 'vim': ['vim'],
+            \ 'zsh': ['zsh']
+            \})
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
+" 忽略一些没意思的completion source。
+" let g:deoplete#ignore_sources = {}
+" let g:deoplete#ignore_sources._ = ['buffer', 'around']
 
-autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<tab>"

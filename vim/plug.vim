@@ -1,7 +1,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " 配色方案
-Plug 'lifepillar/vim-solarized8'
+" Plug 'lifepillar/vim-solarized8'
+Plug 'morhetz/gruvbox'
 
 " 解决输入法切换的问题
 " Plug 'vim-scripts/fcitx.vim.git'
@@ -11,20 +12,27 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " 自动补全
-if !has('nvim')
-	Plug 'roxma/vim-hug-neovim-rpc'
-	Plug 'roxma/nvim-yarp'
-endif
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" LSP客户端
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+" 显示方法签名
+Plug 'Shougo/echodoc.vim'
 
-" Python源
+
+" 文本内自动补全
+Plug 'Shougo/neco-syntax'
+
+" Python
 Plug 'deoplete-plugins/deoplete-jedi'
-
-" Python 扩展
 Plug 'davidhalter/jedi-vim'
 
 " C# 扩展及源
+" Plug 'OmniSharp/csharp-language-server-protocol'
 Plug 'OmniSharp/omnisharp-vim'
+
 
 Plug 'w0rp/ale' " 语法检查
 

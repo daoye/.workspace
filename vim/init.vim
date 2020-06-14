@@ -1,5 +1,10 @@
 syntax enable " 启用语法高亮
 filetype on " 启用文件类型检测
+" abandoned的Buffer隐藏起来，这是vim的设置。
+" 如果没有这个设置，修改过的文件需要保存了才能换buffer
+" 这会影响全局重命名，因为Vim提示保存因此打断下一个文件的重命名。
+set hidden
+
 set number " 启用行号
 set history=1000  " 记录历史的行数
 set tabstop=4 " 设置tab键为4个空格
@@ -28,7 +33,8 @@ else
     set term=xterm
     set t_Co=256
 endif
-colorscheme solarized8
+"colorscheme solarized8
+colorscheme gruvbox
 
 
 set hidden " 避免必须保存修改才可以跳转buffer
@@ -61,4 +67,4 @@ map <C-H> <C-W>h<C-W>_
 
 
 " 设置vim透明
-hi Normal guibg=NONE ctermbg=NONE
+"hi Normal guibg=NONE ctermbg=NONE

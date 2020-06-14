@@ -104,7 +104,7 @@ ROOT=$(cd `dirname $0`; pwd)
 if [ $DISTRO != "Darwin" ]; then
 	eval "${root_prex} ${PM} update -y"
 	eval "${root_prex} ${PM} -y install curl git zsh python \
-		byacc automake  autoconf m4 libtool perl" 
+		byacc automake  autoconf m4 libtool perl ccls" 
 fi
 
 if [ $DISTRO = "Ubuntu" ]; then
@@ -112,7 +112,7 @@ if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip" 
+        python-dev python3-dev python-pip python3-pip ccls" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -122,36 +122,12 @@ elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip" 
+        python-dev python3-dev python-pip python3-pip ccls" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
     eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
     eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
-
-elif [ $DISTRO = "CentOS" ]; then
-
-    eval "${root_prex} yum install -y epel-release && \
-              ${root_prex} yum update -y && \
-              ${root_prex} yum install -y yum-utils \
-              device-mapper-persistent-data \
-              lvm2 which\
-              libevent-devel ncurses-devel make \
-              neovim python36-neovim python-devel python-pip python36 python36-devel python36-pip
-              "
-    # 安装docker
-    eval "${root_prex} yum remove docker \
-              docker-client \
-              docker-client-latest \
-              docker-common \
-              docker-latest \
-              docker-latest-logrotate \
-              docker-logrotate \
-              docker-engine"
-
-    eval "${root_prex} yum-config-manager \
-                        --add-repo \
-                        https://download.docker.com/linux/centos/docker-ce.repo"
 
 elif [ $DISTRO = "Darwin" ]; then
 
@@ -189,9 +165,13 @@ cd fonts
 eval "${root_prex} ./install.sh"
 
 # 安装virtualenv
-pip install --user virtualenv
-pip install --user virtualenvwrapper
+pip3 install --user virtualenv
+pip3 install --user virtualenvwrapper
 
+# Python 智能提示
+pip3 install python-language-server
+pip3 install 'python-language-server[all]'
+pip3 install pyls-black
 
 # 安装.tmux
 cd ~
