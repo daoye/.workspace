@@ -26,8 +26,8 @@ Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neco-syntax'
 
 " Python
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
+" Plug 'deoplete-plugins/deoplete-jedi'
+" Plug 'davidhalter/jedi-vim'
 
 " C# 扩展及源
 " Plug 'OmniSharp/csharp-language-server-protocol'

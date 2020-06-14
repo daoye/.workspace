@@ -5,6 +5,7 @@ set signcolumn=yes
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['ccls', '--log-file=/tmp/cq.log'],
             \ 'c': ['ccls', '--log-file=/tmp/cq.log'],
+            \ 'python': ['pyls']
             \ }
 
 " 是否为Language server载入配置文件，其实默认就是1,可以忽略
@@ -17,9 +18,6 @@ let g:LanguageClient_settingsPath = "$HOME/.config/nvim/lsp_setting.json"
 set completefunc=LanguageClient#complete
 " 把Server的格式化API提交给Vim
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
-
-" 最后，因为默认Deoplete的补全是`ctrl-n`下翻和`ctrl-p`上翻，如果喜欢`tab`还可以加上两行：
-
 
 function SetLSPShortcuts()
 	nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -34,5 +32,5 @@ endfunction()
 
 augroup LSP
   autocmd!
-  autocmd FileType cpp,c call SetLSPShortcuts()
+  autocmd FileType cpp,c,py call SetLSPShortcuts()
 augroup END
