@@ -1,6 +1,8 @@
 export PATH=$HOME/.local/platform-tools:$HOME/go/bin:$HOME/.local/bin:$PATH 
 
+
 #virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 source $HOME/.local/bin/virtualenvwrapper.sh
@@ -34,6 +36,8 @@ export ZSH_TMUX_AUTOSTART=true	#Automatically starts tmux (default: false)
 #ZSH_TMUX_ITERM2	#Sets the -CC option for iTerm2 tmux integration (default: false)
 #ZSH_TMUX_FIXTERM_WITHOUT_256COLOR	#$TERM to use for non 256-color terminals (default: screen)
 #ZSH_TMUX_FIXTERM_WITH_256COLOR	#$TERM to use for 256-color terminals (default: screen-256color
+# Theme config
+BULLETTRAIN_CONTEXT_DEFAULT_USER=father
 
 
 export NVM_DIR="$HOME/.nvm"

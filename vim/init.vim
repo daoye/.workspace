@@ -8,6 +8,7 @@ set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
 
+
 " 设置python路径
 " let g:python3_host_prog=expand('~/.virtualenvs/nvim_py3/bin/python')
 " let g:python_host_prog=expand('~/.virtualenvs/nvim_py2/bin/python')
@@ -59,3 +60,5 @@ map <C-L> <C-W>l<C-W>_
 map <C-H> <C-W>h<C-W>_
 
 
+" 设置vim透明
+hi Normal guibg=NONE ctermbg=NONE
