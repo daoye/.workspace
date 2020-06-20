@@ -15,8 +15,8 @@ let mapleader="," " 修改<leader> 键为,
 
 
 " 设置python路径
-" let g:python3_host_prog=expand('~/.virtualenvs/nvim_py3/bin/python')
-" let g:python_host_prog=expand('~/.virtualenvs/nvim_py2/bin/python')
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
 "
 " 加载插件
 source ~/.config/nvim/plug.vim
