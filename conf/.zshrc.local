@@ -8,8 +8,8 @@ export PROJECT_HOME=$HOME/projects
 source $HOME/.local/bin/virtualenvwrapper.sh
 #
 # proxy
-alias proxyon='export all_proxy=socks5://127.0.0.1:1080'
-alias hproxy_on='export all_proxy=http://127.0.0.1:1087'
+alias proxyon='export all_proxy=socks5://192.168.3.2:1080'
+alias hproxy_on='export all_proxy=http://192.168.3.2:8000'
 alias proxyoff='unset all_proxy'
 
 export COLORTERM='truecolor'
@@ -19,7 +19,7 @@ alias vi="nvim"
 alias vim="nvim"
 
 # Set fzf installation directory path
-export FZF_BASE=/path/to/fzf/install/dir
+export FZF_BASE=$HOME/.fzf/bin/fzf
 
 # Uncomment the following line to disable fuzzy completion
 # export DISABLE_FZF_AUTO_COMPLETION="true"

@@ -5,7 +5,8 @@ set signcolumn=yes
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['ccls', '--log-file=/tmp/cq.log'],
             \ 'c': ['ccls', '--log-file=/tmp/cq.log'],
-            \ 'python': ['pyls']
+            \ 'python': ['pyls'],
+            \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio']
             \ }
 
 " 是否为Language server载入配置文件，其实默认就是1,可以忽略

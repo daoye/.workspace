@@ -112,7 +112,7 @@ if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip ccls" 
+        python3-dev python3-pip ccls" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -122,7 +122,7 @@ elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip ccls" 
+        python3-dev python3-pip ccls" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -168,10 +168,30 @@ eval "${root_prex} ./install.sh"
 pip3 install --user virtualenv
 pip3 install --user virtualenvwrapper
 
+
+# 安装NodeJS
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm install v12.18.1 
+
 # Python 智能提示
 pip3 install python-language-server
 pip3 install 'python-language-server[all]'
 pip3 install pyls-black
+
+
+# Nodejs 智能提示服务端
+rm -rf ~/.local/share/javascript-typescript-langserver
+git clone https://github.com/sourcegraph/javascript-typescript-langserver.git ~/.local/share/javascript-typescript-langserver
+cd ~/.local/share/javascript-typescript-langserver
+npm install
+npm run build
+chmod +x $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js
+ln -s $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js /usr/local/bin/javascript-typescript-stdio
 
 # 安装.tmux
 cd ~
@@ -205,7 +225,8 @@ ln -s -f ${ROOT}/templates ~/.vim-template-extend
 ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
 # 安装vim插件
-nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +qa
+nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
+
 
 #安装oh-my-zsh
 rm -rf ~/.oh-my-zsh
