@@ -170,7 +170,7 @@ pip3 install --user virtualenvwrapper
 
 
 # 安装NodeJS
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl --proxy http://localhost:8000 -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -191,7 +191,7 @@ cd ~/.local/share/javascript-typescript-langserver
 npm install
 npm run build
 chmod +x $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js
-ln -s $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js /usr/local/bin/javascript-typescript-stdio
+eval "${root_prex} ln -s -f $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js /usr/local/bin/javascript-typescript-stdio"
 
 # 安装.tmux
 cd ~
@@ -199,6 +199,9 @@ rm -rf ~/.tmux
 rm -rf ~/.tmux.conf
 git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
+
+export http_proxy=http://localhost:8000
+export https_proxy=http://localhost:8000
 
 # 安装fzf
 rm -rf ~/.fzf
