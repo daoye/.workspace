@@ -11,6 +11,9 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" 快速跳转
+Plug 'easymotion/vim-easymotion'
+
 " 自动补全
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " LSP客户端
@@ -21,13 +24,15 @@ Plug 'autozimu/LanguageClient-neovim', {
 " 显示方法签名
 Plug 'Shougo/echodoc.vim'
 
+" 代码片段
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
 
 " 文本内自动补全
 Plug 'Shougo/neco-syntax'
-
-" Python
-" Plug 'deoplete-plugins/deoplete-jedi'
-" Plug 'davidhalter/jedi-vim'
 
 " C# 扩展及源
 " Plug 'OmniSharp/csharp-language-server-protocol'
@@ -41,7 +46,6 @@ Plug 'w0rp/ale' " 语法检查
 
 " 文件查找
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug '/usr/local/bin/fzf'
 Plug 'junegunn/fzf.vim'
 
 " 文件目录
