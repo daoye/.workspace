@@ -9,7 +9,8 @@ set number " 启用行号
 set history=1000  " 记录历史的行数
 set tabstop=4 " 设置tab键为4个空格
 set expandtab
-set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
+" set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
+set clipboard=unnamedplus
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
 
