@@ -1,5 +1,5 @@
 {
-    "suggest.snippetIndicator": "🚀",
+    "suggest.snippetIndicator": "🍀",
     "languageserver": {
         "ccls": {
             "command": "ccls",
