@@ -15,7 +15,7 @@ Plug 'easymotion/vim-easymotion'
 " Vim 文件模版
 " Plug 'aperezdc/vim-template'
 " 改善Buf操作
-Plug 'fholgado/minibufexpl.vim'
+" Plug 'fholgado/minibufexpl.vim'
 " 文件修改历史查看
 Plug 'mbbill/undotree'
 " 括号自动完成和编辑
@@ -38,19 +38,21 @@ Plug 'ryanoasis/vim-devicons'
 " 括号高亮
 Plug 'frazrepo/vim-rainbow'
 
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
 
 " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 语法检查
 Plug 'w0rp/ale' 
+" 代码片段
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
 " Coc 扩展
 let g:coc_global_extensions=["coc-json","coc-css", "coc-marketplace", "coc-omnisharp", "coc-python",
-                            \"coc-snippets","coc-sql","coc-xml",
+                            \"coc-snippets",
+                            \"coc-sql","coc-xml",
                             \"coc-yaml","coc-markdownlint","coc-html","coc-highlight",
-                            \"coc-git","coc-explorer","coc-cmake","coc-actions"]
+                            \"coc-actions",
+                            \"coc-dictionary", "coc-tag", "coc-word", "coc-emoji", "coc-syntax"]
 

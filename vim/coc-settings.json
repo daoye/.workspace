@@ -11,6 +11,7 @@
                 "objcpp"
             ],
             "rootPatterns": [
+                ".ccls",
                 ".ccls-root",
                 "compile_commands.json",
                 ".vim/",

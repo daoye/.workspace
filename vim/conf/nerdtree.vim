@@ -17,5 +17,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 在所有tab中自动打开tree
 "let g:nerdtree_tabs_open_on_console_startup=1
 
-map <leader>e :NERDTreeToggle<CR>
+" map <leader>e :NERDTreeToggle<CR>
+map <Leader>e <plug>NERDTreeTabsToggle<CR>
 
