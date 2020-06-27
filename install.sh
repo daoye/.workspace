@@ -104,7 +104,7 @@ ROOT=$(cd `dirname $0`; pwd)
 if [ $DISTRO != "Darwin" ]; then
 	eval "${root_prex} ${PM} update -y"
 	eval "${root_prex} ${PM} -y install curl git zsh python \
-		byacc automake  autoconf m4 libtool perl ccls" 
+		byacc automake  autoconf m4 libtool perl ccls ripgrep" 
 fi
 
 if [ $DISTRO = "Ubuntu" ]; then
@@ -112,7 +112,7 @@ if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python3-dev python3-pip ccls" 
+        python3-dev python3-pip ccls ripgrep" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -122,7 +122,7 @@ elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python3-dev python3-pip ccls" 
+        python3-dev python3-pip ccls ripgrep" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"

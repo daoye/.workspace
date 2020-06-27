@@ -4,7 +4,6 @@ filetype on " 启用文件类型检测
 " 如果没有这个设置，修改过的文件需要保存了才能换buffer
 " 这会影响全局重命名，因为Vim提示保存因此打断下一个文件的重命名。
 set hidden
-
 set number " 启用行号
 set history=1000  " 记录历史的行数
 set tabstop=4 " 设置tab键为4个空格
@@ -13,7 +12,8 @@ set expandtab
 set clipboard=unnamedplus
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
 let mapleader="," " 修改<leader> 键为,
-
+" Always show the signcolumn
+set signcolumn=yes
 
 " 设置python路径
 let g:python_host_prog = '/usr/bin/python'
