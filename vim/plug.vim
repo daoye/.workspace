@@ -29,6 +29,8 @@ Plug 'tpope/vim-fugitive'
 " 文件查找
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
 " 文件目录
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'

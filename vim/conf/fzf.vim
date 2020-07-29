@@ -108,5 +108,22 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " 增加 ctrl+p 快捷键映射
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <C-b> :BTags<CR>
+" nnoremap <silent> <C-p> :Files<CR>
+" nnoremap <silent> <C-b> :BTags<CR>
+noremap <leader>ff :Files<CR>
+noremap <leader>fb :Buffers<CR>
+noremap <leader>fa :Ag<CR>
+noremap <leader>fr :Rg<CR>
+noremap <leader>fl :Lines<CR>
+noremap <leader>fbl :BLines<CR>
+noremap <leader>ft :Tags<CR>
+noremap <leader>fbt :BTags<CR>
+noremap <leader>fm :Marks<CR>
+noremap <leader>fw :Windows<CR>
+noremap <leader>fL :<C-U><C-R>=printf("Locate %s", "")<CR><CR>
+noremap <leader>fh :History<CR>
+noremap <leader>fhs :History/<CR>
+noremap <leader>fc :Commits<CR>
+noremap <leader>fbc :BCommits<CR>
+noremap <leader>f? :Commands<CR>
+noremap <leader>f?? :Maps<CR>
