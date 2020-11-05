@@ -153,11 +153,11 @@ else
 	eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 安装powerline和字体
-pip install --user powerline-status
+pip3 install --user powerline-status
 rm -rf /tmp/fonts
 cd /tmp
 git clone https://github.com/powerline/fonts.git
@@ -170,7 +170,7 @@ pip3 install --user virtualenvwrapper
 
 
 # 安装NodeJS
-curl --proxy http://localhost:8000 -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -199,9 +199,6 @@ rm -rf ~/.tmux
 rm -rf ~/.tmux.conf
 git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
-
-export http_proxy=http://localhost:8000
-export https_proxy=http://localhost:8000
 
 # 安装fzf
 rm -rf ~/.fzf
@@ -237,17 +234,18 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git
 echo "y"| ./ohmyzsh/tools/install.sh
 rm -rf ohmyzsh
 
-#安装ZSH主题
-rm -rf ~/.oh-my-zsh-themes
-mkdir ~/.oh-my-zsh-themes
-git clone https://github.com/caiogondim/bullet-train.zsh.git ~/.oh-my-zsh-themes/bullet-train.zsh
-ln -s -f ~/.oh-my-zsh-themes/bullet-train.zsh/bullet-train.zsh-theme ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+##安装ZSH主题
+#rm -rf ~/.oh-my-zsh-themes
+#mkdir ~/.oh-my-zsh-themes
+#git clone https://github.com/caiogondim/bullet-train.zsh.git ~/.oh-my-zsh-themes/bullet-train.zsh
+#ln -s -f ~/.oh-my-zsh-themes/bullet-train.zsh/bullet-train.zsh-theme ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+#
+##更换主题
+#sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
+##设置插件
+#zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
+#sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 
-#更换主题
-sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
-#设置插件
-zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
-sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 #加载自定义配置
 echo "source ~/.zshrc.local" >> ~/.zshrc
 
