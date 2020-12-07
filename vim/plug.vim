@@ -36,7 +36,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " 图标
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 " 括号高亮
 Plug 'frazrepo/vim-rainbow'
 
@@ -56,5 +56,5 @@ let g:coc_global_extensions=["coc-json","coc-css", "coc-marketplace", "coc-omnis
                             \"coc-sql","coc-xml",
                             \"coc-yaml","coc-markdownlint","coc-html","coc-highlight",
                             \"coc-actions",
-                            \"coc-dictionary", "coc-tag", "coc-word", "coc-emoji", "coc-syntax"]
+                            \"coc-tag", "coc-word", "coc-emoji", "coc-syntax"]
 

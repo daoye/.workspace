@@ -72,4 +72,4 @@ nmap <S-h> :vert res +5<CR>
 nmap <S-l> :vert res -5<CR>
 
 " 设置vim透明
-"hi Normal guibg=NONE ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
