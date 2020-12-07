@@ -112,7 +112,7 @@ if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python3-dev python3-pip ccls ripgrep" 
+        python3-dev python3-pip ccls ripgrep highlight" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -122,7 +122,7 @@ elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python3-dev python3-pip ccls ripgrep" 
+        python3-dev python3-pip ccls ripgrep highlight" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
