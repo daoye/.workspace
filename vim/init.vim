@@ -1,15 +1,20 @@
 syntax enable " 启用语法高亮
-filetype on " 启用文件类型检测
+filetype plugin indent on " 启用文件类型检测
 " abandoned的Buffer隐藏起来，这是vim的设置。
 " 如果没有这个设置，修改过的文件需要保存了才能换buffer
 " 这会影响全局重命名，因为Vim提示保存因此打断下一个文件的重命名。
 set hidden
 set number " 启用行号
 set history=1000  " 记录历史的行数
-set tabstop=4 " 设置tab键为4个空格
-set expandtab
-set clipboard=unnamedplus
+
+" 设置tab键为4个空格
+" show existing tab with 4 spaces width
+set tabstop=4
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
+" On pressing tab, insert 4 spaces
+set expandtab
+
+set clipboard=unnamedplus
 " Always show the signcolumn
 set signcolumn=yes
 set cmdheight=2
