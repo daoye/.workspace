@@ -193,6 +193,9 @@ npm run build
 chmod +x $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js
 eval "${root_prex} ln -s -f $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js /usr/local/bin/javascript-typescript-stdio"
 
+# 安装yo
+npm install -g yo
+
 # 安装.tmux
 cd ~
 rm -rf ~/.tmux
