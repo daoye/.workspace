@@ -48,6 +48,9 @@ Plug 'w0rp/ale'
 " 代码片段
 Plug 'honza/vim-snippets'
 
+" 语法高亮
+Plug 'sheerun/vim-polyglot'
+
 call plug#end()
 
 " Coc 扩展

@@ -8,13 +8,11 @@ set number " 启用行号
 set history=1000  " 记录历史的行数
 
 " 设置tab键为4个空格
-" show existing tab with 4 spaces width
 set tabstop=4
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
-" On pressing tab, insert 4 spaces
 set expandtab
-
 set clipboard=unnamedplus
+
 " Always show the signcolumn
 set signcolumn=yes
 set cmdheight=2
