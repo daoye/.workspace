@@ -86,8 +86,8 @@ cmd_exists(){
 set_dist_name
 
 
-if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "CentOS" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ]; then
-    echo This script just support ubuntu, centos and macos!!
+if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ]; then
+    echo This script just support ubuntu, kali and macos!!
     exit
 fi
 
@@ -104,7 +104,7 @@ ROOT=$(cd `dirname $0`; pwd)
 if [ $DISTRO != "Darwin" ]; then
 	eval "${root_prex} ${PM} update -y"
 	eval "${root_prex} ${PM} -y install curl git zsh python \
-		byacc automake  autoconf m4 libtool perl ccls ripgrep exuberant-ctags" 
+		byacc automake  autoconf m4 libtool perl ccls ripgrep the_silver_searcher exuberant-ctags" 
 fi
 
 if [ $DISTRO = "Ubuntu" ]; then
@@ -112,7 +112,7 @@ if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python3-dev python3-pip ccls ripgrep highlight exuberant-ctags" 
+        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -122,7 +122,7 @@ elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python3-dev python3-pip ccls ripgrep highlight exuberant-ctags" 
+        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
@@ -229,6 +229,8 @@ ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
 # 安装vim插件
 nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
+# 安装vimspector 插件的适配器
+nvim -u "${ROOT}/vim/plug.vim" +VimspectorInstall --all +qa
 
 
 #安装oh-my-zsh

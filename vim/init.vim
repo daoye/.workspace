@@ -62,17 +62,17 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR><Paste>
 
 
-" 快速移动窗口
-map <c-j> <C-W>j<C-W>_
-map <c-k> <C-W>k<C-W>_
-map <c-l> <C-W>l<C-W>_
-map <c-h> <C-W>h<C-W>_
-
-" 改变窗口大小
-nmap <S-j> :res +5<CR>
-nmap <S-k> :res -5<CR>
-nmap <S-h> :vert res +5<CR>
-nmap <S-l> :vert res -5<CR>
-
+" " 快速移动窗口
+" map <c-j> <C-W>j<C-W>_
+" map <c-k> <C-W>k<C-W>_
+" map <c-l> <C-W>l<C-W>_
+" map <c-h> <C-W>h<C-W>_
+"
+" " 改变窗口大小
+" nmap <S-j> :res +5<CR>
+" nmap <S-k> :res -5<CR>
+" nmap <S-h> :vert res +5<CR>
+" nmap <S-l> :vert res -5<CR>
+"
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE

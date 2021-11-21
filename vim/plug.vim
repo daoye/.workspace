@@ -51,6 +51,9 @@ Plug 'honza/vim-snippets'
 " 语法高亮
 Plug 'sheerun/vim-polyglot'
 
+" Debugger
+Plug 'puremourning/vimspector'
+
 call plug#end()
 
 " Coc 扩展
