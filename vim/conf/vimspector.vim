@@ -22,10 +22,3 @@ xmap <Leader><F2> :call vimspector#ClearBreakpoints()<CR>
 " Reset windows 
 nmap <Leader><F3> :VimspectorReset<CR>
 xmap <Leader><F3> :VimspectorReset<CR>
-
-
-
-" Improve neovim 
-
-" load package
-" packadd! vimspector

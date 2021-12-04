@@ -27,5 +27,90 @@
                 }
             }
         }
+    },
+    "omnisharp.version": "latest",
+    "omnisharp.trace.server": "verbose",
+    "omnisharp.mode": "legacy",
+    "omnisharp.debug.server": false,
+    "jedi.enable": true,
+    "jedi.startupMessage": false,
+    "jedi.diagnostics.enable": true,
+    "jedi.jediSettings.debug": false,
+    "diagnostic-languageserver.enable": false,
+    "diagnostic-languageserver.mergeConfig": false,
+    "diagnostic-languageserver.filetypes": {
+        "python": "pylint"
+    },
+    "diagnostic-languageserver.linters": {
+        "pylint": {
+            "sourceName": "pylint",
+            "command": "pylint",
+            "debounce": 100,
+            "args": [
+                "--output-format",
+                "text",
+                "--score",
+                "no",
+                "--msg-template",
+                "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
+                "%file"
+            ],
+            "formatPattern": [
+                "^(\\d+?):(\\d+?):([a-z]+?):(.*)$",
+                {
+                    "line": 1,
+                    "column": 2,
+                    "endColumn": 2,
+                    "security": 3,
+                    "message": 4
+                }
+            ],
+            "rootPatterns": [
+                "pyproject.toml",
+                "setup.py",
+                ".git",
+                "scrapy.cfg"
+            ],
+            "securities": {
+                "informational": "hint",
+                "refactor": "info",
+                "convention": "info",
+                "warning": "warning",
+                "error": "error",
+                "fatal": "error"
+            },
+            "offsetColumn": 1,
+            "offsetColumnEnd": 1,
+            "formatLines": 1
+        }
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "python": [
+            "black",
+            "isort",
+            "docformatter"
+        ]
+    },
+    "diagnostic-languageserver.formatters": {
+        "black": {
+            "command": "black",
+            "args": [
+                "-q",
+                "-"
+            ]
+        },
+        "isort": {
+            "command": "isort",
+            "args": [
+                "-q",
+                "-"
+            ]
+        },
+        "docformatter": {
+            "command": "docformatter",
+            "args": [
+                "-"
+            ]
+        }
     }
 }

@@ -21,7 +21,7 @@ let mapleader="," " 修改<leader> 键为,
 " 设置python路径
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
-"
+
 " 加载插件
 source ~/.config/nvim/plug.vim
 
@@ -37,6 +37,8 @@ else
     set term=xterm
     set t_Co=256
 endif
+
+
 "colorscheme solarized8
 colorscheme gruvbox
 
@@ -61,18 +63,26 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR><Paste>
 
+" 取消搜索高亮
+nnoremap <esc> :noh<return><esc> 
 
 " " 快速移动窗口
 " map <c-j> <C-W>j<C-W>_
 " map <c-k> <C-W>k<C-W>_
 " map <c-l> <C-W>l<C-W>_
 " map <c-h> <C-W>h<C-W>_
-"
-" " 改变窗口大小
-" nmap <S-j> :res +5<CR>
-" nmap <S-k> :res -5<CR>
-" nmap <S-h> :vert res +5<CR>
-" nmap <S-l> :vert res -5<CR>
-"
+
+" 改变窗口大小
+nmap <S-j> :res +5<CR>
+nmap <S-k> :res -5<CR>
+nmap <S-h> :vert res -5<CR>
+nmap <S-l> :vert res +5<CR>
+
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE
+
+
+" let g:coc_node_args = ['-r', expand('~/.config/yarn/global/node_modules/source-map-support/register'),'--nolazy', '--inspect=6045']
+" let g:coc_node_args = ['--nolazy', '--inspect=6045']
+" let g:node_client_debug = 1
+" let $NODE_CLIENT_LOG_FILE = '/tmp/coclog'

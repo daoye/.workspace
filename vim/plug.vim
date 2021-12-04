@@ -1,7 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
-
-" 配色方案
-" Plug 'lifepillar/vim-solarized8'
+" 配色方案 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 
 " 解决输入法切换的问题
@@ -34,8 +32,7 @@ Plug 'junegunn/fzf.vim'
 " 文件目录
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-" 图标
+Plug 'Xuyuanp/nerdtree-git-plugin' " 图标
 " Plug 'ryanoasis/vim-devicons'
 " 括号高亮
 Plug 'frazrepo/vim-rainbow'
@@ -43,8 +40,12 @@ Plug 'frazrepo/vim-rainbow'
 
 " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" 语法检查
-Plug 'w0rp/ale' 
+" 语法检查，过时的插件，使用coc-diagnostic替代
+" Plug 'w0rp/ale'
+
+" C# 智能提示
+" Plug 'OmniSharp/omnisharp-vim'
+
 " 代码片段
 Plug 'honza/vim-snippets'
 
@@ -54,13 +55,21 @@ Plug 'sheerun/vim-polyglot'
 " Debugger
 Plug 'puremourning/vimspector'
 
+" 自动对齐
+Plug 'junegunn/vim-easy-align'
+
+" 支持Virtualenv
+" Plug 'jmcantrell/vim-virtualenv'
+
+" Vim 中文文档
+Plug 'yianwillis/vimcdoc'
+
 call plug#end()
 
 " Coc 扩展
-let g:coc_global_extensions=["coc-json","coc-css", "coc-marketplace", "coc-omnisharp", "coc-python",
+let g:coc_global_extensions=["coc-json", "coc-css", "coc-marketplace", "coc-omnisharp", "coc-jedi", "coc-diagnostic", "coc-tsserver",
                             \"coc-snippets",
-                            \"coc-sql","coc-xml",
-                            \"coc-yaml","coc-markdownlint","coc-html","coc-highlight",
+                            \"coc-sql", "coc-xml",
+                            \"coc-yaml", "coc-markdownlint", "coc-html", "coc-highlight",
                             \"coc-actions",
                             \"coc-tag", "coc-word", "coc-emoji", "coc-syntax"]
-
