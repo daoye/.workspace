@@ -11,7 +11,7 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDAltDelims_java = 1
 
 " 添加您自己的自定义格式或覆盖默认值
-let g:NERDCustomDelimiters = { 'cs': { 'left': '//' },'c': { 'left': '//' }  }
+let g:NERDCustomDelimiters = { 'cs': { 'left': '//' }, 'c': { 'left': '//' }, 'js': { 'left': '//'} }
 
 " 允许注释和反转空行（在注释区域时很有用）
 let g:NERDCommentEmptyLines = 1

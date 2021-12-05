@@ -28,6 +28,10 @@ source ~/.config/nvim/plug.vim
 " 加载插件自定义配置 
 runtime! conf/*.vim
 
+if has('nvim')
+    runtime! conf/nvim/*.vim
+endif
+
 " 设置主题方案
 set background=dark
 " if $COLORTERM == 'truecolor'
@@ -42,14 +46,14 @@ endif
 "colorscheme solarized8
 colorscheme gruvbox
 
-set hidden " 避免必须保存修改才可以跳转buffer
+nnoremap <esc> :noh<CR>
 
 " buffer快速导航
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
 " 查看buffers
-nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>lb :ls<CR>
 
 " 通过索引快速跳转Buffer
 nnoremap <Leader>1 :1b<CR>
@@ -64,7 +68,6 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR><Paste>
 
 " 取消搜索高亮
-nnoremap <esc> :noh<return><esc> 
 
 " " 快速移动窗口
 " map <c-j> <C-W>j<C-W>_
@@ -80,9 +83,3 @@ nmap <S-l> :vert res +5<CR>
 
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE
-
-
-" let g:coc_node_args = ['-r', expand('~/.config/yarn/global/node_modules/source-map-support/register'),'--nolazy', '--inspect=6045']
-" let g:coc_node_args = ['--nolazy', '--inspect=6045']
-" let g:node_client_debug = 1
-" let $NODE_CLIENT_LOG_FILE = '/tmp/coclog'

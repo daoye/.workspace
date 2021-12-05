@@ -1,2 +1,3 @@
 " noremap <F12> :Autoformat<CR>
-noremap <F12> :Format<CR>
+nnoremap <leader>fs :Format<CR>
+vnoremap <leader>fs :Format<CR>
