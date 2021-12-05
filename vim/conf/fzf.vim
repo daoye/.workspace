@@ -122,7 +122,7 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 noremap <leader>ff :Files<CR>
 noremap <leader>fb :Buffers<CR>
 noremap <leader>fa :Ag<CR>
-" noremap <leader>fr :Rg<CR>
+noremap <leader>fr :Rg<CR>
 noremap <leader>fl :Lines<CR>
 noremap <leader>fbl :BLines<CR>
 noremap <leader>ft :Tags<CR>
