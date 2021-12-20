@@ -11,7 +11,16 @@ let g:fzf_layout = { 'down': '~40%' }
 " In Neovim, you can set up fzf window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
+let g:fzf_layout = { 'window': '20split enew' }
+
+
+" This is the default option:
+"   - Preview window on the right with 50% width
+"   - CTRL-/ will toggle preview window.
+" - Note that this array is passed as arguments to fzf#vim#with_preview function.
+" - To learn more about preview window options, see `--preview-window` section of `man fzf`.
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -108,5 +117,22 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " 增加 ctrl+p 快捷键映射
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <C-b> :BTags<CR>
+" nnoremap <silent> <C-p> :Files<CR>
+" nnoremap <silent> <C-b> :BTags<CR>
+noremap <leader>ff :Files<CR>
+noremap <leader>fb :Buffers<CR>
+noremap <leader>fa :Ag<CR>
+noremap <leader>fr :Rg<CR>
+noremap <leader>fl :Lines<CR>
+" noremap <leader>fbl :BLines<CR>
+noremap <leader>ft :Tags<CR>
+" noremap <leader>fbt :BTags<CR>
+noremap <leader>fm :Marks<CR>
+noremap <leader>fw :Windows<CR>
+noremap <leader>fL :<C-U><C-R>=printf("Locate %s", "")<CR><CR>
+noremap <leader>fh :History<CR>
+noremap <leader>fhs :History/<CR>
+noremap <leader>fc :Commits<CR>
+noremap <leader>fbc :BCommits<CR>
+noremap <leader>f? :Commands<CR>
+noremap <leader>f?? :Maps<CR>

@@ -1,37 +1,36 @@
 syntax enable " 启用语法高亮
-filetype on " 启用文件类型检测
+filetype plugin indent on " 启用文件类型检测
+" abandoned的Buffer隐藏起来，这是vim的设置。
+" 如果没有这个设置，修改过的文件需要保存了才能换buffer
+" 这会影响全局重命名，因为Vim提示保存因此打断下一个文件的重命名。
+set hidden
 set number " 启用行号
 set history=1000  " 记录历史的行数
-set tabstop=4 " 设置tab键为4个空格
-set expandtab
-set clipboard=unnamed " 使用系统剪贴板，而不是“+”指令
+
+" 设置tab键为4个空格
+set tabstop=4
 set shiftwidth=4 " 设置当行之间交错时使用4个空格
+set expandtab
+set clipboard=unnamedplus
+
+" Always show the signcolumn
+set signcolumn=yes
+set cmdheight=2
+
 let mapleader="," " 修改<leader> 键为,
-
-" 解决文件乱码
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-set termencoding=utf-8
-set encoding=utf-8
-
-
-" 设置折叠的方式，"
-"  manual          手工定义折叠
- " indent           更多的缩进表示更高级别的折叠
- " expr              用表达式来定义折叠
- " syntax           用语法高亮来定义折叠
- " diff                对没有更改的文本进行折叠
- " marker           对文中的标志折叠
-set fdm=syntax
-
 " 设置python路径
-let g:python3_host_prog=expand('/usr/bin/python3')
-let g:python_host_prog=expand('/usr/bin/python')
-"
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+
 " 加载插件
 source ~/.config/nvim/plug.vim
 
 " 加载插件自定义配置 
 runtime! conf/*.vim
+
+if has('nvim')
+    runtime! conf/nvim/*.vim
+endif
 
 " 设置主题方案
 set background=dark
@@ -42,17 +41,20 @@ else
     set term=xterm
     set t_Co=256
 endif
-colorscheme solarized8
 
 
-set hidden " 避免必须保存修改才可以跳转buffer
+"colorscheme solarized8
+colorscheme gruvbox
+
+nnoremap <esc> :noh<CR>
+noremap <C-s> :w<CR>
 
 " buffer快速导航
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
 " 查看buffers
-nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>lb :ls<CR>
 
 " 通过索引快速跳转Buffer
 nnoremap <Leader>1 :1b<CR>
@@ -66,15 +68,19 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR><Paste>
 
+" 取消搜索高亮
 
-" 快速移动窗口
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-L> <C-W>l<C-W>_
-map <C-H> <C-W>h<C-W>_
+" " 快速移动窗口
+" map <c-j> <C-W>j<C-W>_
+" map <c-k> <C-W>k<C-W>_
+" map <c-l> <C-W>l<C-W>_
+" map <c-h> <C-W>h<C-W>_
 
-" 快速调整窗口大小
-map <S-J> <C-W>+<C-W>_
-map <S-K> <C-W>-<C-W>_
-map <S-L> <C-W>><C-W>_
-map <S-H> <C-W><<C-W>_
+" 改变窗口大小
+nmap <S-j> :res +5<CR>
+nmap <S-k> :res -5<CR>
+nmap <S-h> :vert res -5<CR>
+nmap <S-l> :vert res +5<CR>
+
+" 设置vim透明
+hi Normal guibg=NONE ctermbg=NONE

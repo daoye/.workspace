@@ -1,14 +1,12 @@
-export PATH=$HOME/.soft/apktool:$HOME/.local/bin:$PATH 
+export PATH=$HOME/.local/platform-tools:$HOME/go/bin:$HOME/.local/bin:$PATH 
+
 
 #virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 source $HOME/.local/bin/virtualenvwrapper.sh
 #
-# proxy
-alias proxyon='export all_proxy=socks5://127.0.0.1:1080'
-alias hproxy_on='export all_proxy=http://127.0.0.1:1087'
-alias proxyoff='unset all_proxy'
 
 export COLORTERM='truecolor'
 export EDITOR='nvim'
@@ -17,7 +15,9 @@ alias vi="nvim"
 alias vim="nvim"
 
 # Set fzf installation directory path
-export FZF_BASE=/path/to/fzf/install/dir
+export FZF_BASE=$HOME/.fzf/bin/fzf
+
+export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500' --preview-window down"
 
 # Uncomment the following line to disable fuzzy completion
 # export DISABLE_FZF_AUTO_COMPLETION="true"
@@ -34,16 +34,26 @@ export ZSH_TMUX_AUTOSTART=true	#Automatically starts tmux (default: false)
 #ZSH_TMUX_ITERM2	#Sets the -CC option for iTerm2 tmux integration (default: false)
 #ZSH_TMUX_FIXTERM_WITHOUT_256COLOR	#$TERM to use for non 256-color terminals (default: screen)
 #ZSH_TMUX_FIXTERM_WITH_256COLOR	#$TERM to use for 256-color terminals (default: screen-256color
-# Always work in a tmux session if tmux is installed
-# https://github.com/chrishunt/dot-files/blob/master/.zshrc
-if which tmux 2>&1 >/dev/null; then
-  if [ $TERM != "screen-256color" ] && [  $TERM != "screen" ]; then
-    tmux attach -t hack || tmux new -s hack; exit
-  fi
-fi
+# Theme config
+BULLETTRAIN_CONTEXT_DEFAULT_USER=father
 
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export PATH=$JAVA_HOME/bin:$PATH
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source $HOME/hacktool/env.sh
+# 添加open命令，用于快速打开文件夹
+alias open="xdg-open"
+
+# zsh parameter completion for the dotnet CLI
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -K _dotnet_zsh_complete dotnet
+
+alias .new="dotnet new -l | fzf | awk '{print \$2}' | xargs dotnet new"
+alias nuget="mono /usr/local/bin/nuget.exe"

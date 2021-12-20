@@ -86,8 +86,8 @@ cmd_exists(){
 set_dist_name
 
 
-if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "CentOS" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ]; then
-    echo This script just support ubuntu, centos and macos!!
+if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ]; then
+    echo This script just support ubuntu, kali and macos!!
     exit
 fi
 
@@ -104,7 +104,7 @@ ROOT=$(cd `dirname $0`; pwd)
 if [ $DISTRO != "Darwin" ]; then
 	eval "${root_prex} ${PM} update -y"
 	eval "${root_prex} ${PM} -y install curl git zsh python \
-		byacc automake  autoconf m4 libtool perl" 
+		byacc automake  autoconf m4 libtool perl ccls ripgrep the_silver_searcher exuberant-ctags" 
 fi
 
 if [ $DISTRO = "Ubuntu" ]; then
@@ -112,46 +112,22 @@ if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip" 
+        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
-    eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
+    eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable\""
 
 elif [ $DISTRO = "Kali" ]; then
     eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
         libevent-dev libncurses5-dev autotools-dev python3 \
         neovim python3-neovim \
-        python-dev python3-dev python-pip python3-pip" 
+        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
 
     # 安装docker
     eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
     eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
     eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
-
-elif [ $DISTRO = "CentOS" ]; then
-
-    eval "${root_prex} yum install -y epel-release && \
-              ${root_prex} yum update -y && \
-              ${root_prex} yum install -y yum-utils \
-              device-mapper-persistent-data \
-              lvm2 which\
-              libevent-devel ncurses-devel make \
-              neovim python36-neovim python-devel python-pip python36 python36-devel python36-pip
-              "
-    # 安装docker
-    eval "${root_prex} yum remove docker \
-              docker-client \
-              docker-client-latest \
-              docker-common \
-              docker-latest \
-              docker-latest-logrotate \
-              docker-logrotate \
-              docker-engine"
-
-    eval "${root_prex} yum-config-manager \
-                        --add-repo \
-                        https://download.docker.com/linux/centos/docker-ce.repo"
 
 elif [ $DISTRO = "Darwin" ]; then
 
@@ -177,9 +153,11 @@ else
 	eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
+pip3 install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
+pip3 config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
 
 # 安装powerline和字体
-pip install --user powerline-status
+pip3 install --user powerline-status
 rm -rf /tmp/fonts
 cd /tmp
 git clone https://github.com/powerline/fonts.git
@@ -187,9 +165,36 @@ cd fonts
 eval "${root_prex} ./install.sh"
 
 # 安装virtualenv
-pip install --user virtualenv
-pip install --user virtualenvwrapper
+pip3 install --user virtualenv
+pip3 install --user virtualenvwrapper
 
+
+# 安装NodeJS
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm install v12.18.1 
+
+# Python 智能提示
+pip3 install python-language-server
+pip3 install 'python-language-server[all]'
+pip3 install pyls-black
+
+
+# Nodejs 智能提示服务端
+rm -rf ~/.local/share/javascript-typescript-langserver
+git clone https://github.com/sourcegraph/javascript-typescript-langserver.git ~/.local/share/javascript-typescript-langserver
+cd ~/.local/share/javascript-typescript-langserver
+npm install
+npm run build
+chmod +x $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js
+eval "${root_prex} ln -s -f $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js /usr/local/bin/javascript-typescript-stdio"
+
+# 安装yo
+npm install -g yo
 
 # 安装.tmux
 cd ~
@@ -206,8 +211,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 cd $ROOT
 
 # 备份文件
-backup_conf_dir
-backup_conf_file
+#backup_conf_dir
+#backup_conf_file
 
 if [ ! -d  ~/.config ]; then
     mkdir -p ~/.config
@@ -223,22 +228,34 @@ ln -s -f ${ROOT}/templates ~/.vim-template-extend
 ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
 # 安装vim插件
-nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +qa
+nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
+# 安装vimspector 插件的适配器
+nvim -u "${ROOT}/vim/plug.vim" +VimspectorInstall --all +qa
+
 
 #安装oh-my-zsh
 rm -rf ~/.oh-my-zsh
-echo "n"|sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/ohmyzsh/ohmyzsh.git
+echo "y"| ./ohmyzsh/tools/install.sh
+rm -rf ohmyzsh
 
-#安装ZSH主题
-curl -L https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+##安装ZSH主题
+#rm -rf ~/.oh-my-zsh-themes
+#mkdir ~/.oh-my-zsh-themes
+#git clone https://github.com/caiogondim/bullet-train.zsh.git ~/.oh-my-zsh-themes/bullet-train.zsh
+#ln -s -f ~/.oh-my-zsh-themes/bullet-train.zsh/bullet-train.zsh-theme ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+#
+##更换主题
+#sed -i 's/robbyrussell/bullet-train/g' ~/.zshrc
+##设置插件
+#zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
+#sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 
-#更换主题
-sed -i "" 's/robbyrussell/bullet-train/g' ~/.zshrc
-#设置插件
-zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
-sed -i "" "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 #加载自定义配置
 echo "source ~/.zshrc.local" >> ~/.zshrc
+
+#再次安装fzf，以更新配置
+~/.fzf/install --all
 
 # 切换shell 为zsh
 chsh -s $(which zsh)
