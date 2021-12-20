@@ -124,9 +124,9 @@ noremap <leader>fb :Buffers<CR>
 noremap <leader>fa :Ag<CR>
 noremap <leader>fr :Rg<CR>
 noremap <leader>fl :Lines<CR>
-noremap <leader>fbl :BLines<CR>
+" noremap <leader>fbl :BLines<CR>
 noremap <leader>ft :Tags<CR>
-noremap <leader>fbt :BTags<CR>
+" noremap <leader>fbt :BTags<CR>
 noremap <leader>fm :Marks<CR>
 noremap <leader>fw :Windows<CR>
 noremap <leader>fL :<C-U><C-R>=printf("Locate %s", "")<CR><CR>

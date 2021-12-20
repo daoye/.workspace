@@ -27,15 +27,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" " 括号高亮
-" Plug 'frazrepo/vim-rainbow'
-" " 语法高亮
-" Plug 'sheerun/vim-polyglot'
-" " Json语法高亮
-" Plug 'kevinoid/vim-jsonc'
-" " 括号自动完成
-" Plug 'spf13/vim-autoclose'
-
 " 调试器
 Plug 'puremourning/vimspector'
 
@@ -76,5 +67,10 @@ if has('nvim')
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
 endif
+
+" 括号高亮
+Plug 'frazrepo/vim-rainbow'
+" 语法高亮
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()

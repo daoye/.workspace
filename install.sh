@@ -153,8 +153,8 @@ else
 	eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
-pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
-pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip3 install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
+pip3 config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
 
 # 安装powerline和字体
 pip3 install --user powerline-status

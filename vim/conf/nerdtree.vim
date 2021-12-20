@@ -13,6 +13,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "let g:nerdtree_tabs_open_on_console_startup=1
 
 " map <leader>e :NERDTreeToggle<CR>
-map <Leader>e <plug>NERDTreeTabsToggle<CR>
+" map <Leader>e <plug>NERDTreeTabsToggle<CR>
 map <Leader>et :NERDTreeToggleVCS<CR>
 map <Leader>ef :NERDTreeFind<CR>

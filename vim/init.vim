@@ -47,6 +47,7 @@ endif
 colorscheme gruvbox
 
 nnoremap <esc> :noh<CR>
+noremap <C-s> :w<CR>
 
 " buffer快速导航
 nnoremap <Leader>b :bp<CR>
