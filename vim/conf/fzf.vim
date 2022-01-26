@@ -133,6 +133,6 @@ noremap <leader>fL :<C-U><C-R>=printf("Locate %s", "")<CR><CR>
 noremap <leader>fh :History<CR>
 noremap <leader>fhs :History/<CR>
 noremap <leader>fc :Commits<CR>
-noremap <leader>fbc :BCommits<CR>
+" noremap <leader>fbc :BCommits<CR>
 noremap <leader>f? :Commands<CR>
 noremap <leader>f?? :Maps<CR>

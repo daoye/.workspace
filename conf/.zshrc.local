@@ -1,4 +1,4 @@
-export PATH=$HOME/.local/platform-tools:$HOME/go/bin:$HOME/.local/bin:$PATH 
+export PATH=$HOME/.local/app/mitmproxy:$HOME/apkcrackers/jadx/bin:$HOME/apkcrackers/dex-tools:$HOME/apkcrackers/bin:$HOME/.local/platform-tools:$HOME/go/bin:$HOME/.local/bin:$PATH 
 
 
 #virtualenvwrapper
@@ -57,3 +57,4 @@ compctl -K _dotnet_zsh_complete dotnet
 
 alias .new="dotnet new -l | fzf | awk '{print \$2}' | xargs dotnet new"
 alias nuget="mono /usr/local/bin/nuget.exe"
+# export SSLKEYLOGFILE="$HOME/.mitmproxy/sslkeylogfile.txt"
