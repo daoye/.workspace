@@ -1,6 +1,5 @@
 lua << EOF
 local cmp = require('cmp')
-local lspkind = require('lspkind')
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -47,18 +46,6 @@ cmp.setup({
           end
         end, { "i", "s" }),
     },
-    formatting = {
-      format = lspkind.cmp_format({
-        preset = 'codicons',
-        with_text = true,
-        menu = ({
-            buffer = "[Buffer]",
-            nvim_lsp = "[LSP]",
-            vsnip = "[Snip]",
-            nvim_lua = "[Lua]"
-        })
-      })
-   },
    sources = {
      { name = 'vsnip' },
      { name = 'nvim_lsp' },
