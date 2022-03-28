@@ -6,9 +6,16 @@ Plug 'yianwillis/vimcdoc'
 " 配色方案
 Plug 'morhetz/gruvbox'
 
+" 图标
+Plug 'kyazdani42/nvim-web-devicons'
+
 " 文件查找
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " airline 状态栏
 Plug 'vim-airline/vim-airline'
@@ -23,9 +30,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 
 " 文件目录
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree'
+" Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " 调试器
 Plug 'puremourning/vimspector'
@@ -36,14 +44,15 @@ Plug 'junegunn/vim-easy-align'
 " 快速编辑成对的文本
 Plug 'tpope/vim-surround'
 
+" Tmux navigator
+Plug 'christoomey/vim-tmux-navigator'
+
 " 语法树的扩展，基于nvim内置的treesitter
 if has('nvim')
     " lsp
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
 
-    " autocomplete menu format
-    Plug 'onsails/lspkind-nvim'
 
     " lsp autocomplete
     Plug 'hrsh7th/cmp-nvim-lsp'

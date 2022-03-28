@@ -102,9 +102,12 @@ ROOT=$(cd `dirname $0`; pwd)
 # 安装基础库
 
 if [ $DISTRO != "Darwin" ]; then
+    if [ $DISTRO = "Ubuntu" ]; then
+        eval "${root_prex} add-apt-repository ppa:neovim-ppa/stable"
+    fi
 	eval "${root_prex} ${PM} update -y"
 	eval "${root_prex} ${PM} -y install curl git zsh python \
-		byacc automake  autoconf m4 libtool perl ccls ripgrep the_silver_searcher exuberant-ctags" 
+		byacc automake  autoconf m4 libtool perl ccls ripgrep exuberant-ctags" 
 fi
 
 if [ $DISTRO = "Ubuntu" ]; then
@@ -131,7 +134,7 @@ elif [ $DISTRO = "Kali" ]; then
 
 elif [ $DISTRO = "Darwin" ]; then
 
-    brew cask reinstall docker
+    brew cask reinstall docker the_silver_searcher 
 
 fi
 
@@ -143,21 +146,21 @@ fi
 
 # 安装tmux
 if [ "$DISTRO" = "Darwin" ]; then
-	brew reinstall tmux
+    brew reinstall tmux
 else
-	eval "${root_prex} rm -rf /tmp/tmux"
-	cd /tmp
-	git clone https://github.com/tmux/tmux.git
-	cd tmux
-	./autogen.sh
-	eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
+    eval "${root_prex} rm -rf /tmp/tmux"
+    cd /tmp
+    git clone https://github.com/tmux/tmux.git
+    cd tmux
+    ./autogen.sh
+    eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
 pip3 install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
 pip3 config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
 
 # 安装powerline和字体
-pip3 install --user powerline-status
+# pip3 install --user powerline-status
 rm -rf /tmp/fonts
 cd /tmp
 git clone https://github.com/powerline/fonts.git
@@ -178,23 +181,6 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install v12.18.1 
 
-# Python 智能提示
-pip3 install python-language-server
-pip3 install 'python-language-server[all]'
-pip3 install pyls-black
-
-
-# Nodejs 智能提示服务端
-rm -rf ~/.local/share/javascript-typescript-langserver
-git clone https://github.com/sourcegraph/javascript-typescript-langserver.git ~/.local/share/javascript-typescript-langserver
-cd ~/.local/share/javascript-typescript-langserver
-npm install
-npm run build
-chmod +x $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js
-eval "${root_prex} ln -s -f $HOME/.local/share/javascript-typescript-langserver/lib/language-server-stdio.js /usr/local/bin/javascript-typescript-stdio"
-
-# 安装yo
-npm install -g yo
 
 # 安装.tmux
 cd ~
@@ -230,7 +216,7 @@ ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 # 安装vim插件
 nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
 # 安装vimspector 插件的适配器
-nvim -u "${ROOT}/vim/plug.vim" +VimspectorInstall --all +qa
+nvim -u "${ROOT}/vim/plug.vim" +"VimspectorInstall --all --force-all" +qa
 
 
 #安装oh-my-zsh

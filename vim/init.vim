@@ -1,3 +1,4 @@
+set encoding=UTF-8
 syntax enable " 启用语法高亮
 filetype plugin indent on " 启用文件类型检测
 " abandoned的Buffer隐藏起来，这是vim的设置。
