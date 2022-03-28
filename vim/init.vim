@@ -78,10 +78,10 @@ nnoremap <Leader>0 :10b<CR><Paste>
 " map <c-h> <C-W>h<C-W>_
 
 " 改变窗口大小
-nmap <S-j> :res +5<CR>
-nmap <S-k> :res -5<CR>
-nmap <S-h> :vert res -5<CR>
-nmap <S-l> :vert res +5<CR>
+nmap <S-Up> :res +5<CR>
+nmap <S-Down> :res -5<CR>
+nmap <S-Left> :vert res -5<CR>
+nmap <S-Right> :vert res +5<CR>
 
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE

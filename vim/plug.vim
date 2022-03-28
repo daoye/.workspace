@@ -43,6 +43,7 @@ Plug 'junegunn/vim-easy-align'
 
 " 快速编辑成对的文本
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 " Tmux navigator
 Plug 'christoomey/vim-tmux-navigator'
@@ -67,7 +68,7 @@ if has('nvim')
     Plug 'rafamadriz/friendly-snippets'
 
     " lsp fzf
-    Plug 'ojroques/nvim-lspfuzzy'
+    " Plug 'ojroques/nvim-lspfuzzy'
 
     " treesitter
     Plug 'nvim-treesitter/nvim-treesitter'

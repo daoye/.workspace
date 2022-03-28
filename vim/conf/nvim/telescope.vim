@@ -48,4 +48,15 @@ nnoremap <leader><tab> <cmd>Telescope resume<cr>
 nnoremap <space><space> <cmd>Telescope spell_suggest<cr>
 nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>f? <cmd>Telescope help_tags<cr>
+" lsp mappings
+nnoremap <leader>ls <cmd>Telescope lsp_document_symbols<cr>
+nnoremap <leader><leader>ls <cmd>Telescope lsp_workspace_symbols<cr>
+nnoremap <leader>la <cmd>Telescope lsp_code_actions<cr>
+vnoremap <leader>la <cmd>Telescope lsp_range_code_actions<cr>
+nnoremap <leader>lr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>le <cmd>Telescope diagnostics bufnr=0<cr>
+nnoremap <leader><leader>le <cmd>Telescope diagnostics<cr>
+nnoremap <leader>li <cmd>Telescope lsp_implementations<cr>
+nnoremap <leader>ld <cmd>Telescope lsp_definitions<cr>
+nnoremap <leader><leader>ld <cmd>Telescope lsp_type_definitions<cr>
 " nnoremap <space>e <cmd>Telescope file_browser<cr>
