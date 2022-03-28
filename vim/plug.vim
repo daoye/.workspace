@@ -12,10 +12,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 " 文件查找
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " airline 状态栏
 Plug 'vim-airline/vim-airline'
@@ -33,7 +29,6 @@ Plug 'tpope/vim-fugitive'
 " Plug 'scrooloose/nerdtree'
 " Plug 'jistr/vim-nerdtree-tabs'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'kyazdani42/nvim-tree.lua'
 
 " 调试器
 Plug 'puremourning/vimspector'
@@ -45,8 +40,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
-" Tmux navigator
-Plug 'christoomey/vim-tmux-navigator'
 
 " 语法树的扩展，基于nvim内置的treesitter
 if has('nvim')
@@ -76,11 +69,23 @@ if has('nvim')
 
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
+
+    " Tmux navigator
+    Plug 'christoomey/vim-tmux-navigator'
+
+    Plug 'kyazdani42/nvim-tree.lua'
+
+    " 文件查找
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'nvim-telescope/telescope-file-browser.nvim'
+    Plug 'nvim-telescope/telescope-vimspector.nvim'
 endif
 
 " 括号高亮
 Plug 'frazrepo/vim-rainbow'
 " 语法高亮
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 call plug#end()
