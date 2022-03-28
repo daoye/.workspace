@@ -1,16 +1,5 @@
 lua << EOF
 require("telescope").setup {
-  defaults = {
-    -- Default configuration for telescope goes here:
-    -- config_key = value,
-    mappings = {
-      i = {
-        -- map actions.which_key to <C-h> (default: <C-/>)
-        -- actions.which_key shows the mappings for your picker,
-        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-      }
-    }
-  },
   extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
@@ -22,7 +11,6 @@ require("telescope").setup {
   },
 }
 require('telescope').load_extension('fzf')
-require("telescope").load_extension('vimspector')
 EOF
 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -48,5 +36,3 @@ nnoremap <leader><leader>le <cmd>Telescope diagnostics<cr>
 nnoremap <leader>li <cmd>Telescope lsp_implementations<cr>
 nnoremap <leader>ld <cmd>Telescope lsp_definitions<cr>
 nnoremap <leader><leader>ld <cmd>Telescope lsp_type_definitions<cr>
-
-
