@@ -34,7 +34,7 @@ require("telescope").setup {
 }
 require('telescope').load_extension('fzf')
 require("telescope").load_extension('file_browser')
-
+require("telescope").load_extension('vimspector')
 EOF
 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -48,6 +48,8 @@ nnoremap <leader><tab> <cmd>Telescope resume<cr>
 nnoremap <space><space> <cmd>Telescope spell_suggest<cr>
 nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>f? <cmd>Telescope help_tags<cr>
+nnoremap <leader><F5> <cmd>Telescope vimspector configurations<cr>
+
 " lsp mappings
 nnoremap <leader>ls <cmd>Telescope lsp_document_symbols<cr>
 nnoremap <leader><leader>ls <cmd>Telescope lsp_workspace_symbols<cr>
