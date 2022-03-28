@@ -44,6 +44,9 @@ Plug 'junegunn/vim-easy-align'
 " 快速编辑成对的文本
 Plug 'tpope/vim-surround'
 
+" Tmux navigator
+Plug 'christoomey/vim-tmux-navigator'
+
 " 语法树的扩展，基于nvim内置的treesitter
 if has('nvim')
     " lsp

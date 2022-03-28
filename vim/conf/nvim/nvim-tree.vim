@@ -2,7 +2,7 @@ lua << EOF
 -- setup with all defaults
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
-  auto_close = false,
+  auto_close = true,
   auto_reload_on_write = true,
   disable_netrw = false,
   hide_root_folder = false,
@@ -150,9 +150,9 @@ let g:nvim_tree_icons = {
     \   }
     \ }
 
-nnoremap <leader>ee :NvimTreeToggle<CR>
-nnoremap <leader>et :NvimTreeFindFile<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <space>e :NvimTreeToggle<CR>
+nnoremap <space>f :NvimTreeFindFileToggle<CR>
+" nnoremap <leader>r :NvimTreeRefresh<CR>
 " More available functions:
 " NvimTreeOpen
 " NvimTreeClose

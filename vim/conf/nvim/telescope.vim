@@ -1,5 +1,16 @@
 lua << EOF
 require("telescope").setup {
+  defaults = {
+    -- Default configuration for telescope goes here:
+    -- config_key = value,
+    mappings = {
+      i = {
+        -- map actions.which_key to <C-h> (default: <C-/>)
+        -- actions.which_key shows the mappings for your picker,
+        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+      }
+    }
+  },
   extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
@@ -29,9 +40,12 @@ EOF
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fw <cmd>Telescope grep_string<cr>
 nnoremap <leader>ft <cmd>Telescope tags<cr>
-nnoremap <leader>f? <cmd>Telescope search_history<cr>
+nnoremap <leader>fh <cmd>Telescope search_history<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
-nnoremap <space>e <cmd>Telescope file_browser<cr>
+nnoremap <leader><tab> <cmd>Telescope resume<cr>
+nnoremap <space><space> <cmd>Telescope spell_suggest<cr>
+nnoremap <leader>fk <cmd>Telescope keymaps<cr>
+nnoremap <leader>f? <cmd>Telescope help_tags<cr>
+" nnoremap <space>e <cmd>Telescope file_browser<cr>
