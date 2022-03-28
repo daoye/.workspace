@@ -54,9 +54,6 @@ noremap <C-s> :w<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
-" 查看buffers
-nnoremap <Leader>lb :ls<CR>
-
 " 通过索引快速跳转Buffer
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>

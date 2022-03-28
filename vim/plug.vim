@@ -75,11 +75,19 @@ if has('nvim')
 
     Plug 'kyazdani42/nvim-tree.lua'
 
+    " 剪贴板管理
+    Plug 'AckslD/nvim-neoclip.lua'
+
+    " Sqlite
+    Plug 'tami5/sqlite.lua'
+
     " 文件查找
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-frecency.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'olacin/telescope-gitmoji.nvim'
+    Plug 'TC72/telescope-tele-tabby.nvim'
 endif
 
 " 括号高亮
