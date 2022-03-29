@@ -1,18 +1,16 @@
-" set foldminlines=1
-" set foldnestmax=20
-" set foldlevel=10
+set foldlevel=99
+set foldcolumn=4
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=99
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
---  ensure_installed = "all",
-
-  sync_install = false,
-
   highlight = {
     enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
   incremental_selection = {
@@ -23,9 +21,6 @@ require'nvim-treesitter.configs'.setup {
       scope_incremental = "grc",
       node_decremental = "grm",
     },
-  },
-  indent = {
-    enable = false
   },
   textobjects = {
     select = {
@@ -57,20 +52,20 @@ require'nvim-treesitter.configs'.setup {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-        ["<leader>j"] = "@function.outer",
-        ["<leader>J"] = "@class.outer",
+        ["<M-j>"] = "@function.outer",
+        ["<S-j>"] = "@class.outer",
       },
       goto_next_end = {
-        ["]|"] = "@function.outer",
-        ["]C"] = "@class.outer",
+        ["<M-J>"] = "@function.outer",
+        ["<S-J>"] = "@class.outer",
       },
       goto_previous_start = {
-        ["<leader>k"] = "@function.outer",
-        ["<leader>K"] = "@class.outer",
+        ["<M-k>"] = "@function.outer",
+        ["<S-k>"] = "@class.outer",
       },
       goto_previous_end = {
-        ["[|"] = "@function.outer",
-        ["[C"] = "@class.outer",
+        ["<M-K>"] = "@function.outer",
+        ["<S-K>"] = "@class.outer",
       },
     },
 

@@ -1,3 +1,4 @@
+set encoding=UTF-8
 syntax enable " 启用语法高亮
 filetype plugin indent on " 启用文件类型检测
 " abandoned的Buffer隐藏起来，这是vim的设置。
@@ -53,9 +54,6 @@ noremap <C-s> :w<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
-" 查看buffers
-nnoremap <Leader>lb :ls<CR>
-
 " 通过索引快速跳转Buffer
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
@@ -77,10 +75,10 @@ nnoremap <Leader>0 :10b<CR><Paste>
 " map <c-h> <C-W>h<C-W>_
 
 " 改变窗口大小
-nmap <S-j> :res +5<CR>
-nmap <S-k> :res -5<CR>
-nmap <S-h> :vert res -5<CR>
-nmap <S-l> :vert res +5<CR>
+nmap <S-Up> :res +5<CR>
+nmap <S-Down> :res -5<CR>
+nmap <S-Left> :vert res -5<CR>
+nmap <S-Right> :vert res +5<CR>
 
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE

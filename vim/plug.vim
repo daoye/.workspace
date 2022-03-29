@@ -6,9 +6,12 @@ Plug 'yianwillis/vimcdoc'
 " 配色方案
 Plug 'morhetz/gruvbox'
 
+" 图标
+Plug 'kyazdani42/nvim-web-devicons'
+
 " 文件查找
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 
 " airline 状态栏
 Plug 'vim-airline/vim-airline'
@@ -23,9 +26,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 
 " 文件目录
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree'
+" Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " 调试器
 Plug 'puremourning/vimspector'
@@ -35,6 +38,8 @@ Plug 'junegunn/vim-easy-align'
 
 " 快速编辑成对的文本
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
 
 " 语法树的扩展，基于nvim内置的treesitter
 if has('nvim')
@@ -42,8 +47,6 @@ if has('nvim')
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
 
-    " autocomplete menu format
-    Plug 'onsails/lspkind-nvim'
 
     " lsp autocomplete
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -57,19 +60,32 @@ if has('nvim')
     Plug 'hrsh7th/vim-vsnip'
     Plug 'rafamadriz/friendly-snippets'
 
-    " lsp fzf
-    " Plug 'ojroques/nvim-lspfuzzy'
-    Plug 'gfanto/fzf-lsp.nvim'
-
-    " Auto pairs
-    Plug 'windwp/nvim-autopairs'
-
     " treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
-    " code fold
-    " Plug 'pierreglaser/folding-nvim'
+
+    " Auto pairs
+    Plug 'windwp/nvim-autopairs'
+
+    " Tmux navigator
+    Plug 'christoomey/vim-tmux-navigator'
+
+    Plug 'kyazdani42/nvim-tree.lua'
+
+    " 剪贴板管理
+    Plug 'AckslD/nvim-neoclip.lua'
+
+    " Sqlite
+    Plug 'tami5/sqlite.lua'
+
+    " 文件查找
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-frecency.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'olacin/telescope-gitmoji.nvim'
+    Plug 'TC72/telescope-tele-tabby.nvim'
 endif
 
 " 括号高亮
@@ -77,7 +93,5 @@ Plug 'frazrepo/vim-rainbow'
 " 语法高亮
 " Plug 'sheerun/vim-polyglot'
 
-" Textobjet extend
-" Plug 'wellle/targets.vim'
 
 call plug#end()
