@@ -50,7 +50,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1
 
 " [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %C(green)%ae %C(auto)%s %C(yellow)%C(bold)%cr"'
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
@@ -133,6 +133,6 @@ noremap <leader>fL :<C-U><C-R>=printf("Locate %s", "")<CR><CR>
 noremap <leader>fh :History<CR>
 noremap <leader>fhs :History/<CR>
 noremap <leader>fc :Commits<CR>
-" noremap <leader>fbc :BCommits<CR>
+noremap <leader><leader>fc :BCommits<CR>
 noremap <leader>f? :Commands<CR>
 noremap <leader>f?? :Maps<CR>

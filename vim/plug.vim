@@ -58,19 +58,26 @@ if has('nvim')
     Plug 'rafamadriz/friendly-snippets'
 
     " lsp fzf
-    Plug 'ojroques/nvim-lspfuzzy'
-
-    " treesitter
-    Plug 'nvim-treesitter/nvim-treesitter'
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    " Plug 'ojroques/nvim-lspfuzzy'
+    Plug 'gfanto/fzf-lsp.nvim'
 
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
+
+    " treesitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+    " code fold
+    " Plug 'pierreglaser/folding-nvim'
 endif
 
 " 括号高亮
 Plug 'frazrepo/vim-rainbow'
 " 语法高亮
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
+
+" Textobjet extend
+" Plug 'wellle/targets.vim'
 
 call plug#end()

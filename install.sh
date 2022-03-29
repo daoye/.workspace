@@ -134,7 +134,7 @@ elif [ $DISTRO = "Kali" ]; then
 
 elif [ $DISTRO = "Darwin" ]; then
 
-    brew cask reinstall docker the_silver_searcher 
+    brew install the_silver_searcher neovim
 
 fi
 
@@ -146,7 +146,7 @@ fi
 
 # 安装tmux
 if [ "$DISTRO" = "Darwin" ]; then
-    brew reinstall tmux
+    brew install tmux
 else
     eval "${root_prex} rm -rf /tmp/tmux"
     cd /tmp
@@ -156,43 +156,43 @@ else
     eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 fi
 
-pip3 install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
-pip3 config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
+##pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+#pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 安装powerline和字体
 # pip3 install --user powerline-status
-rm -rf /tmp/fonts
-cd /tmp
-git clone https://github.com/powerline/fonts.git
-cd fonts
-eval "${root_prex} ./install.sh"
+#rm -rf /tmp/fonts
+#cd /tmp
+#git clone https://github.com/powerline/fonts.git
+#cd fonts
+#eval "${root_prex} ./install.sh"
 
-# 安装virtualenv
-pip3 install --user virtualenv
-pip3 install --user virtualenvwrapper
-
-
-# 安装NodeJS
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-nvm install v12.18.1 
-
-
-# 安装.tmux
-cd ~
-rm -rf ~/.tmux
-rm -rf ~/.tmux.conf
-git clone https://github.com/gpakosz/.tmux.git
-ln -s -f .tmux/.tmux.conf
-
-# 安装fzf
-rm -rf ~/.fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all
+## 安装virtualenv
+#pip3 install --user virtualenv
+#pip3 install --user virtualenvwrapper
+#
+#
+## 安装NodeJS
+#curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+#
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
+#nvm install v12.18.1 
+#
+#
+## 安装.tmux
+##cd ~
+##rm -rf ~/.tmux
+##rm -rf ~/.tmux.conf
+##git clone https://github.com/gpakosz/.tmux.git
+##ln -s -f .tmux/.tmux.conf
+#
+## 安装fzf
+#rm -rf ~/.fzf
+#git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+#~/.fzf/install --all
 
 cd $ROOT
 
@@ -221,8 +221,9 @@ nvim -u "${ROOT}/vim/plug.vim" +"VimspectorInstall --all --force-all" +qa
 
 #安装oh-my-zsh
 rm -rf ~/.oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh.git
-echo "y"| ./ohmyzsh/tools/install.sh
+#git clone https://github.com/ohmyzsh/ohmyzsh.git
+chmod +x ~/ohmyzsh/tools/install.sh
+echo "y"| ~/ohmyzsh/tools/install.sh
 rm -rf ohmyzsh
 
 ##安装ZSH主题
