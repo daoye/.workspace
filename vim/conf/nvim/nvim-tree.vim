@@ -14,7 +14,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   sort_by = "name",
   update_cwd = false,
   view = {
-    width = 30,
+    width = 50,
     height = 30,
     side = "left",
     preserve_window_proportions = false,
@@ -150,7 +150,7 @@ let g:nvim_tree_icons = {
     \ }
 
 nnoremap <space>e :NvimTreeToggle<CR>
-nnoremap <space>f :NvimTreeFindFileToggle<CR>
+nnoremap <space>f :NvimTreeFindFile<CR>
 " nnoremap <leader>r :NvimTreeRefresh<CR>
 " More available functions:
 " NvimTreeOpen

@@ -71,7 +71,7 @@ nnoremap <leader>fw <cmd>Telescope grep_string<cr>
 nnoremap <leader>fh <cmd>Telescope search_history<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader><tab> <cmd>Telescope resume<cr>
-nnoremap <space><space> <cmd>Telescope spell_suggest<cr>
+" nnoremap <space><space> <cmd>Telescope spell_suggest<cr>
 nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>f? <cmd>Telescope help_tags<cr>
 nnoremap <leader><space> <cmd>Telescope frecency<cr>

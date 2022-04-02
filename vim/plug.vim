@@ -9,10 +9,6 @@ Plug 'morhetz/gruvbox'
 " 图标
 Plug 'kyazdani42/nvim-web-devicons'
 
-" 文件查找
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-
 " airline 状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -25,11 +21,6 @@ Plug 'scrooloose/nerdcommenter'
 " GIT支持
 Plug 'tpope/vim-fugitive'
 
-" 文件目录
-" Plug 'scrooloose/nerdtree'
-" Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-
 " 调试器
 Plug 'puremourning/vimspector'
 
@@ -41,7 +32,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 
-" 语法树的扩展，基于nvim内置的treesitter
 if has('nvim')
     " lsp
     Plug 'neovim/nvim-lspconfig'
@@ -86,6 +76,14 @@ if has('nvim')
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'olacin/telescope-gitmoji.nvim'
     Plug 'TC72/telescope-tele-tabby.nvim'
+
+    " AI pair programmer
+    Plug 'github/copilot.vim'
+
+    " Gitsigns
+    Plug 'lewis6991/gitsigns.nvim'
+    " trouble list
+    Plug 'folke/trouble.nvim'
 endif
 
 " 括号高亮

@@ -39,8 +39,8 @@ local on_attach = function(client, bufnr)
 --  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<space><space>l', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
   buf_set_keymap('n', '<space><space>L', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>', opts)
-  buf_set_keymap('n', '<leader>ee', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', '<leader>ep', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']]', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>?', '<cmd>lua vim.diagnostic.hide()<CR>', opts)
 
 
