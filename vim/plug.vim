@@ -80,9 +80,6 @@ if has('nvim')
     " AI pair programmer
     Plug 'github/copilot.vim'
 
-    " Gitsigns
-    Plug 'lewis6991/gitsigns.nvim'
-    " trouble list
     Plug 'folke/trouble.nvim'
 endif
 
