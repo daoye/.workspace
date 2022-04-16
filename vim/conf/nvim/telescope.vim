@@ -55,6 +55,19 @@ require("telescope").setup {
     tele_tabby = {
         use_highlighter = true,
     },
+    frecency = {
+      -- db_root = os.getenv("HOME") .. "/.frecency/db",
+      show_scores = true,
+      show_unindexed = true,
+      ignore_patterns = {"*.git/*", "*/tmp/*"},
+      disable_devicons = false,
+      workspaces = {
+        ["conf"]    = os.getenv("HOME") .. "/.config",
+        ["data"]    = os.getenv("HOME") .. "/.local/share",
+        ["project"] = os.getenv("HOME") .. "/newegg",
+        ["wiki"]    = os.getenv("HOME") .. "/wiki",
+      }
+    }
   },
 }
 require('telescope').load_extension("frecency")

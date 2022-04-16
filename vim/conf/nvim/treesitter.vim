@@ -15,10 +15,10 @@ require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      init_selection = '<CR>',
+      node_incremental = '<CR>',
+      node_decremental = '<BS>',
+      scope_incremental = '<TAB>',
     },
   },
   textobjects = {
@@ -40,10 +40,10 @@ require'nvim-treesitter.configs'.setup {
     swap = {
       enable = true,
       swap_next = {
-        ["<leader>a"] = "@parameter.inner",
+        ["<leader>p"] = "@parameter.inner",
       },
       swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
+        ["<leader>P"] = "@parameter.inner",
       },
     },
 

@@ -23,6 +23,8 @@ let mapleader="," " 修改<leader> 键为,
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
+runtime! conf/lua/init.lua
+
 " 加载插件
 source ~/.config/nvim/plug.vim
 
