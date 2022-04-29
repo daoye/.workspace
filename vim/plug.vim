@@ -41,6 +41,7 @@ if has('nvim')
     " treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'romgrk/nvim-treesitter-context'
     " vim-rainbow
     Plug 'p00f/nvim-ts-rainbow'
 
@@ -54,6 +55,7 @@ if has('nvim')
     " lsp
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
+    Plug 'j-hui/fidget.nvim'
 
     " lsp ui extends
     " Plug 'glepnir/lspsaga.nvim'
@@ -65,6 +67,9 @@ if has('nvim')
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
 
+    "Diiagnostic
+    Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
     " lsp snip  
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
@@ -73,6 +78,12 @@ if has('nvim')
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
     Plug 'windwp/nvim-ts-autotag'
+
+    " Prevew code 
+    Plug 'rmagatti/goto-preview'
+
+    " Arg join
+    Plug 'AckslD/nvim-trevJ.lua'
 
     " Tmux navigator
     Plug 'christoomey/vim-tmux-navigator'
@@ -103,6 +114,16 @@ if has('nvim')
     " Git
     Plug 'sindrets/diffview.nvim'
     Plug 'lewis6991/gitsigns.nvim'
+
+
+    " Color support
+    Plug 'norcalli/nvim-colorizer.lua'
+
+    " Cursor focus
+    Plug 'edluffy/specs.nvim'
+
+    " batch move
+    Plug 'booperlv/nvim-gomove'
 endif
 
 call plug#end()

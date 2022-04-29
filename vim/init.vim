@@ -25,6 +25,13 @@ let mapleader="," " 修改<leader> 键为,
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
+if has("termguicolors")
+    set termguicolors
+else
+    set term=xterm
+    set t_Co=256
+endif
+
 runtime! lua/init.lua
 
 " 加载插件
@@ -40,12 +47,6 @@ endif
 " 设置主题方案
 set background=dark
 " if $COLORTERM == 'truecolor'
-if has("termguicolors")
-    set termguicolors
-else
-    set term=xterm
-    set t_Co=256
-endif
 
 
 nnoremap <esc> :noh<CR>

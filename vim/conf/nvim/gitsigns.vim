@@ -31,20 +31,20 @@ lua << EOF
         end, {expr=true})
 
         -- Actions
-        map({'n', 'v'}, '<leader>gs', ':Gitsigns stage_hunk<CR>')
-        map({'n', 'v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
-        map('n', '<leader>gS', gs.stage_buffer)
-        map('n', '<leader>gu', gs.undo_stage_hunk)
-        map('n', '<leader>gR', gs.reset_buffer)
-        map('n', '<leader>gp', gs.preview_hunk)
-        map('n', '<leader><leader>gb', function() gs.blame_line{full=true} end)
-        map('n', '<leader>gb', gs.toggle_current_line_blame)
-        map('n', '<leader>gd', gs.diffthis)
-        map('n', '<leader>gD', function() gs.diffthis('~') end)
-        map('n', '<leader>td', gs.toggle_deleted)
+        --map({'n', 'v'}, '<leader>gs', ':Gitsigns stage_hunk<CR>')
+        --map({'n', 'v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
+        --map('n', '<leader>gu', gs.undo_stage_hunk)
+        -- map('n', '<leader>gS', gs.stage_buffer)
+        -- map('n', '<leader>gR', gs.reset_buffer)
+        -- map('n', '<leader>gp', gs.preview_hunk)
+        --map('n', '<leader>gp', function() gs.blame_line{full=true} end)
+        --map('n', '<leader>gb', gs.toggle_current_line_blame)
+        -- map('n', '<leader>gd', gs.diffthis)
+        -- map('n', '<leader>gD', function() gs.diffthis('~') end)
+        -- map('n', '<leader>td', gs.toggle_deleted)
 
         -- Text object
-        map({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
+        --map({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
       end
     }
 EOF
