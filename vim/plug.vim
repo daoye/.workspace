@@ -31,7 +31,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
-
 if has('nvim')
     " lsp
     Plug 'neovim/nvim-lspconfig'

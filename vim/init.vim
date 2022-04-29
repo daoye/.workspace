@@ -19,9 +19,15 @@ set signcolumn=yes
 set cmdheight=2
 
 let mapleader="," " 修改<leader> 键为,
+
 " 设置python路径
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+if has('unix')
+    let g:python_host_prog = '/usr/bin/python'
+    let g:python3_host_prog = '/usr/bin/python3'
+else
+    let g:python_host_prog = '/usr/local/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 
 " 加载插件
 source ~/.config/nvim/plug.vim

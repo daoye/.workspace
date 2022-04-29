@@ -1,5 +1,5 @@
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
+export ANDROID_SDK_ROOT=$ANDROID_HOME
 export PATH=$HOME/Library/Python/3.9/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:/usr/local/opt/llvm/bin:$HOME/go/bin:$HOME/.local/bin:/usr/local/bin:$PATH 
 
 export GEM_HOME=$HOME/.gem
@@ -9,7 +9,12 @@ export PATH=$GEM_HOME/bin:$PATH
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
-source $HOME/Library/Python/3.8/bin/virtualenvwrapper.sh
+
+if [ "$(uname)" = "Darwin" ];then
+    source $HOME/Library/Python/3.8/bin/virtualenvwrapper.sh
+else
+    source $HOME/.local/bin/virtualenvwrapper.sh
+fi
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
@@ -66,3 +71,6 @@ alias .new="dotnet new -l | fzf | awk '{print \$2}' | xargs dotnet new"
 alias nuget="mono /usr/local/bin/nuget.exe"
 
 [ -f ~/.zshrc.work.local ] && source ~/.zshrc.work.local
+
+source $HOME/.sdkman/bin/sdkman-init.sh
+
