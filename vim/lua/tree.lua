@@ -1,12 +1,12 @@
 local tree = {}
 tree.open = function()
-    require 'bufferline.state'.set_offset(51, 'FileExplorer')
+    require 'bufferline.state'.set_offset(51, 'Explorer')
     require 'nvim-tree'.find_file(true)
 end
 
 
 tree.toggle = function()
-    require 'bufferline.state'.set_offset(51, 'FileExplorer')
+    require 'bufferline.state'.set_offset(51, 'Explorer')
     require 'nvim-tree'.toggle()
 end
 
