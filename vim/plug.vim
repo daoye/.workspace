@@ -58,7 +58,8 @@ if has('nvim')
     Plug 'j-hui/fidget.nvim'
 
     " lsp ui extends
-    " Plug 'glepnir/lspsaga.nvim'
+    Plug 'tami5/lspsaga.nvim'
+    Plug 'ray-x/lsp_signature.nvim'
 
     " lsp autocomplete
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -74,6 +75,7 @@ if has('nvim')
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'rafamadriz/friendly-snippets'
+    Plug 'RRethy/vim-illuminate'
 
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
@@ -124,6 +126,15 @@ if has('nvim')
 
     " batch move
     Plug 'booperlv/nvim-gomove'
+
+    "marks
+    Plug 'chentau/marks.nvim'
+
+    " motion
+    Plug 'ggandor/lightspeed.nvim'
+
+    "fold
+    Plug 'anuvyklack/pretty-fold.nvim'
 endif
 
 call plug#end()
