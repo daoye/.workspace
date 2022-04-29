@@ -7,6 +7,8 @@ filetype plugin indent on " 启用文件类型检测
 set hidden
 set number " 启用行号
 set history=1000  " 记录历史的行数
+set autoread
+set diffopt=internal,filler,closeoff,algorithm:minimal
 
 " 设置tab键为4个空格
 set tabstop=4
@@ -29,6 +31,15 @@ else
     let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
+if has("termguicolors")
+    set termguicolors
+else
+    set term=xterm
+    set t_Co=256
+endif
+
+runtime! lua/init.lua
+
 " 加载插件
 source ~/.config/nvim/plug.vim
 
@@ -42,43 +53,10 @@ endif
 " 设置主题方案
 set background=dark
 " if $COLORTERM == 'truecolor'
-if has("termguicolors")
-    set termguicolors
-else
-    set term=xterm
-    set t_Co=256
-endif
 
-
-"colorscheme solarized8
-colorscheme gruvbox
 
 nnoremap <esc> :noh<CR>
 noremap <C-s> :w<CR>
-
-" buffer快速导航
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-
-" 通过索引快速跳转Buffer
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR><Paste>
-
-" 取消搜索高亮
-
-" " 快速移动窗口
-" map <c-j> <C-W>j<C-W>_
-" map <c-k> <C-W>k<C-W>_
-" map <c-l> <C-W>l<C-W>_
-" map <c-h> <C-W>h<C-W>_
 
 " 改变窗口大小
 nmap <S-Up> :res +5<CR>

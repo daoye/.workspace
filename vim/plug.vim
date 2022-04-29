@@ -31,11 +31,34 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
+" Merge tool
+Plug 'samoshkin/vim-mergetool'
+
 if has('nvim')
+    " lua thirdpart library
+    Plug 'nvim-lua/plenary.nvim'
+
+    " treesitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'romgrk/nvim-treesitter-context'
+    " vim-rainbow
+    Plug 'p00f/nvim-ts-rainbow'
+
+    " Theme
+    Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    Plug 'sainnhe/sonokai'
+    Plug 'shaunsingh/nord.nvim'
+
+    Plug 'romgrk/barbar.nvim'
+
     " lsp
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
+    Plug 'j-hui/fidget.nvim'
 
+    " lsp ui extends
+    " Plug 'glepnir/lspsaga.nvim'
 
     " lsp autocomplete
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -44,18 +67,23 @@ if has('nvim')
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
 
+    "Diiagnostic
+    Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
     " lsp snip  
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'rafamadriz/friendly-snippets'
 
-    " treesitter
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
-
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
+    Plug 'windwp/nvim-ts-autotag'
+
+    " Prevew code 
+    Plug 'rmagatti/goto-preview'
+
+    " Arg join
+    Plug 'AckslD/nvim-trevJ.lua'
 
     " Tmux navigator
     Plug 'christoomey/vim-tmux-navigator'
@@ -69,23 +97,33 @@ if has('nvim')
     Plug 'tami5/sqlite.lua'
 
     " 文件查找
-    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-frecency.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'olacin/telescope-gitmoji.nvim'
     Plug 'TC72/telescope-tele-tabby.nvim'
 
+    " dashboard
+    Plug 'glepnir/dashboard-nvim'
+
     " AI pair programmer
     Plug 'github/copilot.vim'
 
     Plug 'folke/trouble.nvim'
+
+    " Git
+    Plug 'sindrets/diffview.nvim'
+    Plug 'lewis6991/gitsigns.nvim'
+
+
+    " Color support
+    Plug 'norcalli/nvim-colorizer.lua'
+
+    " Cursor focus
+    Plug 'edluffy/specs.nvim'
+
+    " batch move
+    Plug 'booperlv/nvim-gomove'
 endif
-
-" 括号高亮
-Plug 'frazrepo/vim-rainbow'
-" 语法高亮
-" Plug 'sheerun/vim-polyglot'
-
 
 call plug#end()
