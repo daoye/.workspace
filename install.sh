@@ -31,6 +31,9 @@ set_dist_name() {
     elif grep -Eqi "Kali" /etc/issue || grep -Eq "Kali" /etc/*-release; then
         DISTRO='Kali'
         PM='apt'
+    elif grep -Eqi "Arch" /etc/issue || grep -Eq "Arch" /etc/*-release; then
+        DISTRO='Arch'
+        PM='pacman'
     else
         DISTRO='unknow'
     fi
@@ -86,8 +89,8 @@ cmd_exists(){
 set_dist_name
 
 
-if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ]; then
-    echo This script just support ubuntu, kali and macos!!
+if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ] && [ "$DISTRO" != "Arch" ]; then
+    echo This script just support ubuntu, kali, arch and macos!!
     exit
 fi
 
@@ -98,81 +101,78 @@ fi
 
 ROOT=$(cd `dirname $0`; pwd)
 
-
-# 安装基础库
-
-if [ $DISTRO != "Darwin" ]; then
-    if [ $DISTRO = "Ubuntu" ]; then
-        eval "${root_prex} add-apt-repository ppa:neovim-ppa/stable"
-    fi
-	eval "${root_prex} ${PM} update -y"
-	eval "${root_prex} ${PM} -y install curl git zsh python \
-		byacc automake  autoconf m4 libtool perl ccls ripgrep exuberant-ctags sqlite3 libsqlite3-dev" 
-fi
+# Install base libraries
 
 if [ $DISTRO = "Ubuntu" ]; then
-
-    eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
-        libevent-dev libncurses5-dev autotools-dev python3 \
-        neovim python3-neovim \
-        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
-
-    # 安装docker
-    eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
-    eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable\""
-
-elif [ $DISTRO = "Kali" ]; then
-    eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
-        libevent-dev libncurses5-dev autotools-dev python3 \
-        neovim python3-neovim \
-        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
-
-    # 安装docker
-    eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
-    eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
-    eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
-
-elif [ $DISTRO = "Darwin" ]; then
-
-    brew install the_silver_searcher neovim
-
+    eval "${root_prex} add-apt-repository ppa:neovim-ppa/stable"
+elif [ $DISTRO = "Arch" ]; then
+    eval "${root_prex} pacman -Syyu"
+elif [ $DISTRO != "Darwin" ]; then
+    eval "${root_prex} ${PM} update -y"
+    eval "${root_prex} ${PM} -y install curl git zsh python \
+	byacc automake  autoconf m4 libtool perl ccls ripgrep exuberant-ctags sqlite3 libsqlite3-dev" 
 fi
 
-if [ $DISTRO != "Darwin" ]; then
-	eval "${root_prex} ${PM} update -y"
-	eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
-fi
+# Install tools
 
-
-# 安装tmux
-if [ "$DISTRO" = "Darwin" ]; then
-    brew install tmux
+if [ $DISTRO = "Darwin" ]; then
+    brew cask reinstall docker the_silver_searcher tmux neovim
+elif [ $DISTRO = "Arch" ]; then
+    eval "${root_prex} pacman -S --needed docker base-devel \
+            zsh python \
+            neovim \
+            python-pip ccls ripgrep the_silver_searcher"
 else
-    eval "${root_prex} rm -rf /tmp/tmux"
-    cd /tmp
-    git clone https://github.com/tmux/tmux.git
-    cd tmux
-    ./autogen.sh
-    eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
+    if [ $DISTRO = "Ubuntu" ]; then
+        eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
+            libevent-dev libncurses5-dev autotools-dev python3 \
+            neovim python3-neovim \
+            python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
+    
+        eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
+        eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable\""
+    
+    elif [ $DISTRO = "Kali" ]; then
+        eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
+            libevent-dev libncurses5-dev autotools-dev python3 \
+            neovim python3-neovim \
+            python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
+    
+        eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
+        eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
+        eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
+    fi
+
+    eval "${root_prex} ${PM} update -y"
+    eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
 fi
+
+
+# Install tmux
+eval "${root_prex} rm -rf /tmp/tmux"
+cd /tmp
+git clone https://github.com/tmux/tmux.git
+cd tmux
+./autogen.sh
+eval "${root_prex} ./configure && ${root_prex} make && ${root_prex} make install"
 
 #pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-# 安装powerline和字体
-pip3 install --user powerline-status
-rm -rf /tmp/fonts
-cd /tmp
-git clone https://github.com/powerline/fonts.git
-cd fonts
-eval "${root_prex} ./install.sh"
+# Install powerline
+# pip3 install --user powerline-status
+#rm -rf /tmp/fonts
+#cd /tmp
+#git clone https://github.com/powerline/fonts.git
+#cd fonts
+#eval "${root_prex} ./install.sh"
 
-# 安装virtualenv
+# Install virtualenv
 pip3 install --user virtualenv
 pip3 install --user virtualenvwrapper
 
 
-# 安装NodeJS
+# Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
@@ -181,22 +181,17 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install --lts
 
-
-# 安装.tmux
+# Install Tmux conf
 cd ~
 rm -rf ~/.tmux
 rm -rf ~/.tmux.conf
 git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
 
-# 安装fzf
-rm -rf ~/.fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all
 
 cd $ROOT
 
-# 备份文件
+# backup
 #backup_conf_dir
 #backup_conf_file
 
@@ -206,25 +201,26 @@ fi
 
 ln -s -f ${ROOT}/conf/.zshrc.local ~/.zshrc.local
 
+# Only support neovim.
 ln -s -f ${ROOT}/vim ~/.config/nvim
-ln -s -f ${ROOT}/vim ~/.vim
-ln -s -f ${ROOT}/vim/init.vim ~/.vimrc
+# ln -s -f ${ROOT}/vim ~/.vim
+# ln -s -f ${ROOT}/vim/init.vim ~/.vimrc
+# ln -s -f ${ROOT}/templates ~/.vim-template-extend
 
 ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
-# 安装vim插件
+# Vim plugin install
 nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
-# 安装vimspector 插件的适配器
-nvim -u "${ROOT}/vim/plug.vim" +"VimspectorInstall --all --force-all" +qa
-# 安装Treesistter component
-nvim -u "${ROOT}/vim/plug.vim" +"TSInstall --all" +qa
+nvim -u "${ROOT}/vim/plug.vim" +TSInstall all +qa
+# Install vimspector adapter
+# nvim -u "${ROOT}/vim/plug.vim" +"VimspectorInstall --all --force-all" +qa
 
 
-#安装oh-my-zsh
+#Install oh-my-zsh
 rm -rf ~/.oh-my-zsh
+rm -rf ohmyzsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git
-chmod +x ~/ohmyzsh/tools/install.sh
-echo "y"| ~/ohmyzsh/tools/install.sh
+echo "y"| ./ohmyzsh/tools/install.sh
 rm -rf ohmyzsh
 
 ##安装ZSH主题
@@ -239,12 +235,14 @@ rm -rf ohmyzsh
 #zsh_plugs="git git-flow autopep8 command-not-found common-aliases docker-compose docker fzf tmux urltools vi-mode virtualenv"
 #sed -i "s/plugins=(git)/plugins=(${zsh_plugs})/g" ~/.zshrc
 
-#加载自定义配置
+# Load custom zsh conf
 echo "source ~/.zshrc.local" >> ~/.zshrc
 
-#再次安装fzf，以更新配置
+# Install fzf
+rm -rf ~/.fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 
-# 切换shell 为zsh
+# Change shell
 chsh -s $(which zsh)
 exec zsh -l
