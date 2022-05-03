@@ -51,7 +51,6 @@ if has('nvim')
 endif
 
 " 设置主题方案
-set background=dark
 " if $COLORTERM == 'truecolor'
 
 
@@ -66,3 +65,5 @@ nmap <S-Right> :vert res +5<CR>
 
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE
+
+runtime! solarized.vim

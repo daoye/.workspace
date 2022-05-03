@@ -107,3 +107,24 @@ lua << EOF
     -- :BarbarDisable - very bad command, should never be used
 EOF
 
+
+" Meaning of terms:
+"
+" format: "Buffer" + status + part
+"
+" status:
+"     *Current: current buffer
+"     *Visible: visible but not current buffer
+"    *Inactive: invisible but not current buffer
+"
+" part:
+"        *Icon: filetype icon
+"       *Index: buffer index
+"         *Mod: when modified
+"        *Sign: the separator between buffers
+"      *Target: letter in buffer-picking mode
+"
+" BufferTabpages: tabpage indicator
+" BufferTabpageFill: filler after the buffer section
+" BufferOffset: offset section, created with set_offset()
+" echo 'hello'

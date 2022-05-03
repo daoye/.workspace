@@ -10,8 +10,8 @@ Plug 'morhetz/gruvbox'
 Plug 'kyazdani42/nvim-web-devicons'
 
 " airline 状态栏
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " 快速跳转
 Plug 'easymotion/vim-easymotion'
 " 文件修改历史查看
@@ -45,10 +45,14 @@ if has('nvim')
     " vim-rainbow
     Plug 'p00f/nvim-ts-rainbow'
 
+    " Status line
+    Plug 'nvim-lualine/lualine.nvim'
+
     " Theme
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
     Plug 'sainnhe/sonokai'
     Plug 'shaunsingh/nord.nvim'
+    Plug 'ishan9299/nvim-solarized-lua'
 
     Plug 'romgrk/barbar.nvim'
 
@@ -134,6 +138,7 @@ if has('nvim')
     Plug 'ggandor/lightspeed.nvim'
 
     "fold
+    Plug 'anuvyklack/nvim-keymap-amend'
     Plug 'anuvyklack/pretty-fold.nvim'
 endif
 

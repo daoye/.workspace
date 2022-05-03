@@ -119,7 +119,7 @@ if [ $DISTRO = "Darwin" ]; then
     brew cask reinstall docker the_silver_searcher tmux neovim
 elif [ $DISTRO = "Arch" ]; then
     eval "${root_prex} pacman -S --needed docker base-devel \
-            zsh python \
+            zsh python fd xclip zip unzip curl \
             neovim \
             python-pip ccls ripgrep the_silver_searcher"
 else
@@ -170,7 +170,15 @@ pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 # Install virtualenv
 pip3 install --user virtualenv
 pip3 install --user virtualenvwrapper
+pip3 install --user pynvim
 
+" Install sdkman
+curl -s "https://get.sdkman.io" | bash
+source ${HOME}/.sdkman/bin/sdkman-init.sh
+
+" Install java
+sdk i java 18-zulu
+sdk use java 18-zulu
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -180,6 +188,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 nvm install --lts
+
+npm install -g neovim
 
 # Install Tmux conf
 cd ~
@@ -211,7 +221,8 @@ ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
 # Vim plugin install
 nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
-nvim -u "${ROOT}/vim/plug.vim" +TSInstall all +qa
+nvim -u "${ROOT}/vim/plug.vim" +"TSInstall all" +qa
+nvim +"LspInstall cssls eslint html pyright tsserver vimls jdtls omnisharp sumneko_lua jsonls" +qa
 # Install vimspector adapter
 # nvim -u "${ROOT}/vim/plug.vim" +"VimspectorInstall --all --force-all" +qa
 

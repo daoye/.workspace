@@ -1,10 +1,10 @@
-let g:nord_contrast = v:true
-let g:nord_borders = v:false
-let g:nord_disable_background = v:false
-let g:nord_italic = v:false
+set background=light
+colorscheme solarized
 
-" Load the colorscheme
-colorscheme nord
+" let g:nord_contrast = v:true
+" let g:nord_borders = v:false
+" let g:nord_disable_background = v:false
+" let g:nord_italic = v:false
 
 
 " colorscheme tokyonight

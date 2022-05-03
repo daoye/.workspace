@@ -26,6 +26,10 @@ export EDITOR='nvim'
 alias vi="nvim"
 alias vim="nvim"
 
+if [ "$(uname)" != "Darwin" ];then
+    alias open="xdg-open"
+fi
+
 # Set fzf installation directory path
 export FZF_BASE=$HOME/.fzf/bin/fzf
 
@@ -55,6 +59,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+ [ -f $HOME/.sdkman/bin/sdkman-init.sh ] && source $HOME/.sdkman/bin/sdkman-init.sh
+
 # alias cat="bat"
 
 # zsh parameter completion for the dotnet CLI
@@ -71,6 +77,3 @@ alias .new="dotnet new -l | fzf | awk '{print \$2}' | xargs dotnet new"
 alias nuget="mono /usr/local/bin/nuget.exe"
 
 [ -f ~/.zshrc.work.local ] && source ~/.zshrc.work.local
-
-source $HOME/.sdkman/bin/sdkman-init.sh
-
