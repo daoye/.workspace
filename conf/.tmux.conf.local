@@ -4,6 +4,4 @@ unbind C-b
 set -g prefix '`'
 bind '`' send-prefix
 
-set -g @plugin 'seebi/tmux-colors-solarized'
-
-set -g @colors-solarized 'light'
+set -g @plugin 'mkoga/tmux-solarized'
