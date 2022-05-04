@@ -12,8 +12,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 " airline 状态栏
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
-" 快速跳转
-Plug 'easymotion/vim-easymotion'
 " 文件修改历史查看
 Plug 'mbbill/undotree'
 " 注释辅助
@@ -73,7 +71,7 @@ if has('nvim')
     Plug 'hrsh7th/nvim-cmp'
 
     "Diiagnostic
-    Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+    " Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
     " lsp snip  
     Plug 'hrsh7th/cmp-vsnip'

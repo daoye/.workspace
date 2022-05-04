@@ -5,7 +5,7 @@ lua << EOF
     }
     
     -- disable default diagnostic, but use lsp_lines
-    vim.diagnostic.config({ virtual_text = false })
+    -- vim.diagnostic.config({ virtual_text = false })
 EOF
 
 nnoremap <silent> <A-d> :Lspsaga open_floaterm<CR>
