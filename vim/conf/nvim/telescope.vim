@@ -81,6 +81,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fw <cmd>Telescope grep_string<cr>
+nnoremap <space>ff <cmd>Telescope current_buffer_fuzzy_find fuzzy=true<cr>
 nnoremap <leader>fh <cmd>Telescope search_history<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader><tab> <cmd>Telescope resume<cr>
