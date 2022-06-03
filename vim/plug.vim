@@ -133,7 +133,7 @@ if has('nvim')
     Plug 'booperlv/nvim-gomove'
 
     "marks
-    Plug 'chentau/marks.nvim'
+    Plug 'chentoast/marks.nvim'
 
     " motion
     Plug 'ggandor/lightspeed.nvim'
