@@ -1,0 +1,72 @@
+{
+  "launch_js": {
+    "prefix": [
+      "launch_js"
+    ],
+    "body": [
+      "{",
+      "\t\"configurations\": {",
+      "\t\t\"run\": {",
+      "\t\t\t\t\"adapter\": \"vscode-node\",",
+      "\t\t\t\t\"filetypes\": [ \"javascript\", \"typescript\" ],",
+      "\t\t\t\t\"configuration\": {",
+      "\t\t\t\t\"request\": \"launch\",",
+      "\t\t\t\t\"protocol\": \"auto\",",
+      "\t\t\t\t\"stopOnEntry\": true,",
+      "\t\t\t\t\"console\": \"integratedTerminal\",",
+      "\t\t\t\t\"program\": \"\\${workspaceRoot}/${1:$TM_SELECTED_TEXT}.js\",",
+      "\t\t\t\t\"cwd\": \"\\${workspaceRoot}\"",
+      "\t\t\t}",
+      "\t\t}",
+      "\t}",
+      "}"
+    ],
+    "description": "Nodejs launch configuration for vimspector."
+  },
+  "launch_react_native": {
+    "prefix": [
+      "launch_react_native"
+    ],
+    "body": [
+      "{",
+      "\t\t// Use IntelliSense to learn about possible attributes.",
+      "\t\t// Hover to view descriptions of existing attributes.",
+      "\t\t// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387",
+      "\t\t\"version\": \"0.2.0\",",
+      "\t\t\"configurations\": [",
+      "\t\t\t\t{",
+      "\t\t\t\t\t\t\"name\": \"Attach to packager\",",
+      "\t\t\t\t\t\t\"cwd\": \"${workspaceFolder}\",",
+      "\t\t\t\t\t\t\"type\": \"reactnative\",",
+      "\t\t\t\t\t\t\"request\": \"attach\",",
+      "\t\t\t\t\t\t\"port\": 7777,",
+      "\t\t\t\t},",
+      "\t\t\t\t{",
+      "\t\t\t\t\t\t\"name\": \"Debug Android (Hermes) - Experimental\",",
+      "\t\t\t\t\t\t\"cwd\": \"${workspaceFolder}\",",
+      "\t\t\t\t\t\t\"type\": \"reactnativedirect\",",
+      "\t\t\t\t\t\t\"request\": \"launch\",",
+      "\t\t\t\t\t\t\"platform\": \"android\",",
+      "\t\t\t\t\t\t\"runArguments\": [ \"--port\", \"7777\" ]",
+      "\t\t\t\t},",
+      "\t\t\t\t{",
+      "\t\t\t\t\t\t\"name\": \"Debug Android\",",
+      "\t\t\t\t\t\t\"cwd\": \"${workspaceFolder}\",",
+      "\t\t\t\t\t\t\"type\": \"reactnative\",",
+      "\t\t\t\t\t\t\"request\": \"launch\",",
+      "\t\t\t\t\t\t\"platform\": \"android\",",
+      "\t\t\t\t\t\t\"runArguments\": [ \"--port\", \"7777\" ]",
+      "\t\t\t\t},",
+      "\t\t\t\t{",
+      "\t\t\t\t\t\t\"name\": \"Debug iOS\",",
+      "\t\t\t\t\t\t\"cwd\": \"${workspaceFolder}\",",
+      "\t\t\t\t\t\t\"type\": \"reactnative\",",
+      "\t\t\t\t\t\t\"request\": \"launch\",",
+      "\t\t\t\t\t\t\"platform\": \"ios\",",
+      "\t\t\t\t\t\t\"runArguments\": [ \"--simulator\", \"iPhone 12\" ]",
+      "\t\t\t\t}",
+      "\t\t]",
+      "}"
+    ]
+  }
+}

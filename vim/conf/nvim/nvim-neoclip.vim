@@ -1,7 +1,7 @@
 lua << EOF
     require('neoclip').setup({
-      history = 1000,
-      enable_persistent_history = false,
+      history = 10000,
+      enable_persistent_history = true,
       continious_sync = false,
       db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
       filter = nil,

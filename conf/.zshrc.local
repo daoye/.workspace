@@ -1,12 +1,24 @@
-export PATH=$HOME/.local/app/mitmproxy:$HOME/apkcrackers/jadx/bin:$HOME/apkcrackers/dex-tools:$HOME/apkcrackers/bin:$HOME/.local/platform-tools:$HOME/go/bin:$HOME/.local/bin:$PATH 
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export PATH=$HOME/Library/Python/3.9/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:/usr/local/opt/llvm/bin:$HOME/go/bin:$HOME/.local/bin:/usr/local/bin:$PATH 
 
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
 
 #virtualenvwrapper
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
-source $HOME/.local/bin/virtualenvwrapper.sh
-#
+
+if [ "$(uname)" = "Darwin" ];then
+    source $HOME/Library/Python/3.8/bin/virtualenvwrapper.sh
+else
+    source $HOME/.local/bin/virtualenvwrapper.sh
+fi
+
+export LDFLAGS="-L/usr/local/opt/llvm/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include"
+
 
 export COLORTERM='truecolor'
 export EDITOR='nvim'
@@ -14,10 +26,15 @@ export EDITOR='nvim'
 alias vi="nvim"
 alias vim="nvim"
 
+if [ "$(uname)" != "Darwin" ];then
+    alias open="xdg-open"
+fi
+
 # Set fzf installation directory path
 export FZF_BASE=$HOME/.fzf/bin/fzf
 
-export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500' --preview-window down"
+# export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500' --preview-window down"
+export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border --preview 'bat --color=always --style=numbers --line-range=:500 {}' --preview-window down"
 
 # Uncomment the following line to disable fuzzy completion
 # export DISABLE_FZF_AUTO_COMPLETION="true"
@@ -35,15 +52,16 @@ export ZSH_TMUX_AUTOSTART=true	#Automatically starts tmux (default: false)
 #ZSH_TMUX_FIXTERM_WITHOUT_256COLOR	#$TERM to use for non 256-color terminals (default: screen)
 #ZSH_TMUX_FIXTERM_WITH_256COLOR	#$TERM to use for 256-color terminals (default: screen-256color
 # Theme config
-BULLETTRAIN_CONTEXT_DEFAULT_USER=father
+BULLETTRAIN_CONTEXT_DEFAULT_USER=js6j
 
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# 添加open命令，用于快速打开文件夹
-alias open="xdg-open"
+ [ -f $HOME/.sdkman/bin/sdkman-init.sh ] && source $HOME/.sdkman/bin/sdkman-init.sh
+
+# alias cat="bat"
 
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()
@@ -57,4 +75,5 @@ compctl -K _dotnet_zsh_complete dotnet
 
 alias .new="dotnet new -l | fzf | awk '{print \$2}' | xargs dotnet new"
 alias nuget="mono /usr/local/bin/nuget.exe"
-# export SSLKEYLOGFILE="$HOME/.mitmproxy/sslkeylogfile.txt"
+
+[ -f ~/.zshrc.work.local ] && source ~/.zshrc.work.local
