@@ -17,7 +17,7 @@ Plug 'mbbill/undotree'
 " 注释辅助
 Plug 'scrooloose/nerdcommenter'
 " GIT支持
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " 调试器
 " Plug 'puremourning/vimspector'
@@ -29,11 +29,11 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'junegunn/vim-easy-align'
 
 " 快速编辑成对的文本
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 " Merge tool
-Plug 'samoshkin/vim-mergetool'
+" Plug 'samoshkin/vim-mergetool'
 
 if has('nvim')
     " lua thirdpart library
@@ -111,10 +111,10 @@ if has('nvim')
     Plug 'TC72/telescope-tele-tabby.nvim'
 
     " dashboard
-    Plug 'glepnir/dashboard-nvim'
+    " Plug 'glepnir/dashboard-nvim'
 
     " AI pair programmer
-    Plug 'github/copilot.vim'
+    " Plug 'github/copilot.vim'
 
     Plug 'folke/trouble.nvim'
 
@@ -133,7 +133,7 @@ if has('nvim')
     Plug 'booperlv/nvim-gomove'
 
     "marks
-    Plug 'chentau/marks.nvim'
+    Plug 'chentoast/marks.nvim'
 
     " motion
     Plug 'ggandor/lightspeed.nvim'
@@ -141,6 +141,9 @@ if has('nvim')
     "fold
     Plug 'anuvyklack/nvim-keymap-amend'
     Plug 'anuvyklack/pretty-fold.nvim'
+
+    " Surround
+    Plug 'kylechui/nvim-surround'
 endif
 
 call plug#end()

@@ -16,8 +16,8 @@ else
     source $HOME/.local/bin/virtualenvwrapper.sh
 fi
 
-export LDFLAGS="-L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
+# export LDFLAGS="-L/usr/local/opt/llvm/lib"
+# export CPPFLAGS="-I/usr/local/opt/llvm/include"
 
 
 export COLORTERM='truecolor'
