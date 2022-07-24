@@ -63,6 +63,8 @@ local on_attach = function(client, bufnr)
 
     -- Highlightings cursor words.
     require 'illuminate'.on_attach(client)
+    buf_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
+    -- buf_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
 end
 
 lsp_installer.on_server_ready(function(server)
