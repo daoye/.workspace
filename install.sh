@@ -34,6 +34,9 @@ set_dist_name() {
     elif grep -Eqi "Arch" /etc/issue || grep -Eq "Arch" /etc/*-release; then
         DISTRO='Arch'
         PM='pacman'
+    elif grep -Eqi "openSUSE" /etc/issue || grep -Eq "openSUSE" /etc/*-release; then
+        DISTRO='openSUSE'
+        PM='yzpper'
     else
         DISTRO='unknow'
     fi
@@ -89,8 +92,8 @@ cmd_exists(){
 set_dist_name
 
 
-if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ] && [ "$DISTRO" != "Arch" ]; then
-    echo This script just support ubuntu, kali, arch and macos!!
+if [ "$DISTRO" != "Ubuntu" ] && [ "$DISTRO" != "Kali" ] && [ "$DISTRO" != "Darwin" ] && [ "$DISTRO" != "Arch" ]&& [ "$DISTRO" != "openSUSE" ]; then
+    echo This script just support ubuntu, kali, arch, openSUSE and macos!!
     exit
 fi
 
@@ -105,46 +108,47 @@ ROOT=$(cd `dirname $0`; pwd)
 
 if [ $DISTRO = "Ubuntu" ]; then
     eval "${root_prex} add-apt-repository ppa:neovim-ppa/stable"
+
+    eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
+        libevent-dev libncurses5-dev autotools-dev python3 \
+        neovim python3-neovim \
+        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
+
+    eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
+    eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable\""
+
+    eval "${root_prex} ${PM} update -y"
+    eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
+elif [ $DISTRO = "Kali" ]; then
+    eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
+        libevent-dev libncurses5-dev autotools-dev python3 \
+        neovim python3-neovim \
+        python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
+
+    eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
+    eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
+    eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
+
+    eval "${root_prex} ${PM} update -y"
+    eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
 elif [ $DISTRO = "Arch" ]; then
     eval "${root_prex} pacman -Syyu"
-elif [ $DISTRO != "Darwin" ]; then
-    eval "${root_prex} ${PM} update -y"
-    eval "${root_prex} ${PM} -y install curl git zsh python \
-	byacc automake  autoconf m4 libtool perl ccls ripgrep exuberant-ctags sqlite3 libsqlite3-dev" 
-fi
-
-# Install tools
-
-if [ $DISTRO = "Darwin" ]; then
-    brew cask reinstall docker the_silver_searcher tmux neovim
-elif [ $DISTRO = "Arch" ]; then
     eval "${root_prex} pacman -S --needed docker base-devel \
             zsh python fd xclip zip unzip curl \
             neovim \
             python-pip ccls ripgrep the_silver_searcher"
-else
-    if [ $DISTRO = "Ubuntu" ]; then
-        eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
-            libevent-dev libncurses5-dev autotools-dev python3 \
-            neovim python3-neovim \
-            python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
-    
-        eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
-        eval "${root_prex} add-apt-repository \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable\""
-    
-    elif [ $DISTRO = "Kali" ]; then
-        eval "${root_prex} ${PM} -y install pkg-config apt-transport-https ca-certificates gnupg-agent software-properties-common \
-            libevent-dev libncurses5-dev autotools-dev python3 \
-            neovim python3-neovim \
-            python3-dev python3-pip ccls ripgrep silversearcher-ag highlight exuberant-ctags" 
-    
-        eval "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${root_prex} apt-key add -"
-        eval "${root_prex} touch /etc/apt/sources.list.d/docker.list"
-        eval "echo \"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/ buster stable\" | ${root_prex} tee /etc/apt/sources.list.d/docker.list"
-    fi
-
+elif [ $DISTRO = "openSUSE" ]; then
+    eval "${root_prex} yzpper dup -y"
+    eval "${root_prex} yzpper in -y docker \
+            zsh python fd xclip zip unzip curl \
+            neovim \
+            python310-pip ccls ripgrep the_silver_searcher"
+elif [ $DISTRO != "Darwin" ]; then
     eval "${root_prex} ${PM} update -y"
-    eval "${root_prex} ${PM} install -y docker-ce docker-ce-cli containerd.io"
+    eval "${root_prex} ${PM} -y install curl git zsh python \
+	byacc automake  autoconf m4 libtool perl ccls ripgrep exuberant-ctags sqlite3 libsqlite3-dev" 
+
+    brew cask reinstall docker the_silver_searcher tmux neovim
 fi
 
 
@@ -172,16 +176,22 @@ pip3 install --user virtualenv
 pip3 install --user virtualenvwrapper
 pip3 install --user pynvim
 
-" Install sdkman
-curl -s "https://get.sdkman.io" | bash
-source ${HOME}/.sdkman/bin/sdkman-init.sh
-
-" Install java
-sdk i java 18-zulu
-sdk use java 18-zulu
+# Install sdkman
+# curl -sSL "https://get.sdkman.io" -o /tmp/sdkman.sh
+# bash /tmp/sdkman.sh
+# rm -rf /tmp/sdkman.sh
+#
+# source ${HOME}/.sdkman/bin/sdkman-init.sh
+#
+# # Install java
+# sdk i java 18-zulu
+# sdk use java 18-zulu
 
 # Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh -o /tmp/nvm.sh
+
+bash /tmp/nvm.sh
+rm -rf /tmp/nvm.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -220,8 +230,7 @@ ln -s -f ${ROOT}/vim ~/.config/nvim
 ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 
 # Vim plugin install
-nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +qa
-nvim -u "${ROOT}/vim/plug.vim" +"TSInstall all" +qa
+nvim -u "${ROOT}/vim/plug.vim" +PlugInstall +UpdateRemotePlugins +"TSInstall all" +qa
 nvim +"LspInstall cssls eslint html pyright tsserver vimls jdtls omnisharp sumneko_lua jsonls" +qa
 # Install vimspector adapter
 # nvim -u "${ROOT}/vim/plug.vim" +"VimspectorInstall --all --force-all" +qa
