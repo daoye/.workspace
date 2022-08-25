@@ -63,7 +63,11 @@ nmap <S-Down> :res -5<CR>
 nmap <S-Left> :vert res -5<CR>
 nmap <S-Right> :vert res +5<CR>
 
+
+
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE
+highlight clear LineNr
+highlight clear SignColumn
 
 runtime! solarized.vim

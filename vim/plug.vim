@@ -144,6 +144,10 @@ if has('nvim')
 
     " Surround
     Plug 'kylechui/nvim-surround'
+
+
+    " Theme
+    Plug 'rakr/vim-one'
 endif
 
 call plug#end()
