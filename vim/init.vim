@@ -50,6 +50,21 @@ if has('nvim')
     runtime! conf/nvim/*.vim
 endif
 
+" runtime! conf/nvim/theme.vim
+" runtime! conf/nvim/autopairs.vim
+" runtime! conf/nvim/barbar.vim
+" runtime! conf/nvim/dap.vim
+" runtime! conf/nvim/dapui.vim
+" runtime! conf/nvim/diffview.vim
+" runtime! conf/nvim/gitsigns.vim
+" runtime! conf/nvim/gomove.vim
+" runtime! conf/nvim/goprevew.vim
+" runtime! conf/nvim/lsp.vim
+" runtime! conf/nvim/lsp_lines.vim
+" runtime! conf/nvim/lsp_signature.vim
+" runtime! conf/nvim/lspcmp.vim
+" runtime! conf/nvim/lspsaga.vim
+
 " 设置主题方案
 " if $COLORTERM == 'truecolor'
 
@@ -63,11 +78,7 @@ nmap <S-Down> :res -5<CR>
 nmap <S-Left> :vert res -5<CR>
 nmap <S-Right> :vert res +5<CR>
 
-
-
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE
-highlight clear LineNr
-highlight clear SignColumn
 
 runtime! solarized.vim

@@ -10,7 +10,6 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-
 cmp.setup({
     snippet = {
       expand = function(args)
@@ -51,6 +50,8 @@ cmp.setup({
      { name = 'nvim_lsp' },
      { name = 'buffer' },
      { name = 'path' },
+     { name = 'nvim_lsp_signature_help' },
+     -- { name = 'copilot' },
    }
 })
 

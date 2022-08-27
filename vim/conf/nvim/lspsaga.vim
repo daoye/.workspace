@@ -1,12 +1,14 @@
 lua << EOF
-    local saga = require 'lspsaga'
 
-    saga.setup {
-    }
-    
-    -- disable default diagnostic, but use lsp_lines
-    -- vim.diagnostic.config({ virtual_text = false })
+local saga = require 'lspsaga'
+
+saga.init_lsp_saga({
+    diagnostic_header = { '💩', '🈲', '', 'ﴞ' },
+    border_style = 'rounded',
+    move_in_saga = { prev = '<C-u>',next = '<C-d>'},
+    rename_action_quit = "<ESC>",
+})
+
+
+
 EOF
-
-nnoremap <silent> <A-d> :Lspsaga open_floaterm<CR>
-tnoremap <silent> <A-d> <C-\><C-n>:Lspsaga close_floaterm<CR>

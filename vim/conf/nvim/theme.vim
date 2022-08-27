@@ -1,5 +1,4 @@
 set background=light
-
 colorscheme solarized
 
 " let g:nord_contrast = v:true

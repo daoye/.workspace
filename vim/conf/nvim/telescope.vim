@@ -72,7 +72,6 @@ require("telescope").setup {
 }
 require('telescope').load_extension("frecency")
 require('telescope').load_extension('fzf')
-require('telescope').load_extension("gitmoji")
 require('telescope').load_extension('tele_tabby')
 require('telescope').load_extension('neoclip')
 EOF
@@ -93,7 +92,6 @@ nnoremap <leader>f? <cmd>Telescope help_tags<cr>
 " extensions
 nnoremap <leader>ft <cmd>Telescope tele_tabby list<cr>
 nnoremap <leader>fy <cmd>Telescope neoclip<cr>
-nnoremap <space>cm <cmd>Telescope gitmoji<cr>
 
 " lsp mappings
 nnoremap <leader>ls <cmd>Telescope lsp_document_symbols<cr>

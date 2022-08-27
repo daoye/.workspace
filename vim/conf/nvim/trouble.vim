@@ -1,14 +1,17 @@
 lua << EOF
-  require("trouble").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
+require("trouble").setup {
+    mode = 'document_diagnostics',
+    group = false,
+    use_diagnostic_signs = true 
+}
 
-" Vim Script
-" nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>le <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader><leader>le <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>lq <cmd>TroubleToggle quickfix<cr>
-" nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+EOF

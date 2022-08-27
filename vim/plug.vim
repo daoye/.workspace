@@ -9,13 +9,11 @@ Plug 'morhetz/gruvbox'
 " 图标
 Plug 'kyazdani42/nvim-web-devicons'
 
-" airline 状态栏
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 " 文件修改历史查看
 Plug 'mbbill/undotree'
 " 注释辅助
 Plug 'scrooloose/nerdcommenter'
+
 " GIT支持
 " Plug 'tpope/vim-fugitive'
 
@@ -63,7 +61,7 @@ if has('nvim')
     Plug 'j-hui/fidget.nvim'
 
     " lsp ui extends
-    Plug 'tami5/lspsaga.nvim'
+    Plug 'glepnir/lspsaga.nvim', { 'branch' : 'main' }
     Plug 'ray-x/lsp_signature.nvim'
 
     " lsp autocomplete
@@ -72,9 +70,8 @@ if has('nvim')
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
-
-    "Diiagnostic
-    " Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+    " Plug 'hrsh7th/cmp-copilot'
 
     " lsp snip  
     Plug 'hrsh7th/cmp-vsnip'
@@ -107,14 +104,10 @@ if has('nvim')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-frecency.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-    Plug 'olacin/telescope-gitmoji.nvim'
     Plug 'TC72/telescope-tele-tabby.nvim'
 
     " dashboard
     " Plug 'glepnir/dashboard-nvim'
-
-    " AI pair programmer
-    " Plug 'github/copilot.vim'
 
     Plug 'folke/trouble.nvim'
 
@@ -122,12 +115,8 @@ if has('nvim')
     Plug 'sindrets/diffview.nvim'
     Plug 'lewis6991/gitsigns.nvim'
 
-
     " Color support
     Plug 'norcalli/nvim-colorizer.lua'
-
-    " Cursor focus
-    Plug 'edluffy/specs.nvim'
 
     " batch move
     Plug 'booperlv/nvim-gomove'
@@ -138,16 +127,8 @@ if has('nvim')
     " motion
     Plug 'ggandor/lightspeed.nvim'
 
-    "fold
-    Plug 'anuvyklack/nvim-keymap-amend'
-    Plug 'anuvyklack/pretty-fold.nvim'
-
     " Surround
     Plug 'kylechui/nvim-surround'
-
-
-    " Theme
-    Plug 'rakr/vim-one'
 endif
 
 call plug#end()
