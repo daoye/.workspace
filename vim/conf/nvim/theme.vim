@@ -1,5 +1,9 @@
-set background=light
-colorscheme solarized
+set background=dark
+
+let g:airline_theme='one'
+let g:one_allow_italics = 1
+
+colorscheme one
 
 " let g:nord_contrast = v:true
 " let g:nord_borders = v:false

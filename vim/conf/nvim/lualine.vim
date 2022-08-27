@@ -1,5 +1,5 @@
 lua << EOF
-local mytheme = require'lualine.themes.solarized_light'
+local mytheme = require'lualine.themes.onedark'
 
 require('lualine').setup {
     options = { theme  = mytheme },

@@ -31,7 +31,17 @@ else
     let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
-if has("termguicolors")
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+endif
+
+if (has("termguicolors"))
     set termguicolors
 else
     set term=xterm
@@ -50,24 +60,6 @@ if has('nvim')
     runtime! conf/nvim/*.vim
 endif
 
-" runtime! conf/nvim/theme.vim
-" runtime! conf/nvim/autopairs.vim
-" runtime! conf/nvim/barbar.vim
-" runtime! conf/nvim/dap.vim
-" runtime! conf/nvim/dapui.vim
-" runtime! conf/nvim/diffview.vim
-" runtime! conf/nvim/gitsigns.vim
-" runtime! conf/nvim/gomove.vim
-" runtime! conf/nvim/goprevew.vim
-" runtime! conf/nvim/lsp.vim
-" runtime! conf/nvim/lsp_lines.vim
-" runtime! conf/nvim/lsp_signature.vim
-" runtime! conf/nvim/lspcmp.vim
-" runtime! conf/nvim/lspsaga.vim
-
-" 设置主题方案
-" if $COLORTERM == 'truecolor'
-
 
 nnoremap <esc> :noh<CR>
 noremap <C-s> :w<CR>
@@ -80,5 +72,4 @@ nmap <S-Right> :vert res +5<CR>
 
 " 设置vim透明
 hi Normal guibg=NONE ctermbg=NONE
-
-runtime! solarized.vim
+hi LineNr guibg=NONE ctermbg=NONE

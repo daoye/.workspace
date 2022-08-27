@@ -52,6 +52,7 @@ if has('nvim')
     Plug 'sainnhe/sonokai'
     Plug 'shaunsingh/nord.nvim'
     Plug 'ishan9299/nvim-solarized-lua'
+    Plug 'rakr/vim-one'
 
     Plug 'romgrk/barbar.nvim'
 
