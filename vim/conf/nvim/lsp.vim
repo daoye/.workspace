@@ -1,9 +1,16 @@
 set completeopt=menu,menuone,noselect
 
 lua << EOF
-local lsp_installer = require("nvim-lsp-installer")
+require("mason").setup{
+    log_level = vim.log.levels.DEBUG
+}
+require("mason-lspconfig").setup{
+    automatic_installation = true
+}
+
+
+
 local cmp_lsp = require('cmp_nvim_lsp')
--- local folding = require('folding')
 
 local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -68,18 +75,23 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<a-d>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
 end
 
-lsp_installer.on_server_ready(function(server)
-  local opts = {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    capabilities = capabilities
-  }
 
-  server:setup(opts)
-end)
-
+require("mason-lspconfig").setup_handlers {
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {
+            on_attach = on_attach,
+            flags = {
+              debounce_text_changes = 150,
+            },
+            capabilities = capabilities
+        }
+    end,
+    -- Next, you can provide targeted overrides for specific servers.
+    -- For example, a handler override for the `rust_analyzer`:
+    -- ["rust_analyzer"] = function ()
+    --    require("rust-tools").setup {}
+    -- end
+}
 
 -- UI customizing
 -- local signs = { Error = "😡", Warn = "😤", Hint = "😐", Info = "😥" }
@@ -96,5 +108,4 @@ vim.diagnostic.config({
     update_in_insert = true,  
     severity_sort = false,
 })
-
 EOF

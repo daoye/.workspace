@@ -57,8 +57,10 @@ if has('nvim')
     Plug 'romgrk/barbar.nvim'
 
     " lsp
+    " Plug 'williamboman/nvim-lsp-installer'
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
-    Plug 'williamboman/nvim-lsp-installer'
     Plug 'j-hui/fidget.nvim'
 
     " lsp ui extends

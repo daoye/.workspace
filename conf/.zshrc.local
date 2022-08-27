@@ -76,4 +76,4 @@ compctl -K _dotnet_zsh_complete dotnet
 alias .new="dotnet new -l | fzf | awk '{print \$2}' | xargs dotnet new"
 alias nuget="mono /usr/local/bin/nuget.exe"
 
-[ -f ~/.zshrc.work.local ] && source ~/.zshrc.work.local
+[ -f ~/.zshrc.custom.local ] && source ~/.zshrc.custom.local
