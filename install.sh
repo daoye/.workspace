@@ -134,7 +134,7 @@ elif [ $DISTRO = "Kali" ]; then
 elif [ $DISTRO = "Arch" ]; then
     eval "${root_prex} pacman -Syyu"
     eval "${root_prex} pacman -S --needed docker base-devel \
-            zsh python fd xclip zip unzip curl \
+            zsh python fd xclip zip unzip curl fzf \
             neovim \
             python-pip ccls ripgrep the_silver_searcher"
 elif [ $DISTRO = "openSUSE" ]; then
