@@ -1,75 +1,45 @@
 lua << EOF
 local dap = require('dap')
-dap.set_log_level('TRACE')
+local dapui = require("dapui")
+local daptext = require("nvim-dap-virtual-text")
 
-
--- dap.adapters.node = {
---     type = 'executable',
---     command = 'node',
---     args = {os.getenv('HOME') .. '/.debugger/vscode-node-debug2/out/src/nodeDebug.js'},
--- }
-
--- dap.adapters.node = {
---     type = 'server',
---     host = '127.0.0.1',
---     port = 12374
--- }
-
-
-local dap = require('dap')
-dap.adapters.node2 = {
-  type = 'executable',
-  command = 'node',
-  args = {os.getenv('HOME') .. '/.debugger/vscode-node-debug2/out/src/nodeDebug.js'},
-}
-
-dap.configurations.javascript = {
-  {
-    name = 'Launch',
-    type = 'node2',
-    request = 'launch',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = 'inspector',
-    console = 'integratedTerminal',
-    program= '${workspaceFolder}/dist/development/server.js',
-    args= {'build.react.prod'},
-    outFiles= {'${workspaceFolder}/**/*.js'}
-  },
-  {
-    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-    name = 'Attach to process',
-    type = 'node2',
-    request = 'attach',
-    processId = require'dap.utils'.pick_process,
-  },
-}
-
-dap.configurations.typescript = {
-  {
-    name = 'Launch',
-    type = 'node2',
-    request = 'launch',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = 'inspector',
-    console = 'integratedTerminal',
-    program= '${workspaceFolder}/dist/development/server.js',
-    args= {'build.react.prod'},
-    outFiles= {'${workspaceFolder}/**/*.js'}
-  },
-  {
-    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-    name = 'Attach to process',
-    type = 'node2',
-    request = 'attach',
-    processId = require'dap.utils'.pick_process,
-  },
-}
 
 vim.fn.sign_define('DapBreakpoint', {text='🐞', texthl='', linehl='', numhl=''})
 
-require("nvim-dap-virtual-text").setup()
+dapui.setup({
+  layouts = {
+    {
+      elements = {
+        "breakpoints",
+        "stacks",
+        "watches",
+        "scopes",
+      },
+      size = 60, 
+      position = "left",
+    },
+    {
+      elements = {
+        "repl",
+        "console",
+      },
+      size = 0.3, -- 25% of total lines
+      position = "bottom",
+    },
+  },
+})
+daptext.setup()
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
 EOF
 
 nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
@@ -81,3 +51,6 @@ nnoremap <silent> <Leader><Leader>b <Cmd>lua require'dap'.set_breakpoint(vim.fn.
 nnoremap <silent> <Leader>pb <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent> <S-F10> <Cmd>lua require'dap'.run_to_cursor()<CR>
 nnoremap <silent> <leader><F5> <Cmd>lua require('dap.ext.vscode').load_launchjs(nil, { node = {'typescript', 'javascript'}})<CR>
+
+nnoremap <silent> <S-F5> <Cmd>lua require'dapui'.toggle()<CR>
+

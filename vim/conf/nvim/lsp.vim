@@ -60,8 +60,8 @@ local on_attach = function(client, bufnr)
     map(0, "n", ";j", "<cmd>Lspsaga diagnostic_jump_next<cr>", {silent = true, noremap = true})
     map(0, "n", ";k", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {silent = true, noremap = true})
     map(0, "n", "K",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
-    map(0, "n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1, '<c-u>')<cr>", {silent = true, noremap = true})
-    map(0, "n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1, '<c-d>')<cr>", {silent = true, noremap = true})
+    -- map(0, "n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1, '<c-u>')<cr>", {silent = true, noremap = true})
+    -- map(0, "n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1, '<c-d>')<cr>", {silent = true, noremap = true})
 
 
     -- go preview configs

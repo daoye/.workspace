@@ -17,11 +17,6 @@ Plug 'scrooloose/nerdcommenter'
 " GIT支持
 " Plug 'tpope/vim-fugitive'
 
-" 调试器
-" Plug 'puremourning/vimspector'
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'theHamsta/nvim-dap-virtual-text'
 
 " 文本对齐
 Plug 'junegunn/vim-easy-align'
@@ -82,6 +77,15 @@ if has('nvim')
     Plug 'rafamadriz/friendly-snippets'
     Plug 'RRethy/vim-illuminate'
 
+
+    " 调试器
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+    Plug 'mfussenegger/nvim-dap-python'
+    Plug 'rcarriga/cmp-dap'
+
+
     " Auto pairs
     Plug 'windwp/nvim-autopairs'
     Plug 'windwp/nvim-ts-autotag'
@@ -108,6 +112,7 @@ if has('nvim')
     Plug 'nvim-telescope/telescope-frecency.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'TC72/telescope-tele-tabby.nvim'
+    " Plug 'nvim-telescope/telescope-dap.nvim'
 
     " dashboard
     " Plug 'glepnir/dashboard-nvim'
@@ -118,11 +123,8 @@ if has('nvim')
     Plug 'sindrets/diffview.nvim'
     Plug 'lewis6991/gitsigns.nvim'
 
-    " Color support
+    " Color text to color background
     Plug 'norcalli/nvim-colorizer.lua'
-
-    " batch move
-    Plug 'booperlv/nvim-gomove'
 
     "marks
     Plug 'chentoast/marks.nvim'
