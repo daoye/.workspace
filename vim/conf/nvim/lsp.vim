@@ -11,8 +11,9 @@ require("mason-lspconfig").setup{
 
 
 local cmp_lsp = require('cmp_nvim_lsp')
+local capabilities =  cmp_lsp.default_capabilities()
 
-local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
