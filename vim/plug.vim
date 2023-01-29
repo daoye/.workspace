@@ -12,7 +12,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 " 文件修改历史查看
 Plug 'mbbill/undotree'
 " 注释辅助
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 
 " GIT支持
 " Plug 'tpope/vim-fugitive'
@@ -53,14 +53,17 @@ if has('nvim')
 
     " lsp
     " Plug 'williamboman/nvim-lsp-installer'
+    Plug 'lewis6991/hover.nvim'
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
+    Plug 'jay-babu/mason-null-ls.nvim'
     Plug 'j-hui/fidget.nvim'
 
     " lsp ui extends
-    Plug 'glepnir/lspsaga.nvim', { 'branch' : 'main' }
-    Plug 'ray-x/lsp_signature.nvim'
+    " Plug 'glepnir/lspsaga.nvim', { 'branch' : 'main' }
+    " Plug 'ray-x/lsp_signature.nvim'
 
     " lsp autocomplete
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -75,7 +78,7 @@ if has('nvim')
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'rafamadriz/friendly-snippets'
-    Plug 'RRethy/vim-illuminate'
+
 
 
     " 调试器
@@ -111,13 +114,19 @@ if has('nvim')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-frecency.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-    Plug 'TC72/telescope-tele-tabby.nvim'
+    Plug 'nvim-telescope/telescope-ui-select.nvim'
+    Plug 'nvim-telescope/telescope-smart-history.nvim'
     " Plug 'nvim-telescope/telescope-dap.nvim'
 
     " dashboard
     " Plug 'glepnir/dashboard-nvim'
-
+    "
+    " UI extend
+    Plug 'folke/noice.nvim'
+    Plug 'MunifTanjim/nui.nvim'
+    Plug 'rcarriga/nvim-notify'
     Plug 'folke/trouble.nvim'
+    Plug 'RRethy/vim-illuminate'
 
     " Git
     Plug 'sindrets/diffview.nvim'
@@ -134,6 +143,9 @@ if has('nvim')
 
     " Surround
     Plug 'kylechui/nvim-surround'
+
+    " Comment
+    Plug 'numToStr/Comment.nvim'
 endif
 
 call plug#end()
