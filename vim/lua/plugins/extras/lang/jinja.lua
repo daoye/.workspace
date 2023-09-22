@@ -1,0 +1,6 @@
+return {
+
+  {
+    "lepture/vim-jinja",
+  },
+}
