@@ -4,19 +4,8 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      {
-        "folke/neoconf.nvim",
-        cmd = "Neoconf",
-        config = true,
-      },
-      {
-        "folke/neodev.nvim",
-        opts = {
-          experimental = {
-            pathStrict = true
-          }
-        }
-      },
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
+      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       {
@@ -57,10 +46,10 @@ return {
       -- options for vim.lsp.buf.format
       -- `bufnr` and `filter` is handled by the LuaVim formatter,
       -- but can be also overridden when specified
-      -- format = {
-      --   formatting_options = nil,
-      --   timeout_ms = nil,
-      -- },
+      format = {
+        formatting_options = nil,
+        timeout_ms = nil,
+      },
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
@@ -80,7 +69,7 @@ return {
         },
         pylsp = {
           on_attach = function(client, buffer)
-            -- client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.hoverProvider = false
             -- client.server_capabilities.renameProvider = false
             client.server_capabilities.completionProvider.resolveProvider = false
@@ -145,21 +134,21 @@ return {
       end)
 
       -- diagnostics
-      for name, icon in pairs(require("conf").icons.diagnostics) do
+      for name, icon in pairs(require("config").icons.diagnostics) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
-        opts.diagnostics.virtual_text.prefix = "●"
-            or function(diagnostic)
-              local icons = require("conf").icons.diagnostics
-              for d, icon in pairs(icons) do
-                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                  return icon
-                end
+        opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
+          or function(diagnostic)
+            local icons = require("config").icons.diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
               end
             end
+          end
       end
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -225,6 +214,35 @@ return {
     end,
   },
 
+  -- formatters
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        sources = {
+          -- nls.builtins.diagnostics.fish,
+          nls.builtins.diagnostics.djlint,
+
+          -- nls.builtins.formatting.fish_indent,
+          nls.builtins.formatting.stylua,
+          -- nls.builtins.formatting.shfmt,
+          -- python
+          nls.builtins.diagnostics.flake8,
+          -- nls.builtins.formatting.autoflake,
+          -- nls.builtins.formatting.autopep8,
+          nls.builtins.formatting.black,
+          -- html
+          -- nls.builtins.formatting.djlint,
+          nls.builtins.formatting.djhtml,
+        },
+      }
+    end,
+  },
+
   -- cmdline tools and lsp servers
   {
     "williamboman/mason.nvim",
@@ -256,7 +274,6 @@ return {
       end
     end,
   },
-
   {
     "kevinhwang91/nvim-ufo",
     dependencies = {

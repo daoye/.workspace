@@ -5,7 +5,7 @@ return {
     "L3MON4D3/LuaSnip",
     build = (not jit.os:find("Windows"))
         and "echo -e 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
-      or nil,
+        or nil,
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()
@@ -16,113 +16,25 @@ return {
       history = true,
       delete_check_events = "TextChanged",
     },
-        -- stylua: ignore
-        keys = {
-            {
-                "<tab>",
-                function()
-                    local luasnip = require("luasnip")
-                    return luasnip.expand_or_locally_jumpable() and luasnip.expand_or_jump() or '<tab>'
-                    -- return luasnip.jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-                end,
-                expr = true,
-                silent = true,
-                mode = "i",
-                desc = "luasnip jump next"
-            },
-            { "<tab>",   function() require("luasnip").jump(1) end,   mode = "s", desc = "luasnip jump next" },
-            { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" }, desc="luasnip jump prev" },
-        },
-  },
-
-  -- auto completion
-  {
-    "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-      "rcarriga/cmp-dap",
-    },
-    opts = function()
-      local cmp = require("cmp")
-
-      return {
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<S-CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
-        formatting = {
-          format = function(_, item)
-            local icons = require("config").icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
-        },
-        experimental = {
-          ghost_text = {
-            hl_group = "LspCodeLens",
-          },
-        },
-        enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+    -- stylua: ignore
+    keys = {
+      {
+        "<tab>",
+        function()
+          local luasnip = require("luasnip")
+          -- return luasnip.expand_or_locally_jumpable() and luasnip.expand_or_jump() or '<tab>'
+          return luasnip.jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
         end,
-      }
-    end,
-    init = function()
-      local cmp = require("cmp")
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
-      })
-
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          { name = "cmdline" },
-        }),
-      })
-
-      require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-        sources = {
-          { name = "dap" },
-        },
-      })
-    end,
+        expr = true,
+        silent = true,
+        mode = "i",
+        desc = "luasnip jump next"
+      },
+      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s",          desc = "luasnip jump next" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" }, desc = "luasnip jump prev" },
+    },
   },
+
 
   -- auto pairs
   {
@@ -139,12 +51,12 @@ return {
       local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
       local opts = require("lazy.core.plugin").values(plugin, "opts", false)
       local mappings = {
-        { opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
-        { opts.mappings.delete, desc = "Delete surrounding" },
-        { opts.mappings.find, desc = "Find right surrounding" },
-        { opts.mappings.find_left, desc = "Find left surrounding" },
-        { opts.mappings.highlight, desc = "Highlight surrounding" },
-        { opts.mappings.replace, desc = "Replace surrounding" },
+        { opts.mappings.add,            desc = "Add surrounding",                     mode = { "n", "v" } },
+        { opts.mappings.delete,         desc = "Delete surrounding" },
+        { opts.mappings.find,           desc = "Find right surrounding" },
+        { opts.mappings.find_left,      desc = "Find left surrounding" },
+        { opts.mappings.highlight,      desc = "Highlight surrounding" },
+        { opts.mappings.replace,        desc = "Replace surrounding" },
         { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
       }
       mappings = vim.tbl_filter(function(m)
@@ -154,12 +66,12 @@ return {
     end,
     opts = {
       mappings = {
-        add = "ys", -- Add surrounding in Normal and Visual modes
-        delete = "ds", -- Delete surrounding
-        find = "fs", -- Find surrounding (to the right)
-        find_left = "Fs", -- Find surrounding (to the left)
-        highlight = "hs", -- Highlight surrounding
-        replace = "cs", -- Replace surrounding
+        add = "ys",            -- Add surrounding in Normal and Visual modes
+        delete = "ds",         -- Delete surrounding
+        find = "fs",           -- Find surrounding (to the right)
+        find_left = "Fs",      -- Find surrounding (to the left)
+        highlight = "hs",      -- Highlight surrounding
+        replace = "cs",        -- Replace surrounding
         update_n_lines = "ns", -- Update `n_lines`
       },
     },
@@ -210,51 +122,9 @@ return {
     end,
     config = function(_, opts)
       require("mini.ai").setup(opts)
-      -- register all text objects with which-key
-      if require("util").has("which-key.nvim") then
-        ---@type table<string, string|table>
-        local i = {
-          [" "] = "Whitespace",
-          ['"'] = 'Balanced "',
-          ["'"] = "Balanced '",
-          ["`"] = "Balanced `",
-          ["("] = "Balanced (",
-          [")"] = "Balanced ) including white-space",
-          [">"] = "Balanced > including white-space",
-          ["<lt>"] = "Balanced <",
-          ["]"] = "Balanced ] including white-space",
-          ["["] = "Balanced [",
-          ["}"] = "Balanced } including white-space",
-          ["{"] = "Balanced {",
-          ["?"] = "User Prompt",
-          _ = "Underscore",
-          a = "Argument",
-          b = "Balanced ), ], }",
-          c = "Class",
-          f = "Function",
-          o = "Block, conditional, loop",
-          q = "Quote `, \", '",
-          t = "Tag",
-        }
-        local a = vim.deepcopy(i)
-        for k, v in pairs(a) do
-          a[k] = v:gsub(" including.*", "")
-        end
-
-        local ic = vim.deepcopy(i)
-        local ac = vim.deepcopy(a)
-        for key, name in pairs({ n = "Next", l = "Last" }) do
-          i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
-          a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
-        end
-        require("which-key").register({
-          mode = { "o", "x" },
-          i = i,
-          a = a,
-        })
-      end
     end,
   },
+
   -- text align
   {
     "echasnovski/mini.align",
@@ -262,25 +132,97 @@ return {
     version = false,
     config = function(_, opts)
       require("mini.align").setup(opts)
-
-      if require("util").has("which-key.nvim") then
-        ---@type table<string, string|table>
-        local i = {
-          ["s"] = "Enter split Lua pattern",
-          ["j"] = 'Choose justification side from available ones ("left", "center", "right", "none").',
-          ["m"] = "Enter merge delimiter.",
-          ["f"] = 'Enter filter Lua expression to configure which parts will be affected (like "align only first column").',
-          ["i"] = "Ignore some commonly unwanted split matches.",
-          ["p"] = "Pair neighboring parts so they be aligned together.",
-          ["t"] = "Trim whitespace from parts.",
-          ["<BS>"] = "(backspace) to delete some last pre-step.",
-        }
-        require("which-key").register({
-          mode = { "o", "x" },
-          i = i,
-          a = i,
-        })
-      end
     end,
   },
+
+
+  -- auto completion
+  {
+    "hrsh7th/nvim-cmp",
+    version = false, -- last release is way too old
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
+    },
+    opts = function()
+      local cmp = require("cmp")
+
+      return {
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+        },
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<S-CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
+        formatting = {
+          format = function(_, item)
+            local icons = require("conf").icons.kinds
+            if icons[item.kind] then
+              item.kind = icons[item.kind] .. item.kind
+            end
+            return item
+          end,
+        },
+        experimental = {
+          ghost_text = {
+            hl_group = "LspCodeLens",
+          },
+        },
+        enabled = function()
+          -- return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        end,
+      }
+    end,
+    init = function()
+      local cmp = require("cmp")
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }),
+      })
+
+      require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+        sources = {
+          { name = "dap" },
+        },
+      })
+    end,
+  },
+
 }

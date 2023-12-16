@@ -39,8 +39,20 @@ function M.get()
                 has = "codeAction",
             },
         }
-
-        M._keys[#M._keys + 1] = { "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
+        if require("util").has("inc-rename.nvim") then
+            M._keys[#M._keys + 1] = {
+                "<leader>rn",
+                function()
+                    local inc_rename = require("inc_rename")
+                    return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
+                end,
+                expr = true,
+                desc = "Rename",
+                has = "rename",
+            }
+        else
+            M._keys[#M._keys + 1] = { "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
+        end
     end
     return M._keys
 end
@@ -58,7 +70,6 @@ function M.on_attach(client, buffer)
         end
     end
 
-
     for _, keys in pairs(keymaps) do
         if not keys.has or client.server_capabilities[keys.has .. "Provider"] then
             local opts = Keys.opts(keys)
@@ -66,7 +77,7 @@ function M.on_attach(client, buffer)
             opts.has = nil
             opts.silent = opts.silent ~= false
             opts.buffer = buffer
-            vim.keymap.set(keys.mode or "n", keys['lhs'], keys['rhs'], opts)
+            vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
         end
     end
 end
