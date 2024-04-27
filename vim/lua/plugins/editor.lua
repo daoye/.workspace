@@ -1,4 +1,5 @@
 local util = require('util')
+local utilLsp = require('util.lsp')
 
 return {
     -- file tree
@@ -27,7 +28,7 @@ return {
             mappings = {
                 close       = 'q',
                 go_in       = 'l',
-                go_in_plus  = 'o',
+                go_in_plus  = '<CR>',
                 go_out      = 'h',
                 go_out_plus = '<BS>',
                 reset       = '<ESC>',
@@ -145,7 +146,7 @@ return {
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesActionRename",
                 callback = function(event)
-                    -- LazyVim.lsp.on_rename(event.data.from, event.data.to)
+                    utilLsp.on_rename(event.data.from, event.data.to)
                 end,
             })
         end,
