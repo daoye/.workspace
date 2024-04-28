@@ -1,5 +1,6 @@
 local util = require('util')
 local utilLsp = require('util.lsp')
+local utilMinifile = require('util.minifile')
 
 return {
     -- file tree
@@ -14,9 +15,7 @@ return {
             -- Customization of shown content
             content = {
                 -- Predicate for which file system entries to show
-                filter = function(fs_entry)
-                    return not vim.startswith(fs_entry.name, '.')
-                end,
+                filter = utilMinifile.filter,
                 -- What prefix to show to the left of file system entry
                 prefix = nil,
                 -- In which order to show file system entries
@@ -27,14 +26,14 @@ return {
             -- Use `''` (empty string) to not create one.
             mappings = {
                 close       = 'q',
-                go_in       = 'l',
+                go_in       = '<C-l>',
                 go_in_plus  = '<CR>',
-                go_out      = 'h',
+                go_out      = '<C-h>',
                 go_out_plus = '<BS>',
                 reset       = '<ESC>',
                 reveal_cwd  = '@',
                 show_help   = '?',
-                synchronize = '=',
+                synchronize = 'z',
                 trim_left   = '<',
                 trim_right  = '>',
             },
@@ -88,21 +87,20 @@ return {
                     vim.wo[win_id].winblend = 0
                     vim.api.nvim_win_set_config(win_id,
                         {
-                            border = { "╔", "-", "╗", "|", "╝", "-", "╚", "|" }
+                            border = { "+", "-", "+", "|", "+", "-", "+", "|" }
+                            -- border = 'rounded'
                         }
                     )
                 end,
             })
 
-            local show_dotfiles = false
+            local show_hidefiles = false
             local filter_show = function(fs_entry) return true end
-            local filter_hide = function(fs_entry)
-                return not vim.startswith(fs_entry.name, '.')
-            end
+            local filter_hide = utilMinifile.filter
 
-            local toggle_dotfiles = function()
-                show_dotfiles = not show_dotfiles
-                local new_filter = show_dotfiles and filter_show or filter_hide
+            local toggle_hidefiles = function()
+                show_hidefiles = not show_hidefiles
+                local new_filter = show_hidefiles and filter_show or filter_hide
                 MiniFiles.refresh({ content = { filter = new_filter } })
             end
 
@@ -111,7 +109,7 @@ return {
                 callback = function(args)
                     local buf_id = args.data.buf_id
                     -- Tweak left-hand side of mapping to your liking
-                    vim.keymap.set('n', '.', toggle_dotfiles, { buffer = buf_id })
+                    vim.keymap.set('n', '.', toggle_hidefiles, { buffer = buf_id })
                 end,
             })
 
@@ -243,8 +241,18 @@ return {
         },
         -- stylua: ignore
         keys = {
-            { "<leader>sw", function() require("spectre").open() end,                                   desc = "Replace in files (Spectre)" },
-            { "<leader>sf", function() require("spectre").open_file_search({ select_word = true }) end, desc = "Replace in current file(Spectre)" },
+            {
+                "<leader>sw",
+                function() require("spectre").open() end,
+                desc =
+                "Replace in files (Spectre)"
+            },
+            {
+                "<leader>sf",
+                function() require("spectre").open_file_search({ select_word = true }) end,
+                desc =
+                "Replace in current file(Spectre)"
+            },
         },
     },
 
@@ -518,7 +526,11 @@ return {
                             cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
                             color = Util.fg("Debug"),
                         },
-                        { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.fg("Special") },
+                        {
+                            require("lazy.status").updates,
+                            cond = require("lazy.status").has_updates,
+                            color = Util.fg("Special")
+                        },
                         {
                             "diff",
                             symbols = {
@@ -591,11 +603,35 @@ return {
         opts = {},
         -- stylua: ignore
         keys = {
-            { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-            { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-            { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
-            { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-            { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            {
+                "S",
+                mode = { "n", "x", "o" },
+                function() require("flash").treesitter() end,
+                desc =
+                "Flash Treesitter"
+            },
+            {
+                "r",
+                mode = "o",
+                function() require("flash").remote() end,
+                desc =
+                "Remote Flash"
+            },
+            {
+                "R",
+                mode = { "o", "x" },
+                function() require("flash").treesitter_search() end,
+                desc =
+                "Treesitter Search"
+            },
+            {
+                "<c-s>",
+                mode = { "c" },
+                function() require("flash").toggle() end,
+                desc =
+                "Toggle Flash Search"
+            },
         },
     },
 
