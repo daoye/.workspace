@@ -3,212 +3,55 @@ local utilLsp = require('util.lsp')
 local utilMinifile = require('util.minifile')
 
 return {
-    -- file tree
-
+    -- file explorer
     {
-        'echasnovski/mini.files',
+        'stevearc/oil.nvim',
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        version = '*',
         opts = {
-            -- Customization of shown content
-            content = {
-                -- Predicate for which file system entries to show
-                filter = utilMinifile.filter,
-                -- What prefix to show to the left of file system entry
-                prefix = nil,
-                -- In which order to show file system entries
-                sort = nil,
+            keymaps = {
+                ["?"] = "actions.show_help",
+                ["<CR>"] = "actions.select",
+                ["<C-v>"] = "actions.select_vsplit",
+                ["<C-h>"] = "actions.select_split",
+                ["<C-t>"] = "actions.select_tab",
+                ["<C-p>"] = "actions.preview",
+                ["q"] = "actions.close",
+                ["<Leader>r"] = "actions.refresh",
+                ["<BS>"] = "actions.parent",
+                ["<ESC>"] = "actions.open_cwd",
+                ["cd"] = "actions.cd",
+                ["~"] = "actions.tcd",
+                ["<Leader>s"] = "actions.change_sort",
+                ["<Leader><Leader>"] = "actions.open_external",
+                ["<Leader>."] = "actions.toggle_hidden",
+                ["g\\"] = "actions.toggle_trash",
             },
+            -- Set to false to disable all of the above keymaps
+            use_default_keymaps = false,
 
-            -- Module mappings created only inside explorer.
-            -- Use `''` (empty string) to not create one.
-            mappings = {
-                close       = 'q',
-                go_in       = '<C-l>',
-                go_in_plus  = '<CR>',
-                go_out      = '<C-h>',
-                go_out_plus = '<BS>',
-                reset       = '<ESC>',
-                reveal_cwd  = '@',
-                show_help   = '?',
-                synchronize = 'z',
-                trim_left   = '<',
-                trim_right  = '>',
-            },
-
-            -- General options
-            options = {
-                -- Whether to delete permanently or move into module-specific trash
-                permanent_delete = true,
-                -- Whether to use for editing directories
-                use_as_default_explorer = true,
-            },
-
-            -- Customization of explorer windows
-            windows = {
-                -- Maximum number of windows to show side by side
-                max_number = math.huge,
-                -- Whether to show preview of file/directory under cursor
-                preview = true,
-                -- Width of focused window
-                width_focus = 30,
-                -- Width of non-focused window
-                width_nofocus = 30,
-                -- Width of preview window
-                width_preview = 80,
-            },
+            -- watch file system and auto reload
+            experimental_watch_for_changes = true,
         },
         keys = {
             {
                 "<space>f",
                 function()
-                    require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
+                    -- require("oil").open(vim.api.nvim_buf_get_name(0), false)
+                    require("oil").open()
                 end,
                 desc = "Explorer focus current file",
             },
             {
                 "<space>e",
                 function()
-                    require("mini.files").open()
+                    require("oil").open(vim.loop.cwd())
                 end,
                 desc = "Explorer",
             },
         },
-
-        init = function()
-            vim.api.nvim_create_autocmd('User', {
-                pattern = 'MiniFilesWindowOpen',
-                callback = function(args)
-                    local win_id = args.data.win_id
-
-                    -- Customize window-local settings
-                    vim.wo[win_id].winblend = 0
-                    vim.api.nvim_win_set_config(win_id,
-                        {
-                            border = { "+", "-", "+", "|", "+", "-", "+", "|" }
-                            -- border = 'rounded'
-                        }
-                    )
-                end,
-            })
-
-            local show_hidefiles = false
-            local filter_show = function(fs_entry) return true end
-            local filter_hide = utilMinifile.filter
-
-            local toggle_hidefiles = function()
-                show_hidefiles = not show_hidefiles
-                local new_filter = show_hidefiles and filter_show or filter_hide
-                MiniFiles.refresh({ content = { filter = new_filter } })
-            end
-
-            vim.api.nvim_create_autocmd('User', {
-                pattern = 'MiniFilesBufferCreate',
-                callback = function(args)
-                    local buf_id = args.data.buf_id
-                    -- Tweak left-hand side of mapping to your liking
-                    vim.keymap.set('n', '.', toggle_hidefiles, { buffer = buf_id })
-                end,
-            })
-
-
-            local map_split = function(buf_id, lhs, direction)
-                local rhs = function()
-                    -- Make new window and set it as target
-                    local new_target_window
-                    vim.api.nvim_win_call(MiniFiles.get_target_window(), function()
-                        vim.cmd(direction .. ' split')
-                        new_target_window = vim.api.nvim_get_current_win()
-                    end)
-
-                    MiniFiles.set_target_window(new_target_window)
-                    MiniFiles.go_in({ close_on_file = false })
-                end
-
-                -- Adding `desc` will result into `show_help` entries
-                local desc = 'Split ' .. direction
-                vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
-            end
-
-            vim.api.nvim_create_autocmd('User', {
-                pattern = 'MiniFilesBufferCreate',
-                callback = function(args)
-                    local buf_id = args.data.buf_id
-                    map_split(buf_id, '-', 'belowright horizontal')
-                    map_split(buf_id, '|', 'belowright vertical')
-                end,
-            })
-
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "MiniFilesActionRename",
-                callback = function(event)
-                    utilLsp.on_rename(event.data.from, event.data.to)
-                end,
-            })
-        end,
     },
-    -- {
-    --     "nvim-tree/nvim-tree.lua",
-    --     dependencies = {
-    --         "nvim-tree/nvim-web-devicons",
-    --     },
-    --     opts = {
-    --         sort_by = "case_sensitive",
-    --         select_prompts = true,
-    --         disable_netrw = true,
-    --         reload_on_bufenter = true,
-    --         view = {
-    --             width = 50,
-    --         },
-    --         renderer = {
-    --             group_empty = true,
-    --         },
-    --         filters = {
-    --             dotfiles = true,
-    --         },
-    --         on_attach = function(bufnr)
-    --             local api = require("nvim-tree.api")
-
-    --             local function opts(desc)
-    --                 return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-    --             end
-
-    --             api.config.mappings.default_on_attach(bufnr)
-
-    --             vim.keymap.del("n", "g?", { buffer = bufnr })
-    --             vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-    --         end,
-    --     },
-
-    --     keys = {
-    --         {
-    --             "<space>f",
-    --             function()
-    --                 require("nvim-tree.api").tree.open({ find_file = true })
-    --             end,
-    --             desc = "Explorer focus current file",
-    --         },
-    --         {
-    --             "<space>e",
-    --             function()
-    --                 require("nvim-tree.api").tree.toggle()
-    --             end,
-    --             desc = "Explorer",
-    --         },
-    --     },
-
-    --     init = function()
-    --         if vim.fn.argc() == 1 then
-    --             local stat = vim.loop.fs_stat(vim.fn.argv(0))
-    --             if stat and stat.type == "directory" then
-    --                 require("nvim-tree")
-    --             end
-    --         end
-    --     end,
-    -- },
-
     -- search/replace in multiple files
     {
         "nvim-pack/nvim-spectre",
