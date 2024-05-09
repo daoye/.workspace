@@ -147,7 +147,7 @@ return {
             },
             { "<leader>sk", "<cmd>Telescope keymaps<cr>",     desc = "Key Maps" },
             { "<leader>sM", "<cmd>Telescope man_pages<cr>",   desc = "Man Pages" },
-            { "<leader>sm", "<cmd>Telescope marks<cr>",       desc = "Jump to Mark" },
+            { "<leader>fm", "<cmd>Telescope marks<cr>",       desc = "Jump to Mark" },
             { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
             { "<leader>sR", "<cmd>Telescope resume<cr>",      desc = "Resume" },
             {
