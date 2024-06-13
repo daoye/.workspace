@@ -1,6 +1,6 @@
 local util = require('util')
 local utilLsp = require('util.lsp')
-local utilMinifile = require('util.minifile')
+local utilOil = require('util.oil')
 
 return {
     -- file explorer
@@ -33,7 +33,15 @@ return {
 
             -- watch file system and auto reload
             experimental_watch_for_changes = true,
+            view_options = {
+                show_hidden = false,
+                is_hidden_file = function(name, bufnr)
+                    return utilOil.filter(name, bufnr)
+                    -- return vim.startswith(name, ".") or name == 'bin' or name == 'obj'
+                end,
+            },
         },
+
         keys = {
             {
                 "<space>f",
