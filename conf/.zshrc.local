@@ -7,6 +7,7 @@ export PATH=$GEM_HOME/bin:$PATH
 
 export BAT_THEME="Catppuccin-latte"
 
+
 # export LDFLAGS="-L/usr/local/opt/llvm/lib"
 # export CPPFLAGS="-I/usr/local/opt/llvm/include"
 

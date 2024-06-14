@@ -97,12 +97,10 @@ map("v", ">", ">gv")
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
-map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
-if not Util.has("trouble.nvim") then
-    map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
-    map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
-end
+map("n", "<leader>co", "<cmd>copen<cr>", { desc = "Quickfix List" })
+map("n", "<leader>cp", vim.cmd.cprev, { desc = "Previous quickfix" })
+map("n", "<leader>cn", vim.cmd.cnext, { desc = "Next quickfix" })
 
 -- stylua: ignore start
 
@@ -119,7 +117,7 @@ map("n", "<leader>.", function()
     vim.opt.relativenumber = not vim.opt.relativenumber:get()
 end, { desc = "Toggle line number mode, absolute or relative." })
 
-map("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+map("n", "<space>k", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 map("n", "<leader>uc", function() Util.toggle("conceallevel", false, { 0, conceallevel }) end,
     { desc = "Toggle Conceal" })
