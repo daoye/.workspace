@@ -42,6 +42,12 @@ return {
         event = "VeryLazy",
         opts = {},
     },
+    -- auto tag
+    {
+        "windwp/nvim-ts-autotag",
+        -- event = "VeryLazy",
+        opts = {},
+    },
 
     -- surround
     {
