@@ -35,18 +35,29 @@ return {
         },
     },
 
-
     -- auto pairs
+    -- {
+    --     "echasnovski/mini.pairs",
+    --     event = "VeryLazy",
+    -- },
     {
-        "echasnovski/mini.pairs",
-        event = "VeryLazy",
-        opts = {},
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true,
+        init = function()
+            require("nvim-autopairs").setup {}
+        end
+        -- use opts = {} for passing setup options
+        -- this is equalent to setup({}) function
     },
     -- auto tag
     {
         "windwp/nvim-ts-autotag",
         -- event = "VeryLazy",
         opts = {},
+        -- init = function()
+        --     require("nvim-ts-autotag").setup {}
+        -- end
     },
 
     -- surround
