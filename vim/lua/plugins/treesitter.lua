@@ -25,9 +25,6 @@ return {
                     end
                 end,
             },
-            -- {
-            --   "windwp/nvim-ts-autotag",
-            -- },
         },
         keys = {
             { "<cr>", desc = "Increment selection" },
@@ -77,9 +74,6 @@ return {
                         ["<leader>A"] = "@parameter.inner",
                     },
                 },
-            },
-            autotag = {
-                enable = true,
             },
         },
         ---@param opts TSConfig
