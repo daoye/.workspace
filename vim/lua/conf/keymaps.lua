@@ -1,6 +1,4 @@
--- This file is automatically loaded by plugins.config
-
-local Util = require("util")
+local util = require("lazy.core.util")
 
 local function map(mode, lhs, rhs, opts)
     local keys = require("lazy.core.handler").handlers.keys
@@ -13,25 +11,37 @@ local function map(mode, lhs, rhs, opts)
     end
 end
 
+
+---@param silent boolean?
+---@param values? {[1]:any, [2]:any}
+local function toggle(option, silent, values)
+    if values then
+        if vim.opt_local[option]:get() == values[1] then
+            vim.opt_local[option] = values[2]
+        else
+            vim.opt_local[option] = values[1]
+        end
+        return util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+    end
+    vim.opt_local[option] = not vim.opt_local[option]:get()
+    if not silent then
+        if vim.opt_local[option]:get() then
+            util.info("Enabled " .. option, { title = "Option" })
+        else
+            util.warn("Disabled " .. option, { title = "Option" })
+        end
+    end
+end
+
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Move to window using the <ctrl> hjkl keys
--- map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
--- map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
--- map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
--- map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
--- map("n", "<S-k>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
--- map("n", "<S-j>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
--- map("n", "<S-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
--- map("n", "<S-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
@@ -41,32 +51,8 @@ map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- buffers
--- if Util.has("bufferline.nvim") then
---   map("n", "<A-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
---   map("n", "<A-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
---   map("n", "<A-1>", "<cmd>BufferLineGoToBuffer 1<cr>", { desc = "First buffer" })
---   map("n", "<A-0>", "<cmd>BufferLineGoToBuffer -1<cr>", { desc = "Last buffer" })
--- else
---   map("n", "<A-,>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
---   map("n", "<A-.>", "<cmd>bnext<cr>", { desc = "Next buffer" })
---   map("n", "<A-1>", "<cmd>bfirst<cr>", { desc = "First buffer" })
---   map("n", "<A-0>", "<cmd>blast<cr>", { desc = "Last buffer" })
--- end
--- map("n", "<A-c>", "<cmd>bdelete<cr>", { desc = "Close buffer" })
--- map("n", "<A-/>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
-
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
-map(
-    "n",
-    "<leader>ur",
-    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-    { desc = "Redraw / clear hlsearch / diff update" }
-)
 
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 
@@ -90,43 +76,19 @@ map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- lazy
--- map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
-
--- new file
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-
-map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
-
-map("n", "<leader>co", "<cmd>copen<cr>", { desc = "Quickfix List" })
-map("n", "<leader>cp", vim.cmd.cprev, { desc = "Previous quickfix" })
-map("n", "<leader>cn", vim.cmd.cnext, { desc = "Next quickfix" })
-
--- stylua: ignore start
-
--- toggle options
--- map("n", "<leader>uf", require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
-map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-
--- map("n", "<leader>ul", function()
---     Util.toggle("relativenumber", true)
---     Util.toggle("number")
--- end, { desc = "Toggle Line Numbers" })
+-- toggle row number style
 map("n", "<leader>.", function()
     vim.opt.relativenumber = not vim.opt.relativenumber:get()
 end, { desc = "Toggle line number mode, absolute or relative." })
 
-map("n", "<space>k", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map("n", "<leader>uc", function() Util.toggle("conceallevel", false, { 0, conceallevel }) end,
+map("n", "<leader>uc", function() toggle("conceallevel", false, { 0, conceallevel }) end,
     { desc = "Toggle Conceal" })
 
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
--- highlights under cursor
--- map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
@@ -143,5 +105,3 @@ map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-
--- marks
