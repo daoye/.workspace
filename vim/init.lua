@@ -53,10 +53,10 @@ opt.termguicolors = true -- True color support
 -- opt.wrap = false                   -- Disable line wrap
 
 -- -- opt.foldmethod = "indent"
--- opt.foldcolumn = "0"
--- opt.foldlevel = 99
--- vim.foldlevelstart = 99
--- opt.foldenable = true
+opt.foldcolumn = "0"
+opt.foldlevel = 99
+vim.foldlevelstart = 99
+opt.foldenable = true
 
 -- opt.splitkeep = "screen"
 -- opt.shortmess:append({ C = true })
