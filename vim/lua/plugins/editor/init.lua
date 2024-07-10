@@ -273,52 +273,37 @@ return {
 			},
 		},
 		keys = {
-			{ "<leader>fg",      M.telescope("live_grep"),                          desc = "Grep (root dir)" },
-			{ "<leader>fG",      M.telescope("live_grep", { cwd = false }),         desc = "Grep (cwd)" },
-			{ "<leader>:",       "<cmd>Telescope command_history<cr>",              desc = "Command History" },
-			{ "<leader><space>", M.telescope("files"),                              desc = "Find Files (root dir)" },
+			{ "<leader>fg",         M.telescope("live_grep"),                                  desc = "Grep (root dir)" },
+			{ "<leader>fG",         M.telescope("live_grep", { cwd = false }),                 desc = "Grep (cwd)" },
+			{ "<leader>:",          "<cmd>Telescope command_history<cr>",                      desc = "Command History" },
+			{ "<leader><space>",    M.telescope("files"),                                      desc = "Find Files (root dir)" },
 			-- find
-			{ "<leader>fb",      "<cmd>Telescope buffers<cr>",                      desc = "Buffers" },
-			{ "<leader>ff",      M.telescope("files"),                              desc = "Find Files (root dir)" },
-			{ "<leader>fF",      M.telescope("find_files"),                         desc = "Find All Files (root dir)" },
-			{ "<leader>fr",      "<cmd>Telescope oldfiles<cr>",                     desc = "Recent" },
-			{ "<leader>fR",      M.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
-			{ "<leader>fk",      "<cmd>Telescope keymaps<cr>",                      desc = "Keymaps" },
-			{ "<leader>f?",      "<cmd>Telescope help_tags<cr>",                    desc = "Help" },
-			{ "<leader>fw",      M.telescope("grep_string"),                        desc = "Word (root dir)" },
-			{ "<leader>fW",      M.telescope("grep_string", { cwd = false }),       desc = "Word (cwd)" },
+			{ "<leader>fb",         "<cmd>Telescope buffers<cr>",                              desc = "Buffers" },
+			{ "<leader>ff",         M.telescope("files"),                                      desc = "Find Files (root dir)" },
+			{ "<leader>fF",         M.telescope("find_files"),                                 desc = "Find All Files (root dir)" },
+			{ "<leader>fr",         "<cmd>Telescope oldfiles<cr>",                             desc = "Recent" },
+			{ "<leader>fR",         M.telescope("oldfiles", { cwd = vim.loop.cwd() }),         desc = "Recent (cwd)" },
+			{ "<leader>fk",         "<cmd>Telescope keymaps<cr>",                              desc = "Keymaps" },
+			{ "<leader>f?",         "<cmd>Telescope help_tags<cr>",                            desc = "Help" },
+			{ "<leader>fw",         M.telescope("grep_string"),                                desc = "Word (root dir)" },
+			{ "<leader>fW",         M.telescope("grep_string", { cwd = false }),               desc = "Word (cwd)" },
+			{ "<leader>fd",         "<cmd>Telescope diagnostics bufnr=0<cr>",                  desc = "Document diagnostics" },
+			{ "<leader><leader>fd", "<cmd>Telescope diagnostics<cr>",                          desc = "Workspace diagnostics" },
+			{ "<leader>fm",         "<cmd>Telescope marks<cr>",                                desc = "Jump to Mark" },
+			{ "<space>ff",          "<cmd>Telescope current_buffer_fuzzy_find fuzzy=true<cr>", desc = "Search in currentfile",    mode = { "n", "v" }, },
 			-- git
-			{ "<leader>gc",      "<cmd>Telescope git_commits<CR>",                  desc = "commits" },
-			{ "<leader>gs",      "<cmd>Telescope git_status<CR>",                   desc = "status" },
+			{ "<leader>gc",         "<cmd>Telescope git_commits<CR>",                          desc = "commits" },
+			{ "<leader>gs",         "<cmd>Telescope git_status<CR>",                           desc = "status" },
 			-- search
-			{ "<leader>sa",      "<cmd>Telescope autocommands<cr>",                 desc = "Auto Commands" },
-			{ "<leader>sc",      "<cmd>Telescope command_history<cr>",              desc = "Command History" },
-			{ "<leader>sC",      "<cmd>Telescope commands<cr>",                     desc = "Commands" },
-			{ "<leader>sd",      "<cmd>Telescope diagnostics bufnr=0<cr>",          desc = "Document diagnostics" },
-			{ "<leader>sD",      "<cmd>Telescope diagnostics<cr>",                  desc = "Workspace diagnostics" },
-			{ "<leader>sh",      "<cmd>Telescope help_tags<cr>",                    desc = "Help Pages" },
-			{
-				"<leader>sH",
-				"<cmd>Telescope highlights<cr>",
-				desc = "Search Highlight Groups",
-			},
-			{ "<leader>sk", "<cmd>Telescope keymaps<cr>",     desc = "Key Maps" },
-			{ "<leader>sM", "<cmd>Telescope man_pages<cr>",   desc = "Man Pages" },
-			{ "<leader>fm", "<cmd>Telescope marks<cr>",       desc = "Jump to Mark" },
-			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-			{ "<leader>sR", "<cmd>Telescope resume<cr>",      desc = "Resume" },
-			{
-				"<leader>uC",
-				M.telescope("colorscheme", { enable_preview = true }),
-				desc = "Colorscheme with preview",
-			},
-
-			{
-				"<space>ff",
-				"<cmd>Telescope current_buffer_fuzzy_find fuzzy=true<cr>",
-				desc = "Search in currentfile",
-				mode = { "n", "v" },
-			},
+			{ "<leader>sa",         "<cmd>Telescope autocommands<cr>",                         desc = "Auto Commands" },
+			{ "<leader>sc",         "<cmd>Telescope command_history<cr>",                      desc = "Command History" },
+			{ "<leader>sC",         "<cmd>Telescope commands<cr>",                             desc = "Commands" },
+			{ "<leader>sh",         "<cmd>Telescope help_tags<cr>",                            desc = "Help Pages" },
+			{ "<leader>sH",         "<cmd>Telescope highlights<cr>",                           desc = "Search Highlight Groups", },
+			{ "<leader>sk",         "<cmd>Telescope keymaps<cr>",                              desc = "Key Maps" },
+			{ "<leader>sM",         "<cmd>Telescope man_pages<cr>",                            desc = "Man Pages" },
+			{ "<leader>so",         "<cmd>Telescope vim_options<cr>",                          desc = "Options" },
+			{ "<leader>sR",         "<cmd>Telescope resume<cr>",                               desc = "Resume" },
 
 			{
 				"<leader>ls",
@@ -425,18 +410,6 @@ return {
 						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 						-- the default case_mode is "smart_case"
 					},
-					frecency = {
-						show_scores = true,
-						show_unindexed = true,
-						ignore_patterns = { "*.git/*", "*/tmp/*" },
-						disable_devicons = false,
-						workspaces = {
-							["conf"] = os.getenv("HOME") .. "/.config",
-							["data"] = os.getenv("HOME") .. "/.local/share",
-							["project"] = os.getenv("HOME") .. "/newegg",
-							["wiki"] = os.getenv("HOME") .. "/wiki",
-						},
-					},
 				},
 			})
 		end,
@@ -447,7 +420,11 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
 			'nvim-tree/nvim-web-devicons',
-			'SmiteshP/nvim-navic'
+			'SmiteshP/nvim-navic',
+			{
+				'linrongbin16/lsp-progress.nvim',
+				config = true
+			}
 		},
 		event = "VeryLazy",
 		opts = {
@@ -456,7 +433,6 @@ return {
 				lualine_b = { "branch" },
 				lualine_c = {
 					{ "diagnostics" },
-					{ "filetype", icon_only = false, separator = "", padding = { left = 1, right = 0 } },
 					{ "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
 					-- stylua: ignore
 					{
@@ -473,23 +449,35 @@ return {
 						function() return "  " .. require("dap").status() end,
 						cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
 					},
-					{
-						"diff",
-					},
-					{ "fileformat" },
-					{ "encoding" },
+					function()
+						return require('lsp-progress').progress()
+					end,
+					{ "diff" },
 				},
 				lualine_y = {
-					{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
-					{ "location", padding = { left = 0, right = 1 } },
+					{ "progress",   separator = " ",                  padding = { left = 1, right = 0 } },
+					{ "location",   padding = { left = 0, right = 1 } },
+					{ "fileformat", separator = "",                   padding = { left = 1, right = 0 } },
+					{ "encoding" },
 				},
 				lualine_z = {
-					function()
-						return " " .. os.date("%R")
-					end,
+					{ "filetype", icon_only = false },
+					-- function()
+					-- 	-- return vim.lsp.status()
+					-- 	-- return " " .. os.date("%R")
+					-- end,
 				},
 			}
-		}
+		},
+		init = function()
+			-- listen lsp-progress event and refresh lualine
+			vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+			vim.api.nvim_create_autocmd("User", {
+				group = "lualine_augroup",
+				pattern = "LspProgressStatusUpdated",
+				callback = require("lualine").refresh,
+			})
+		end
 	},
 
 	-- movation
@@ -626,6 +614,7 @@ return {
 		event = "InsertEnter",
 		config = true,
 	},
+
 	-- auto tag
 	{
 		"windwp/nvim-ts-autotag",
@@ -633,6 +622,7 @@ return {
 	},
 
 	{ "tpope/vim-repeat", event = "VeryLazy" },
+
 	{
 		"christoomey/vim-tmux-navigator",
 		lazy = false,

@@ -1,5 +1,4 @@
 local lspconfig = require "lspconfig"
-local coq = require "coq"
 local csharpls_extend = require "csharpls_extended"
 
 local M = {}
@@ -12,7 +11,7 @@ M.setup = function(opts)
 		},
 	})
 
-	lspconfig.csharp_ls.setup(coq.lsp_ensure_capabilities(config))
+	lspconfig.csharp_ls.setup(config)
 end
 
 return M

@@ -5,6 +5,33 @@ local cmp = require("cmp")
 
 local M = {}
 
+local kind_icons = {
+	Text = "",
+	Method = "󰆧",
+	Function = "󰊕",
+	Constructor = "",
+	Field = "󰇽",
+	Variable = "󰂡",
+	Class = "󰠱",
+	Interface = "",
+	Module = "",
+	Property = "󰜢",
+	Unit = "",
+	Value = "󰎠",
+	Enum = "",
+	Keyword = "󰌋",
+	Snippet = "",
+	Color = "󰏘",
+	File = "󰈙",
+	Reference = "",
+	Folder = "󰉋",
+	EnumMember = "",
+	Constant = "󰏿",
+	Struct = "",
+	Event = "",
+	Operator = "󰆕",
+	TypeParameter = "󰅲",
+}
 
 local setup_cmp = function(opts)
 	local cmp_opts = {
@@ -49,7 +76,35 @@ local setup_cmp = function(opts)
 				{ name = "path" },
 			},
 			{ name = 'buffer' }
-		)
+		),
+		formatting = {
+			format = function(entry, item)
+				-- Kind icons
+				item.kind = string.format('%s %s', kind_icons[item.kind], item.kind)
+				-- Source
+				item.menu = ({
+					nvim_lsp = "[LSP]",
+					nvim_lsp_signature_help = "[LSP]",
+					luasnip = "[LuaSnip]",
+					nvim_lua = "[Lua]",
+					path = "[Path]",
+					buffer = "[Buffer]",
+				})[entry.source.name]
+
+				local widths = {
+					abbr = 40,
+					menu = 30,
+				}
+
+				for key, width in pairs(widths) do
+					if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+						item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+					end
+				end
+
+				return item
+			end
+		},
 	}
 
 	cmp.setup(cmp_opts)
@@ -105,12 +160,11 @@ local function get()
 
 
 	M._keys = {
-		{ "<leader>cd", vim.diagnostic.open_float,                 desc = "Line Diagnostics" },
 		{
 			"gd",
 			function()
 				if vim.bo.filetype == "cs" then
-					-- There has some problem for csharp_ls with telescope with with lsp definition
+					-- There has some problem for csharp_ls with telescope
 					vim.lsp.buf.definition()
 				else
 					vim.cmd("Telescope lsp_definitions")
@@ -128,14 +182,6 @@ local function get()
 		{ "<leader>fs", vim.lsp.buf.format,                        desc = "Format Document",       has = "documentFormatting" },
 		{ "<leader>fs", vim.lsp.buf.format,                        desc = "Format Range",          mode = "v",                has = "documentRangeFormatting" },
 		{ "<leader>la", vim.lsp.buf.code_action,                   desc = "Code Action",           mode = { "n", "v" },       has = "codeAction" },
-		{
-			"<leader><leader>la",
-			function()
-				vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
-			end,
-			desc = "Source Action",
-			has = "codeAction",
-		},
 		{ "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
 	}
 
@@ -200,5 +246,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
 
 return M

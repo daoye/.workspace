@@ -25,9 +25,11 @@ require("lazy").setup({
 })
 
 
-
--- load common key maps
+-- set common key maps
 require("conf.keymaps")
 
--- load auto command
+-- set auto command
 require("conf.autocmd")
+
+-- set diagnostic
+require("conf.diagnostic")

@@ -1,5 +1,4 @@
 local lspconfig = require "lspconfig"
-local coq = require "coq"
 
 local M = {}
 
@@ -10,6 +9,7 @@ M.setup = function(opts)
 			if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
 				return
 			end
+
 
 			client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
 				runtime = {
@@ -40,7 +40,7 @@ M.setup = function(opts)
 		}
 	})
 
-	lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities(config))
+	lspconfig.lua_ls.setup(config)
 end
 
 
