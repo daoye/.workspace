@@ -1,10 +1,86 @@
-local lspconfig = require "lspconfig"
-local coq = require "coq"
-
+local lspconfig = require("lspconfig")
+local navic = require("nvim-navic")
+local luasnip = require("luasnip")
+local cmp = require("cmp")
 
 local M = {}
 
+
+local setup_cmp = function(opts)
+	local cmp_opts = {
+		snippet = {
+			expand = function(args)
+				luasnip.lsp_expand(args.body)
+			end,
+		},
+		mapping = cmp.mapping.preset.insert({
+			['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+			['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+			-- C-b (back) C-f (forward) for snippet placeholder navigation.
+			['<C-Space>'] = cmp.mapping.complete(),
+			['<CR>'] = cmp.mapping.confirm {
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = true,
+			},
+			['<Tab>'] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
+				else
+					fallback()
+				end
+			end, { 'i', 's' }),
+			['<S-Tab>'] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				elseif luasnip.jumpable(-1) then
+					luasnip.jump(-1)
+				else
+					fallback()
+				end
+			end, { 'i', 's' }),
+		}),
+		sources = cmp.config.sources(
+			{
+				{ name = 'nvim_lsp' },
+				{ name = 'nvim_lsp_signature_help' },
+				{ name = 'luasnip' },
+				{ name = "path" },
+			},
+			{ name = 'buffer' }
+		)
+	}
+
+	cmp.setup(cmp_opts)
+
+	cmp.setup.cmdline({ '/', '?' }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = 'buffer' }
+		}
+	})
+
+	cmp.setup.cmdline(':', {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = 'path' }
+		}, {
+			{ name = 'cmdline' }
+		}),
+		matching = { disallow_symbol_nonprefix_matching = false }
+	})
+end
+
+
 M.setup = function(opts)
+	opts = opts or {}
+	opts.capabilities = vim.tbl_deep_extend(
+		"force",
+		require("cmp_nvim_lsp").default_capabilities(),
+		opts.capabilities or {}
+	)
+
 	require("mason-lspconfig").setup_handlers {
 		function(server_name)
 			local ok, mod = pcall(function() return require("lsp." .. server_name) end)
@@ -12,10 +88,13 @@ M.setup = function(opts)
 			if ok then
 				mod.setup(opts)
 			else
-				lspconfig[server_name].setup(coq.lsp_ensure_capabilities(opts or {}))
+				lspconfig[server_name].setup(opts or {})
 			end
 		end,
 	}
+
+
+	setup_cmp(opts)
 end
 
 
@@ -93,7 +172,7 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local bufnr = args.buf
-		-- local client = vim.lsp.get_client_by_id(args.data.client_id)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
 
 		local keyHandler = require("lazy.core.handler.keys")
 		local maps = get()
@@ -112,6 +191,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 				vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
 			end
+		end
+
+
+		-- for navic in lualine
+		if client.server_capabilities.documentSymbolProvider then
+			navic.attach(client, bufnr)
 		end
 	end,
 })

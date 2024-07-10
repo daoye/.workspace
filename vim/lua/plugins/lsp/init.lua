@@ -17,10 +17,19 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 
-			-- for coq auto completion
-			{ "ms-jpq/coq_nvim",       branch = "coq" },
-			{ "ms-jpq/coq.artifacts",  branch = "artifacts" },
-			{ 'ms-jpq/coq.thirdparty', branch = "3p" }
+			-- autocomplete
+			'hrsh7th/nvim-cmp',
+			'hrsh7th/cmp-nvim-lsp',
+			'hrsh7th/cmp-buffer',
+			'hrsh7th/cmp-path',
+			'hrsh7th/cmp-cmdline',
+
+			-- autocomplete snip source
+			'saadparwaiz1/cmp_luasnip',
+			'L3MON4D3/LuaSnip',
+
+			-- extend sources
+			'hrsh7th/cmp-nvim-lsp-signature-help'
 		},
 		opts = {
 			-- add any global capabilities here
@@ -34,21 +43,6 @@ return {
 			},
 		},
 		init = function()
-			vim.g.coq_settings = {
-				auto_start = true,
-				limits = {
-					completion_auto_timeout = 0,
-				},
-				completion = {
-					always = true,
-					skip_after = { "{", "}", "[", "]", " ", ":" },
-					smart = true,
-				},
-				keymap = {
-					recommended = true,
-					pre_select = true,
-				},
-			}
 		end,
 		config = function(_, opts)
 			require("lsp").setup(opts)
