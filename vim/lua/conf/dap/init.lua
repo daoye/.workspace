@@ -1,7 +1,21 @@
-local dap = require("dap")
 local M = {}
 
 M.setup = function()
+	local dap = require("dap")
+
+	dap.set_log_level("TRACE")
+
+	-- repl
+	require("cmp").setup.filetype({ "dap-repl" }, {
+		sources = {
+			{ name = "dap" },
+		},
+	})
+	dap.listeners.after.event_initialized["aprilzz"] = function(session)
+		dap.repl.open({ height = 10 }, "belowright split")
+	end
+
+	-- dap signs
 	vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
 	local kind = {
@@ -21,19 +35,8 @@ M.setup = function()
 		)
 	end
 
-	dap.listeners.after.event_initialized["aprilzz"] = function(session)
-		dap.repl.open({ height = 10 }, "belowright split")
-	end
-	dap.set_log_level("TRACE")
-
+	-- adapters
 	require("conf.dap.adapters").setup()
-
-	-- repl auto complete
-	-- require("cmp").setup.filetype({ "dap-repl" }, {
-	-- 	sources = {
-	-- 		{ name = "dap" },
-	-- 	},
-	-- })
 end
 
 return M

@@ -204,7 +204,7 @@ return {
 			{
 				"<space>e",
 				function()
-					require("oil").open(vim.loop.cwd())
+					require("oil").open(vim.uv.cwd())
 				end,
 				desc = "Explorer",
 			},
@@ -423,7 +423,7 @@ return {
 			'SmiteshP/nvim-navic',
 			{
 				'linrongbin16/lsp-progress.nvim',
-				config = true
+				config = true,
 			}
 		},
 		event = "VeryLazy",

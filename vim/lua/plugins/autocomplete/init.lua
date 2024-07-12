@@ -13,10 +13,18 @@ return {
 			'L3MON4D3/LuaSnip',
 
 			-- extend sources
-			'hrsh7th/cmp-nvim-lsp-signature-help'
+			'hrsh7th/cmp-nvim-lsp-signature-help',
+
+			-- spell
+			'f3fora/cmp-spell',
+			-- dap
+			"rcarriga/cmp-dap",
 		},
 		config = function(_, opts)
 			require("conf.autocomplete").setup(opts)
+		end,
+		init = function ()
+			require("conf.autocomplete").initialize()
 		end
 	},
 }

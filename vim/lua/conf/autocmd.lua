@@ -52,6 +52,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "startuptime",
         "tsplayground",
         "checkhealth",
+		"dap-repl",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false

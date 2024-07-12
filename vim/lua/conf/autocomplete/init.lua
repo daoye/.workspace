@@ -1,6 +1,3 @@
-local luasnip = require("luasnip")
-local cmp = require("cmp")
-
 local kind_icons = {
 	Text = "",
 	Method = "󰆧",
@@ -32,7 +29,10 @@ local kind_icons = {
 
 local M = {}
 M.setup = function(opts)
-	local cmp_opts = {
+	local luasnip = require("luasnip")
+	local cmp = require("cmp")
+
+	cmp.setup(vim.tbl_deep_extend("force", opts or {}, {
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
@@ -71,9 +71,12 @@ M.setup = function(opts)
 				{ name = 'nvim_lsp' },
 				{ name = 'nvim_lsp_signature_help' },
 				{ name = 'luasnip' },
-				{ name = "path" },
+				{ name = 'path' },
 			},
-			{ name = 'buffer' }
+			{
+				{ name = 'buffer' },
+				{ name = 'spell' }
+			}
 		),
 		formatting = {
 			format = function(entry, item)
@@ -87,6 +90,8 @@ M.setup = function(opts)
 					nvim_lua = "[Lua]",
 					path = "[Path]",
 					buffer = "[Buffer]",
+					spell = "[Spell]",
+					dap = "[Dap]",
 				})[entry.source.name]
 
 				local widths = {
@@ -103,25 +108,35 @@ M.setup = function(opts)
 				return item
 			end
 		},
-	}
+	}))
+end
 
-	cmp.setup(cmp_opts)
+
+M.initialize = function()
+	local cmp = require("cmp")
 
 	cmp.setup.cmdline({ '/', '?' }, {
 		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
-			{ name = 'buffer' }
-		}
+		sources = cmp.config.sources({
+			{ name = 'buffer' },
+			{ name = 'spell' }
+		})
 	})
 
 	cmp.setup.cmdline(':', {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
-			{ name = 'path' }
-		}, {
+			{ name = 'path' },
 			{ name = 'cmdline' }
 		}),
 		matching = { disallow_symbol_nonprefix_matching = false }
+	})
+
+	cmp.setup.filetype({ "dap-repl" }, {
+		sources = cmp.config.sources({
+			{ name = "dap" },
+			{ name = "spell" },
+		}),
 	})
 end
 
