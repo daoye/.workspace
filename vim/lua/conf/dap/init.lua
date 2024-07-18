@@ -12,7 +12,10 @@ M.setup = function()
 		},
 	})
 	dap.listeners.after.event_initialized["aprilzz"] = function(session)
-		dap.repl.open({ height = 10 }, "belowright split")
+		-- if not session.initialized then
+		-- 	return;
+		-- end
+		-- dap.repl.open({ height = 10 }, "belowright split")
 	end
 
 	-- dap signs
@@ -36,7 +39,8 @@ M.setup = function()
 	end
 
 	-- adapters
-	require("conf.dap.adapters").setup()
+	require("conf.dap.adapters.js").setup()
+	require("conf.dap.adapters.cs").setup()
 end
 
 return M
