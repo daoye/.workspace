@@ -10,13 +10,13 @@ vim.g.usecoc = true
 
 local opt = vim.opt
 
--- opt.autowrite = true          -- Enable auto write
+opt.autowrite = true          -- Enable auto write
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 -- opt.completeopt = "menu,menuone,noselect"
 -- -- opt.conceallevel = 3 -- Hide * markup for bold and italic
 -- opt.confirm = true             -- Confirm to save changes before exiting modified buffer
--- opt.cursorline = true          -- Enable highlighting of the current line
--- opt.expandtab = true           -- Use spaces instead of tabs
+opt.cursorline = true          -- Enable highlighting of the current line
+opt.expandtab = true           -- Use spaces instead of tabs
 opt.tabstop = 4    -- Number of spaces tabs count for
 opt.shiftwidth = 4 -- Size of an indent
 -- opt.formatoptions = "jcroqlnt" -- tcqj
@@ -25,7 +25,7 @@ opt.shiftwidth = 4 -- Size of an indent
 opt.ignorecase = true -- Ignore case
 -- opt.inccommand = "nosplit" -- preview incremental substitute
 -- opt.laststatus = 0
--- opt.list = true            -- Show some invisible characters (tabs...
+opt.list = true            -- Show some invisible characters (tabs...
 -- opt.mouse = "a"            -- Enable mouse mode
 opt.number = true -- Print line number
 -- opt.pumblend = 10          -- Popup blend

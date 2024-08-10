@@ -5,17 +5,11 @@ M.setup = function()
 
 	dap.set_log_level("TRACE")
 
-	-- repl
-	require("cmp").setup.filetype({ "dap-repl" }, {
-		sources = {
-			{ name = "dap" },
-		},
-	})
 	dap.listeners.after.event_initialized["aprilzz"] = function(session)
 		-- if not session.initialized then
 		-- 	return;
 		-- end
-		-- dap.repl.open({ height = 10 }, "belowright split")
+		dap.repl.open({ height = 10 }, "belowright split")
 	end
 
 	-- dap signs
