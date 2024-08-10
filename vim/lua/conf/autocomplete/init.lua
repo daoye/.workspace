@@ -26,7 +26,6 @@ local kind_icons = {
     TypeParameter = "󰅲",
 }
 
-
 local M = {}
 M.setup = function(opts)
     local luasnip = require("luasnip")
@@ -39,15 +38,15 @@ M.setup = function(opts)
             end,
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-            ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
+            ["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
+            ["<C-d>"] = cmp.mapping.scroll_docs(4), -- Down
             -- C-b (back) C-f (forward) for snippet placeholder navigation.
-            ['<C-Space>'] = cmp.mapping.complete(),
-            ['<CR>'] = cmp.mapping.confirm {
+            ["<C-Space>"] = cmp.mapping.complete(),
+            ["<CR>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
-            },
-            ['<Tab>'] = cmp.mapping(function(fallback)
+            }),
+            ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
                 elseif luasnip.expand_or_jumpable() then
@@ -55,8 +54,8 @@ M.setup = function(opts)
                 else
                     fallback()
                 end
-            end, { 'i', 's' }),
-            ['<S-Tab>'] = cmp.mapping(function(fallback)
+            end, { "i", "s" }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
                 elseif luasnip.jumpable(-1) then
@@ -64,24 +63,22 @@ M.setup = function(opts)
                 else
                     fallback()
                 end
-            end, { 'i', 's' }),
+            end, { "i", "s" }),
         }),
-        sources = cmp.config.sources(
-            {
-                { name = 'nvim_lsp' },
-                { name = 'nvim_lsp_signature_help' },
-                { name = 'luasnip' },
-                { name = 'path' },
-            },
-            {
-                { name = 'buffer' },
-                { name = 'spell' }
-            }
-        ),
+        sources = cmp.config.sources({
+            { name = "lazydev" },
+            { name = "nvim_lsp" },
+            { name = "nvim_lsp_signature_help" },
+            { name = "luasnip" },
+            { name = "path" },
+        }, {
+            { name = "buffer" },
+            { name = "spell" },
+        }),
         formatting = {
             format = function(entry, item)
                 -- Kind icons
-                item.kind = string.format('%s %s', kind_icons[item.kind], item.kind)
+                item.kind = string.format("%s %s", kind_icons[item.kind], item.kind)
                 -- Source
                 item.menu = ({
                     nvim_lsp = "[LSP]",
@@ -106,30 +103,29 @@ M.setup = function(opts)
                 end
 
                 return item
-            end
+            end,
         },
     }))
 end
 
-
 M.initialize = function()
     local cmp = require("cmp")
 
-    cmp.setup.cmdline({ '/', '?' }, {
+    cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-            { name = 'buffer' },
-            { name = 'spell' }
-        })
+            { name = "buffer" },
+            { name = "spell" },
+        }),
     })
 
-    cmp.setup.cmdline(':', {
+    cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-            { name = 'path' },
-            { name = 'cmdline' }
+            { name = "path" },
+            { name = "cmdline" },
         }),
-        matching = { disallow_symbol_nonprefix_matching = false }
+        matching = { disallow_symbol_nonprefix_matching = false },
     })
 
     cmp.setup.filetype({ "dap-repl" }, {

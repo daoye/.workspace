@@ -1,8 +1,8 @@
 local kind = {
-    [vim.diagnostic.severity.ERROR] = ' ',
-    [vim.diagnostic.severity.WARN] = ' ',
-    [vim.diagnostic.severity.HINT] = ' ',
-    [vim.diagnostic.severity.INFO] = ' ',
+    [vim.diagnostic.severity.ERROR] = " ",
+    [vim.diagnostic.severity.WARN] = " ",
+    [vim.diagnostic.severity.HINT] = " ",
+    [vim.diagnostic.severity.INFO] = " ",
 }
 
 vim.diagnostic.config({
@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
             },
             format = function(diagnostic)
                 return kind[diagnostic.severity] .. diagnostic.message
-            end
+            end,
         })
-    end
+    end,
 })

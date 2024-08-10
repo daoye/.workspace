@@ -28,11 +28,33 @@ local function get()
         { "gi",         "<cmd>Telescope lsp_implementations<cr>",  desc = "Goto Implementation" },
         { "gy",         "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto T[y]pe Definition" },
         { "K",          vim.lsp.buf.hover,                         desc = "Hover" },
-        { "<c-k>",      vim.lsp.buf.signature_help,                mode = "i",                     desc = "Signature Help",   has = "signatureHelp" },
-        { "<leader>fs", vim.lsp.buf.format,                        desc = "Format Document",       has = "documentFormatting" },
-        { "<leader>fs", vim.lsp.buf.format,                        desc = "Format Range",          mode = "v",                has = "documentRangeFormatting" },
-        { "<leader>la", vim.lsp.buf.code_action,                   desc = "Code Action",           mode = { "n", "v" },       has = "codeAction" },
-        { "<leader>rn", vim.lsp.buf.rename,                        desc = "Rename",                has = "rename" }
+        { "<c-k>",      vim.lsp.buf.signature_help,                mode = "i",                     desc = "Signature Help", has = "signatureHelp" },
+        {
+            "<leader>fs",
+            function(...)
+                return require("conform").format(...)
+            end,
+            desc = "Format Document",
+            has = "documentFormatting"
+        },
+        {
+            "<leader>fs",
+            function(...)
+                require("conform").format(..., function(err)
+                    if not err then
+                        local mode = vim.api.nvim_get_mode().mode
+                        if vim.startswith(string.lower(mode), "v") then
+                            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+                        end
+                    end
+                end)
+            end,
+            desc = "Format Range",
+            mode = "v",
+            has = "documentRangeFormatting"
+        },
+        { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+        { "<leader>rn", vim.lsp.buf.rename,      desc = "Rename",      has = "rename" }
     }
 
     return M._keys
