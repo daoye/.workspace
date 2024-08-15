@@ -33,7 +33,11 @@ vim.api.nvim_create_autocmd("CursorHold", {
                 -- "WinLeave",
             },
             format = function(diagnostic)
+                -- return kind[diagnostic.severity] .. diagnostic.message .. " @" .. diagnostic.source
                 return kind[diagnostic.severity] .. diagnostic.message
+            end,
+            suffix = function(diagnostic, i, total)
+                return " [" .. diagnostic.source .. ', ' .. diagnostic.code .. ']', ''
             end,
         })
     end,
