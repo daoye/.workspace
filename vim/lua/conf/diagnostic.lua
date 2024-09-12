@@ -37,7 +37,14 @@ vim.api.nvim_create_autocmd("CursorHold", {
                 return kind[diagnostic.severity] .. diagnostic.message
             end,
             suffix = function(diagnostic, i, total)
-                return " [" .. diagnostic.source .. ', ' .. diagnostic.code .. ']', ''
+                if not diagnostic or not diagnostic.source then
+                    return "", ""
+                end
+                if diagnostic.code then
+                    return " [" .. diagnostic.source .. ", " .. diagnostic.code .. "]", ""
+                else
+                    return " [" .. diagnostic.source .. "]", ""
+                end
             end,
         })
     end,

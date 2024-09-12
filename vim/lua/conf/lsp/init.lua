@@ -104,6 +104,11 @@ M.setup = function(opts)
 
     require("mason-lspconfig").setup_handlers({
         function(server_name)
+            if server_name == "volar" then
+                -- vue integrate with ts_ls, this ignore
+                return
+            end
+
             local ok, mod = pcall(function()
                 return require("conf.lsp." .. server_name)
             end)

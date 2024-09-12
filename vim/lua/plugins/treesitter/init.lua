@@ -59,6 +59,7 @@ return {
                 "vimdoc",
                 "yaml",
                 "dap_repl",
+                "vue"
             },
             incremental_selection = {
                 enable = true,

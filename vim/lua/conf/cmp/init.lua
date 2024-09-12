@@ -27,6 +27,17 @@ local kind_icons = {
 }
 
 local M = {}
+
+local function is_vue_in_start_tag()
+    local ts_utils = require("nvim-treesitter.ts_utils")
+    local node = ts_utils.get_node_at_cursor()
+    if not node then
+        return false
+    end
+    local node_to_check = { "start_tag", "self_closing_tag", "directive_attribute" }
+    return vim.tbl_contains(node_to_check, node:type())
+end
+
 M.setup = function(opts)
     local luasnip = require("luasnip")
     local cmp = require("cmp")
@@ -67,7 +78,23 @@ M.setup = function(opts)
         }),
         sources = cmp.config.sources({
             { name = "lazydev" },
-            { name = "nvim_lsp" },
+            {
+                name = "nvim_lsp",
+                entry_filter = function(entry, ctx)
+                    -- for vue
+                    -- Use a buffer-local variable to cache the result of the Treesitter check
+                    local bufnr = ctx.bufnr
+                    local cached_is_in_start_tag = vim.b[bufnr]._vue_ts_cached_is_in_start_tag
+                    if cached_is_in_start_tag == nil then
+                        vim.b[bufnr]._vue_ts_cached_is_in_start_tag = is_vue_in_start_tag()
+                    end
+                    -- If not in start tag, return true
+                    if vim.b[bufnr]._vue_ts_cached_is_in_start_tag == false then
+                        return true
+                    end
+                    -- rest of the code
+                end,
+            },
             { name = "nvim_lsp_signature_help" },
             { name = "luasnip" },
             { name = "path" },
@@ -134,6 +161,13 @@ M.initialize = function()
             { name = "spell" },
         }),
     })
+
+
+    -- vue
+    cmp.event:on("menu_closed", function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.b[bufnr]._vue_ts_cached_is_in_start_tag = nil
+    end)
 end
 
 return M

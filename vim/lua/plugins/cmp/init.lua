@@ -27,10 +27,10 @@ return {
             "rcarriga/cmp-dap",
         },
         config = function(_, opts)
-            require("conf.autocomplete").setup(opts)
+            require("conf.cmp").setup(opts)
         end,
         init = function()
-            require("conf.autocomplete").initialize()
+            require("conf.cmp").initialize()
         end
     },
 }
