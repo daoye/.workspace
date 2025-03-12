@@ -1,4 +1,4 @@
-local cmp = require("blink.cmp")
+-- local cmp = require("blink.cmp")
 
 local M = {}
 
@@ -43,18 +43,18 @@ local map_blink = function(buf)
 end
 
 -- need use blink.cmp in AI chat
-vim.api.nvim_create_autocmd({ "BufNew", "BufEnter", "BufAdd", "BufCreate" }, {
-    group = augroup("auto_create_dir"),
-    callback = function(event)
-        if vim.tbl_contains({ "codecompanion" }, vim.bo.filetype) then
-            vim.cmd("CocDisable")
+-- vim.api.nvim_create_autocmd({ "BufNew", "BufEnter", "BufAdd", "BufCreate" }, {
+--     group = augroup("auto_create_dir"),
+--     callback = function(event)
+--         if vim.tbl_contains({ "codecompanion" }, vim.bo.filetype) then
+--             vim.cmd("CocDisable")
 
-            map_blink(event.buf)
-        else
-            vim.cmd("CocEnable")
-        end
-    end,
-})
+--             map_blink(event.buf)
+--         else
+--             vim.cmd("CocEnable")
+--         end
+--     end,
+-- })
 
 
 vim.api.nvim_create_autocmd({ "User" }, {
@@ -87,20 +87,28 @@ M.setup = function(opts)
         strategies = {
             chat = {
                 adapter = "copilot",
+                keymaps = {
+                    send = {
+                        modes = { n = "<Cr>", i = "<C-s>" },
+                    },
+                    close = {
+                        modes = { n = "<C-c>" },
+                    },
+                },
             },
             inline = {
                 adapter = "copilot",
             },
         },
-        display = {
-            action_palette = {
-                provider = "telescope",                 -- default|telescope|mini_pick
-                opts = {
-                    show_default_actions = true,        -- Show the default actions in the action palette?
-                    show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-                },
-            },
-        },
+        -- display = {
+        --     action_palette = {
+        --         provider = "telescope",                 -- default|telescope|mini_pick
+        --         opts = {
+        --             show_default_actions = true,        -- Show the default actions in the action palette?
+        --             show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+        --         },
+        --     },
+        -- },
     }))
 end
 

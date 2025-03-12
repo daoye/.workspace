@@ -715,103 +715,56 @@ return {
         },
     },
     {
-        "github/copilot.vim",
+        "yetone/avante.nvim",
         event = "VeryLazy",
-        cond = function()
-            -- just codecompanion
-            return false
-        end
-    },
-    {
-        "olimorris/codecompanion.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            {
-                "saghen/blink.cmp",
-                version = '*',
-                opts = {
-                    keymap = {
-                        preset = 'none'
-                    },
-                    enabled = function()
-                        return vim.tbl_contains({ "codecompanion" }, vim.bo.filetype)
-                            and vim.bo.buftype ~= "prompt"
-                            and vim.b.completion ~= false
-                    end,
+        version = false,
+        opts = {
+            provider = "copilot",
+            file_selector = {
+                provider = "telescope",
+                provider_opts = {},
+            },
+            mappings = {
+                sidebar = {
+                    close_from_input = { normal = "<esc>", insert = nil }
                 }
+            },
+            windows = {
+                sidebar_header = {
+                    enabled = false,
+                },
             }
         },
-        keys = {
+        build = "make",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "stevearc/dressing.nvim",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            "nvim-telescope/telescope.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "zbirenbaum/copilot.lua",
             {
-                "<leader>cc",
-                "<cmd>CodeCompanionChat Toggle<cr>",
-                desc = "Toggle AI chat",
-                mode = { "n" },
+                "HakonHarnes/img-clip.nvim",
+                event = "VeryLazy",
+                opts = {
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true,
+                        },
+                        use_absolute_path = true,
+                    },
+                },
             },
             {
-                "<space>cc",
-                "<cmd>CodeCompanion<cr>",
-                desc = "[AI]Inline file editor",
-            },
-            {
-                "<leader>ca",
-                "<cmd>CodeCompanionChat Add<cr><esc>",
-                desc = "[AI]Add visually selected to chat",
-                mode = { "v" },
-            },
-            {
-                "<leader>fc",
-                "<cmd>CodeCompanionActions<cr>",
-                desc = "[AI]AI actions",
-                mode = { "n" },
+                'MeanderingProgrammer/render-markdown.nvim',
+                opts = {
+                    file_types = { "markdown", "Avante" },
+                },
+                ft = { "markdown", "Avante" },
             },
         },
-        config = function(_, opts)
-            require('conf.ai').setup(opts)
-        end
     },
-    -- {
-    --     "gelguy/wilder.nvim",
-    --     event = "VeryLazy",
-    --     cond = false,
-    --     build = function()
-    --         vim.cmd("UpdateRemotePlugins");
-    --     end,
-    --     dependencies = {
-    --         'roxma/nvim-yarp',
-    --         'roxma/vim-hug-neovim-rpc',
-    --     },
-    --     config = function()
-    --         local wilder = require('wilder')
-    --         wilder.setup({ modes = { ':', '/', '?' } })
-    --         wilder.set_option('renderer', wilder.popupmenu_renderer(
-    --             wilder.popupmenu_border_theme({
-    --                 highlighter = wilder.basic_highlighter(),
-    --                 min_width = '100%', -- minimum height of the popupmenu, can also be a number
-    --                 min_height = '50%', -- to set a fixed height, set max_height to the same value
-    --                 reverse = 0,        -- if 1, shows the candidates from bottom to top
-    --                 left = { ' ', wilder.popupmenu_devicons() },
-    --                 right = { ' ', wilder.popupmenu_scrollbar() },
-    --             })
-    --         ))
-    --     end
-    -- },
-    -- {
-    --     dir = "extensions/message",
-    --     lazy = false,
-    --     keys = {
-    --         {
-    --             "<leader>m",
-    --             mode = { "n", "x", "o" },
-    --             function()
-    --                 require("extensions/message").open_message_float()
-    --             end,
-    --             desc = "Show message window"
-    --         },
-    --     },
-    --     config = function(opts)
-    --         require("extensions/message").setup(opts)
-    --     end,
-    -- },
 }
