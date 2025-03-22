@@ -4,6 +4,7 @@ local adapter_js = require("conf.dap.adapters.js")
 local adapter_cs = require("conf.dap.adapters.cs")
 local adapter_cpp = require("conf.dap.adapters.cpp")
 local adapter_python = require("conf.dap.adapters.python")
+local adapter_dart = require("conf.dap.adapters.dart")
 
 local M = {}
 
@@ -53,6 +54,7 @@ M.setup = function()
     adapter_cs.setup()
     adapter_cpp.setup()
     adapter_python.setup()
+    adapter_dart.setup()
 end
 
 M.vscode = function()
@@ -60,6 +62,7 @@ M.vscode = function()
     _ = adapter_cs.vscode and adapter_cs.vscode()
     _ = adapter_cpp.vscode and adapter_cpp.vscode()
     _ = adapter_python.vscode and adapter_python.vscode()
+    _ = adapter_dart.vscode and adapter_dart.vscode()
 
     require("conf.dap.vscode").load_config()
 end
