@@ -7,16 +7,17 @@ keybinds {
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
         bind "`" { SwitchToMode "tmux"; }
+        bind "Ctrl p" { SwitchToMode "Pane"; }
 
-        bind "Ctrl h" { MoveFocus "Left"; }
-        bind "Ctrl l" { MoveFocus "Right"; }
-        bind "Ctrl j" { MoveFocus "Down"; }
-        bind "Ctrl k" { MoveFocus "Up"; }
+        // bind "Ctrl h" { MoveFocus "Left"; }
+        // bind "Ctrl l" { MoveFocus "Right"; }
+        // bind "Ctrl j" { MoveFocus "Down"; }
+        // bind "Ctrl k" { MoveFocus "Up"; }
 
-        bind "Ctrl H" { Resize "Increase Left"; }
-        bind "Ctrl J" { Resize "Increase Down"; }
-        bind "Ctrl K" { Resize "Increase Up"; }
-        bind "Ctrl L" { Resize "Increase Right"; }
+        bind "Ctrl Left" { Resize "Increase Left"; }
+        bind "Ctrl Right" { Resize "Increase Right"; }
+        bind "Ctrl Down" { Resize "Increase Down"; }
+        bind "Ctrl Up" { Resize "Increase Up"; }
     }
     resize {
         bind "Ctrl n" { SwitchToMode "Normal"; }
@@ -155,7 +156,8 @@ keybinds {
         }
     }
     tmux clear-defaults=true {
-        bind "Esc" { SwitchToMode "Locked"; }
+        bind "Enter" "Esc" { SwitchToMode "Locked"; }
+
         bind "[" { SwitchToMode "Scroll"; }
         bind "`" { Write 96; SwitchToMode "Locked"; }
         bind "-" { NewPane "Down"; SwitchToMode "Locked"; }
@@ -211,7 +213,7 @@ keybinds {
         bind "Alt ]" { NextSwapLayout; }
     }
     shared_except "normal" "locked" {
-        bind "Enter" "Esc" { SwitchToMode "Normal"; }
+        bind "Enter" "Esc" { SwitchToMode "Locked"; }
     }
     shared_except "pane" "locked" {
         bind "Ctrl p" { SwitchToMode "Pane"; }
