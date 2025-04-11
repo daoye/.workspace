@@ -39,14 +39,6 @@ export NVM_DIR="$HOME/.nvm"
 nvm install --lts
 npm install -g neovim
 
-# Install Tmux conf
-cd ~
-rm -rf ~/.tmux
-rm -rf ~/.tmux.conf
-git clone https://github.com/gpakosz/.tmux.git
-ln -s -f .tmux/.tmux.conf
-
-
 # Install fzf
 rm -rf ~/.fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -61,10 +53,11 @@ fi
 
 # Link zsh
 ln -s -f ${ROOT}/conf/.zshrc.local ~/.zshrc.local
-# Link tmux
-ln -s -f ${ROOT}/conf/.tmux.conf.local ~/.tmux.conf.local
 # Link nvim
 ln -s -f ${ROOT}/vim ~/.config/nvim
+
+#link zellij
+ln -s ${ROOT}/zellij ~/.config/zellij
 
 # Initlize nvim
 nvim -u "Lazy install" +qa
