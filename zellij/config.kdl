@@ -1,5 +1,5 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
-keybinds {
+keybinds clear-defaults=true {
     normal {
         // uncomment this and adjust key if using copy_on_select=false
         bind "Ctrl Shift c" { Copy; }
@@ -9,10 +9,10 @@ keybinds {
         bind "`" { SwitchToMode "tmux"; }
         bind "Ctrl p" { SwitchToMode "Pane"; }
 
-        // bind "Ctrl h" { MoveFocus "Left"; }
-        // bind "Ctrl l" { MoveFocus "Right"; }
-        // bind "Ctrl j" { MoveFocus "Down"; }
-        // bind "Ctrl k" { MoveFocus "Up"; }
+        bind "Ctrl h" { MoveFocus "Left"; }
+        bind "Ctrl l" { MoveFocus "Right"; }
+        bind "Ctrl j" { MoveFocus "Down"; }
+        bind "Ctrl k" { MoveFocus "Up"; }
 
         bind "Ctrl Left" { Resize "Increase Left"; }
         bind "Ctrl Right" { Resize "Increase Right"; }
@@ -155,7 +155,7 @@ keybinds {
             SwitchToMode "Normal"
         }
     }
-    tmux clear-defaults=true {
+    tmux {
         bind "Enter" "Esc" { SwitchToMode "Locked"; }
 
         bind "[" { SwitchToMode "Scroll"; }
@@ -212,7 +212,7 @@ keybinds {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
     }
-    shared_except "normal" "locked" {
+    shared_except "locked" {
         bind "Enter" "Esc" { SwitchToMode "Locked"; }
     }
     shared_except "pane" "locked" {
@@ -233,8 +233,8 @@ keybinds {
     shared_except "move" "locked" {
         bind "Ctrl h" { SwitchToMode "Move"; }
     }
-    shared_except "tmux" "locked" {
-        bind "Ctrl b" { SwitchToMode "Tmux"; }
+    shared_except "tmux" {
+        bind "`" { SwitchToMode "Tmux"; }
     }
 }
 
