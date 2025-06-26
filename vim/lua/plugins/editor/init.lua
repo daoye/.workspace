@@ -261,17 +261,21 @@ return {
 
     -- search/replace
     {
-        'MagicDuck/grug-far.nvim',
-        opts = {
-            keymaps = {
-                help = { n = '?' },
-            },
-        },
+        'magicduck/grug-far.nvim',
+        config = function()
+            require('grug-far').setup({
+                opts = {
+                    keymaps = {
+                        help = { n = '?' },
+                    },
+                },
+            });
+        end,
         keys = {
             {
                 "<leader>sw",
                 function()
-                    require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>") } })
+                    require('grug-far').open({ prefills = { search = vim.fn.expand("<cword>") } })
                 end,
                 desc = "Search with word in all workspace"
             },
@@ -279,7 +283,7 @@ return {
             {
                 "<leader>ss",
                 function()
-                    require('grug-far').grug_far({ transient = true })
+                    require('grug-far').open({ transient = true })
                 end,
                 desc = "Search in all workspace"
             },
@@ -743,7 +747,10 @@ return {
             "MunifTanjim/nui.nvim",
             "nvim-telescope/telescope.nvim",
             "nvim-tree/nvim-web-devicons",
-            "zbirenbaum/copilot.lua",
+            {
+                "zbirenbaum/copilot.lua",
+                config = true
+            },
             {
                 "HakonHarnes/img-clip.nvim",
                 event = "VeryLazy",
