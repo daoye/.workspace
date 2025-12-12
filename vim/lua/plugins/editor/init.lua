@@ -658,6 +658,11 @@ return {
         "christoomey/vim-tmux-navigator",
         lazy = false,
     },
+    {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
     -- fold
     {
         "kevinhwang91/nvim-ufo",
