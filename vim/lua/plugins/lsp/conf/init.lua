@@ -69,38 +69,48 @@ local function get()
         { "<leader>rn", vim.lsp.buf.rename, desc = "Rename",                has = "rename" },
         {
             "<leader>ls",
-            telescope["lsp_document_symbols"]({
-                symbols = {
-                    "Class",
-                    "Function",
-                    "Method",
-                    "Constructor",
-                    "Interface",
-                    "Module",
-                    "Struct",
-                    "Trait",
-                    "Field",
-                    "Property",
-                },
-            }),
+            function()
+                local ok, result = pcall(telescope.lsp_document_symbols, {
+                    symbols = {
+                        "Class",
+                        "Function",
+                        "Method",
+                        "Constructor",
+                        "Interface",
+                        "Module",
+                        "Struct",
+                        "Trait",
+                        "Field",
+                        "Property",
+                    },
+                })
+                if not ok then
+                    vim.notify("Server does not support document symbols", vim.log.levels.WARN)
+                end
+            end,
             desc = "Goto Symbol",
         },
         {
             "<leader><leader>ls",
-            telescope["lsp_dynamic_workspace_symbols"]({
-                symbols = {
-                    "Class",
-                    "Function",
-                    "Method",
-                    "Constructor",
-                    "Interface",
-                    "Module",
-                    "Struct",
-                    "Trait",
-                    "Field",
-                    "Property",
-                },
-            }),
+            function()
+                local ok, result = pcall(telescope.lsp_workspace_symbols, {
+                    symbols = {
+                        "Class",
+                        "Function",
+                        "Method",
+                        "Constructor",
+                        "Interface",
+                        "Module",
+                        "Struct",
+                        "Trait",
+                        "Field",
+                        "Property",
+                    },
+                })
+                if not ok then
+                    vim.notify("Server does not support workspace symbols", vim.log.levels.WARN)
+                end
+            end,
             desc = "Goto Symbol (Workspace)",
         },
         { "<leader>fd",         "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
@@ -141,24 +151,44 @@ M.setup = function(opts)
     opts.capabilities =
         vim.tbl_deep_extend("force", require("cmp_nvim_lsp").default_capabilities(), opts.capabilities or {})
 
-    require("mason-lspconfig").setup_handlers({
-        function(server_name)
-            if server_name == "volar" then
-                -- vue integrate with ts_ls, this ignore
-                return
-            end
+    -- Setup mason-lspconfig for servers that are installed via Mason
+    require("mason-lspconfig").setup({
+        handlers = {
+            function(server_name)
+                -- Special handling for vuels to work alongside ts_ls for Vue projects
+                if server_name == "vuels" then
+                    local ok, vue_mod = pcall(require, "plugins.lsp.conf.vuels")
+                    if ok then
+                        vue_mod.setup(opts)
+                    else
+                        lspconfig.vuels.setup(opts)
+                    end
+                    return
+                end
 
-            local ok, mod = pcall(function()
-                return require("conf.lsp." .. server_name)
-            end)
+                local ok, mod = pcall(function()
+                    return require("plugins.lsp.conf." .. server_name)
+                end)
 
-            if ok then
-                mod.setup(opts)
-            else
-                lspconfig[server_name].setup(opts or {})
-            end
-        end,
+                if ok then
+                    mod.setup(opts)
+                else
+                    lspconfig[server_name].setup(opts or {})
+                end
+            end,
+        },
     })
+
+    -- Setup Dart LSP separately since it's built into the Dart SDK
+    local has_dart = vim.fn.executable("dart") == 1
+    if has_dart then
+        local ok, dart_mod = pcall(require, "plugins.lsp.conf.dart")
+        if ok then
+            dart_mod.setup(opts)
+        else
+            lspconfig.dart.setup(opts)
+        end
+    end
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {

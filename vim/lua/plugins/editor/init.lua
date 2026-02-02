@@ -303,10 +303,6 @@ return {
                     require("telescope").load_extension("fzf")
                 end,
             },
-            {
-                "fannheyward/telescope-coc.nvim",
-                cond = vim.g.usecoc
-            }
         },
         keys = {
             { "<leader>fg",      M.telescope("live_grep"),                                  desc = "Grep (root dir)" },
@@ -407,11 +403,6 @@ return {
                         case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                         -- the default case_mode is "smart_case"
                     },
-                    coc = {
-                        prefer_locations = false,
-                        push_cursor_on_edit = true,
-                        timeout = 3000,
-                    },
                 },
             })
         end,
@@ -453,18 +444,23 @@ return {
                         cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
                     },
                     function()
-                        if vim.g.usecoc then
-                            return vim.g.coc_status:gsub("%%", "%%%%")
-
-                            -- return vim.fn["coc#status"](true)
-                        end
                         return require('lsp-progress').progress()
                     end,
                     function()
-                        return require('extensions/message').get_status_summary()
+                        local ok, console = pcall(require, "messages")
+                        if ok then
+                            return console.get_status_summary()
+                        else
+                            return ''
+                        end
                     end,
                     function()
-                        return require('conf.ai').get_status()
+                        local ok, ai_module = pcall(require, "plugins.ai.conf")
+                        if ok then
+                            return ai_module.get_status()
+                        else
+                            return ''
+                        end
                     end,
                     { "diff" },
                 },
@@ -675,12 +671,6 @@ return {
                     return not vim.g.usecoc
                 end,
             },
-            {
-                "neoclide/coc.nvim",
-                cond = function()
-                    return vim.g.usecoc
-                end,
-            }
         },
         event = { "VeryLazy" },
         opts = {

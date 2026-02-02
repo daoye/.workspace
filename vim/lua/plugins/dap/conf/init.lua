@@ -1,10 +1,10 @@
-local utils = require("utils")
+local utils = require("conf.utils")
 
-local adapter_js = require("conf.dap.adapters.js")
-local adapter_cs = require("conf.dap.adapters.cs")
-local adapter_cpp = require("conf.dap.adapters.cpp")
-local adapter_python = require("conf.dap.adapters.python")
-local adapter_dart = require("conf.dap.adapters.dart")
+local adapter_js = require("plugins.dap.conf.adapters.js")
+local adapter_cs = require("plugins.dap.conf.adapters.cs")
+local adapter_cpp = require("plugins.dap.conf.adapters.cpp")
+local adapter_python = require("plugins.dap.conf.adapters.python")
+local adapter_dart = require("plugins.dap.conf.adapters.dart")
 
 local M = {}
 
@@ -24,7 +24,7 @@ M.setup = function()
 
         local task = cfg["preLaunchTask"]
         if task then
-            utils.run_command(string.gsub(task, '${workspaceFolder}', vim.fn.getcwd()))
+            require("conf.utils").run_command(string.gsub(task, '${workspaceFolder}', vim.fn.getcwd()))
         end
         return config
     end
@@ -55,6 +55,8 @@ M.setup = function()
     adapter_cpp.setup()
     adapter_python.setup()
     adapter_dart.setup()
+    require("plugins.dap.conf.adapters.html").setup()
+    require("plugins.dap.conf.adapters.rust").setup()
 end
 
 M.vscode = function()
@@ -64,7 +66,15 @@ M.vscode = function()
     _ = adapter_python.vscode and adapter_python.vscode()
     _ = adapter_dart.vscode and adapter_dart.vscode()
 
-    require("conf.dap.vscode").load_config()
+    require("plugins.dap.conf.vscode").load_config()
+end
+
+M.generate_vscode_config = function()
+    require("plugins.dap.conf.vscode").generate_config()
+end
+
+M.load_vscode_config = function()
+    require("plugins.dap.conf.vscode").load_config()
 end
 
 return M

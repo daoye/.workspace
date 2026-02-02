@@ -1,6 +1,7 @@
 local dap = require("dap")
 local dap_ext = require("dap.ext.vscode")
-local utils = require("conf.dap.utils")
+local utils = require("plugins.dap.conf.utils")
+local device_manager = require("plugins.dap.conf.flutter.device_manager")
 local M = {}
 
 local find_flutter = function()
@@ -23,6 +24,40 @@ local find_dart = function()
     end
 end
 
+-- Function to run flutter launch with device selection
+local function run_flutter_launch(config_name)
+    local device_id = nil
+    device_manager:get_selected_device(function(id)
+        device_id = id
+    end)
+
+    if not device_id then
+        vim.notify("No device selected, aborting launch", vim.log.levels.WARN)
+        return
+    end
+
+    -- Get the original configuration
+    local configs = dap.configurations.dart
+    local target_config = nil
+
+    for _, config in ipairs(configs) do
+        if config.name == config_name then
+            target_config = vim.deepcopy(config)
+            break
+        end
+    end
+
+    if not target_config then
+        vim.notify("Configuration not found: " .. config_name, vim.log.levels.ERROR)
+        return
+    end
+
+    -- Add device argument
+    target_config.toolArgs = { "-d", device_id }
+
+    -- Run the debug session
+    dap.run(target_config)
+end
 
 M.setup = function()
     dap.adapters.dart = {
@@ -65,6 +100,15 @@ M.setup = function()
             flutterSdkPath = flutter_path,
             program = "${workspaceFolder}/lib/main.dart",
             cwd = "${workspaceFolder}",
+        },
+        {
+            type = "flutter",
+            request = "launch",
+            name = "Launch flutter (with device selection)",
+            dartSdkPath = dart_path,
+            flutterSdkPath = flutter_path,
+            program = "${workspaceFolder}/lib/main.dart",
+            cwd = "${workspaceFolder}",
         }
     }
 
@@ -91,6 +135,26 @@ M.setup = function()
             table.insert(dap.configurations[name], cfg)
         end
     end
+
+    -- Create command to run flutter with device selection
+    vim.api.nvim_create_user_command("FlutterRunWithDevice", function()
+        run_flutter_launch("Launch flutter")
+    end, { desc = "Run Flutter with device selection" })
+
+    -- Create command to switch device
+    vim.api.nvim_create_user_command("FlutterSwitchDevice", function()
+        device_manager:switch_device()
+    end, { desc = "Switch Flutter debug device" })
+
+    -- Set up keymap for quick access
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'dart' },
+        callback = function()
+            vim.keymap.set('n', '<leader>fd', function()
+                run_flutter_launch("Launch flutter")
+            end, { buffer = 0, desc = "Flutter debug with device selection" })
+        end,
+    })
 end
 
 M.vscode = function()

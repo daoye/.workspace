@@ -2,6 +2,13 @@ return {
     {
         "mfussenegger/nvim-dap",
         dependencies = {
+            {
+                "mxsdev/nvim-dap-vscode-js",
+                dependencies = { "mfussenegger/nvim-dap" },
+                config = function()
+                    -- Configuration is handled in the adapter file
+                end,
+            },
         },
         -- event = { "VeryLazy" },
         opts = {},
@@ -21,20 +28,21 @@ return {
                 end,
                 desc = "(DAP)Breakpoint with log"
             },
-            { "<F10>",                    function() require("dap").step_over() end,                  desc = "(DAP)Step Over" },
-            { "<S-F10>",                  function() require("dap").step_out() end,                   desc = "(DAP)Step Out" },
-            { "<F11>",                    function() require("dap").step_into() end,                  desc = "(DAP)Step Into" },
-            { "<F1>",                     function() require("dap.repl").toggle({ height = 10 }) end, desc = "(DAP)Toggle repl buffer" },
-            { "<leader>dg",               function() require("dap").goto_() end,                      desc = "(DAP)Go to line (no execute)" },
-            { "<leader>dj",               function() require("dap").down() end,                       desc = "(DAP)Down" },
-            { "<leader>dk",               function() require("dap").up() end,                         desc = "(DAP)Up" },
-            { "<leader>dl",               function() require("dap").run_last() end,                   desc = "(DAP)Run Last" },
-            { "<leader>dp",               function() require("dap").pause() end,                      desc = "(DAP)Pause" },
-            { "<leader>ds",               function() require("dap").session() end,                    desc = "(DAP)Session" },
-            { "<leader><leader><leader>", function() require("conf.dap").vscode() end,                desc = "(DAP)Update .vscode/launch.json and load" },
+            { "<F10>",                    function() require("dap").step_over() end,                           desc = "(DAP)Step Over" },
+            { "<S-F10>",                  function() require("dap").step_out() end,                            desc = "(DAP)Step Out" },
+            { "<F11>",                    function() require("dap").step_into() end,                           desc = "(DAP)Step Into" },
+            { "<F1>",                     function() require("dap.repl").toggle({ height = 10 }) end,          desc = "(DAP)Toggle repl buffer" },
+            { "<leader>dg",               function() require("dap").goto_() end,                               desc = "(DAP)Go to line (no execute)" },
+            { "<leader>dj",               function() require("dap").down() end,                                desc = "(DAP)Down" },
+            { "<leader>dk",               function() require("dap").up() end,                                  desc = "(DAP)Up" },
+            { "<leader>dl",               function() require("dap").run_last() end,                            desc = "(DAP)Run Last" },
+            { "<leader>dp",               function() require("dap").pause() end,                               desc = "(DAP)Pause" },
+            { "<leader>ds",               function() require("dap").session() end,                             desc = "(DAP)Session" },
+            { "<leader><leader><leader>", function() require("plugins.dap.conf").vscode() end,                 desc = "(DAP)Load .vscode/launch.json configurations" },
+            { "<leader><leader>d",        function() require("plugins.dap.conf").generate_vscode_config() end, desc = "(DAP)Generate .vscode/launch.json" },
         },
         config = function()
-            require("conf.dap").setup()
+            require("plugins.dap.conf").setup()
         end,
     },
     {

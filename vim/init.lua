@@ -2,10 +2,7 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = " "
 
--- coc or lsp
-vim.g.usecoc = true
-vim.g.coc_config_home = '~/.config/nvim'
--- disable backup file, coc need this
+-- disable backup file
 vim.opt.backup = false
 vim.opt.writebackup = false
 
@@ -82,7 +79,6 @@ opt.foldenable = true
 
 -- opt.foldmethod = "indent"
 -- opt.foldmethod = "expr"
--- opt.foldexpr = "CocAction('fold')"
 
 -- opt.splitkeep = "screen"
 -- opt.shortmess:append({ C = true })

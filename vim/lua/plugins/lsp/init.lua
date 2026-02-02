@@ -1,20 +1,51 @@
 return {
     {
-        "williamboman/mason-lspconfig.nvim",
-        cond = function()
-            return not vim.g.usecoc
+        "williamboman/mason.nvim",
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonUpdate" },
+        opts = {
+            ui = {
+                border = "rounded",
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗"
+                }
+            }
+        },
+        config = function(_, opts)
+            require("mason").setup(opts)
+            vim.api.nvim_create_user_command("MasonUpdate", function()
+                vim.cmd.MasonUpdate()
+            end, {})
         end,
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
         dependencies = {
             "williamboman/mason.nvim",
         },
-        config = true,
+        opts = {
+            ensure_installed = {
+                "lua_ls",
+                "omnisharp", -- Correct name for C# language server
+                "ts_ls",
+                "vuels",     -- For Vue.js support (correct name for volar)
+                "pyright",
+                "clangd",
+                "rust_analyzer",
+                "html",
+                "cssls",
+                "dockerls", -- For Docker support
+            },
+            automatic_installation = { exclude = {} },
+        },
+        config = function(_, opts)
+            require("mason-lspconfig").setup(opts)
+        end,
     },
     {
         "neovim/nvim-lspconfig",
-        cond = function()
-            return not vim.g.usecoc
-        end,
-        lazy = false,
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -30,61 +61,28 @@ return {
                 },
             },
         },
-        init = function() end,
         config = function(_, opts)
-            require("conf.lsp").setup(opts)
+            require("plugins.lsp.conf").setup(opts)
         end,
     },
-    -- auto completion
-    {
-        'hrsh7th/nvim-cmp',
-        cond = function()
-            return not vim.g.usecoc
-        end,
-        dependencies = {
-            {
-                'hrsh7th/cmp-nvim-lsp',
-            },
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-
-            -- autocomplete snip source
-            'saadparwaiz1/cmp_luasnip',
-            {
-                'L3MON4D3/LuaSnip',
-                dependencies = { "rafamadriz/friendly-snippets" },
-                init = function()
-                    require("luasnip.loaders.from_vscode").lazy_load()
-                end
-            },
-
-            -- extend sources
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-
-            -- spell
-            'f3fora/cmp-spell',
-            -- dap
-            "rcarriga/cmp-dap",
-        },
-        config = function(_, opts)
-            require("conf.cmp").setup(opts)
-        end,
-        init = function()
-            require("conf.cmp").initialize()
-        end
-    },
-
     -- formater, lints
     {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {
+            ensure_installed = { "stylua", "prettierd", "black" },
+            automatic_installation = {
+                exclude = {},
+            },
+        },
+    },
+    {
         "nvimtools/none-ls.nvim",
-        cond = function()
-            return not vim.g.usecoc
-        end,
-        config = function()
+        event = { "BufReadPre", "BufNewFile" },
+        opts = function()
             local null_ls = require("null-ls")
 
-            null_ls.setup({
+            return {
                 sources = {
                     null_ls.builtins.formatting.stylua,
                     null_ls.builtins.formatting.prettierd,
@@ -94,24 +92,25 @@ return {
 
                     -- null_ls.builtins.completion.spell,
                 },
-            })
+            }
         end,
     },
 
     -- csharp
     {
         "Decodetalkers/csharpls-extended-lsp.nvim",
-        cond = function()
-            return not vim.g.usecoc
-        end,
     },
+
+    -- typescript
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    },
+
 
     -- lua
     {
         "folke/lazydev.nvim",
-        cond = function()
-            return not vim.g.usecoc
-        end,
         ft = "lua", -- only load on lua files
         opts = {
             library = {
@@ -123,10 +122,6 @@ return {
     },
     {
         "Bilal2453/luvit-meta",
-
-        cond = function()
-            return not vim.g.usecoc
-        end,
         lazy = true
     }, -- optional `vim.uv` typings
 
