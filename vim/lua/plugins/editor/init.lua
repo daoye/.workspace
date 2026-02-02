@@ -455,6 +455,17 @@ return {
                         end
                     end,
                     function()
+                        -- Check for Flutter device loading status
+                        local ok, device_manager = pcall(require, "plugins.dap.conf.flutter.device_manager")
+                        if ok then
+                            local loading_status = device_manager:get_loading_status()
+                            if loading_status then
+                                return loading_status
+                            end
+                        end
+                        return ''
+                    end,
+                    function()
                         local ok, ai_module = pcall(require, "plugins.ai.conf")
                         if ok then
                             return ai_module.get_status()
