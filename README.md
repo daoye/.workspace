@@ -14,7 +14,7 @@ Windows Terminal settings.
   - mobile prefix: `Ctrl-a`
   - `tc`: create or attach the `code` session
   - `tcx`: kill the `code` session
-- A minimal Starship prompt
+- Platform-specific Starship prompts: full POSIX and compact PowerShell
 - A PowerShell profile for native Windows terminals
 - JetBrainsMono Nerd Font Mono
 - Windows Terminal font and `Workspace Dark` color scheme

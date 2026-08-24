@@ -1,0 +1,18 @@
+add_newline = false
+command_timeout = 800
+format = "$directory$git_branch$character"
+
+[directory]
+format = "[$path]($style)"
+style = "cyan"
+truncation_length = 2
+truncate_to_repo = true
+home_symbol = "~"
+
+[git_branch]
+format = " [($branch)]($style)"
+style = "purple"
+
+[character]
+success_symbol = " [>](green)"
+error_symbol = " [>](red)"

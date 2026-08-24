@@ -236,7 +236,7 @@ if (-not $NoPackages) {
 Install-NerdFont
 
 Set-DirectoryJunction "$Root\config\nvim" "$env:LOCALAPPDATA\nvim"
-Set-ManagedFile "$Root\config\starship\starship.toml" "$HOME\.config\starship.toml"
+Set-ManagedFile "$Root\config\starship\powershell.toml" "$HOME\.config\starship.toml"
 
 $profileLoader = Join-Path ([IO.Path]::GetTempPath()) "workspace-profile-$([guid]::NewGuid()).ps1"
 $escapedProfile = "$Root\config\powershell\profile.ps1".Replace("'", "''")
