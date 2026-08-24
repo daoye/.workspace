@@ -62,11 +62,13 @@ Set-Location "$HOME\.workspace"
 ```
 
 The Windows installer uses `winget`, creates a Neovim directory junction,
-installs a small PowerShell loader, installs the font for the current user,
-merges the managed font and color scheme into Windows Terminal without replacing
-unrelated profiles or key bindings, and configures OpenSSH to launch the current
-PowerShell 7 App Execution Alias. OpenSSH configuration requests UAC elevation
-only when the registry setting needs to change.
+installs managed all-host and current-host PowerShell profiles so legacy prompt
+initializers cannot override the workspace prompt, installs the font for the
+current user, and merges the managed font and color scheme into Windows Terminal
+without replacing unrelated profiles or key bindings. It also configures
+OpenSSH to launch the current PowerShell 7 App Execution Alias. OpenSSH
+configuration requests UAC elevation only when the registry setting needs to
+change.
 
 Restart Windows Terminal after installation.
 

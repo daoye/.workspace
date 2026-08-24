@@ -243,6 +243,7 @@ $escapedProfile = "$Root\config\powershell\profile.ps1".Replace("'", "''")
 [IO.File]::WriteAllText($profileLoader, ". '$escapedProfile'`n", [Text.UTF8Encoding]::new($false))
 Set-ManagedFile $profileLoader $PROFILE.CurrentUserAllHosts
 Remove-Item -LiteralPath $profileLoader -Force
+Set-ManagedFile "$Root\config\powershell\current-host.ps1" $PROFILE.CurrentUserCurrentHost
 
 Set-WindowsTerminal
 Set-OpenSshDefaultShell
