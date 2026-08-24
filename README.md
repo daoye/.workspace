@@ -1,38 +1,121 @@
-# Installation
+# .workspace
 
+Personal, cross-platform terminal environment for Windows, Linux, and macOS.
+The repository is intentionally small: clone it, run one installer, and keep the
+repository as the source of truth for shell, tmux, Neovim, prompt, font, and
+Windows Terminal settings.
 
-    cd ~
-    git clone https://github.com/daoye/.workspace.git
-    cd .workspace
-    ./install.sh
+## What is managed
 
+- Neovim configuration in `config/nvim`
+- A standalone Zsh configuration with `fzf`, `zoxide`, and Starship integration
+- A plain, mobile-friendly tmux configuration
+  - desktop prefix: backtick
+  - mobile prefix: `Ctrl-a`
+  - `tc`: create or attach the `code` session
+  - `tcx`: kill the `code` session
+- A minimal Starship prompt
+- A PowerShell profile for native Windows terminals
+- JetBrainsMono Nerd Font Mono
+- Windows Terminal font and `Workspace Dark` color scheme
 
+Machine-specific secrets do not belong in this repository. Put local Zsh
+customizations in `~/.zshrc.local`.
 
+## Install on Linux
 
-# Question
+```sh
+git clone https://github.com/daoye/.workspace.git ~/.workspace
+cd ~/.workspace
+./install.sh
+```
 
-## Fix GNOME Terminal background color.
+Supported package managers:
 
-.vimrc
+- Arch Linux: `pacman`
+- Debian, Ubuntu, Kali, Linux Mint, Pop!_OS: `apt`
+- Fedora, RHEL, Rocky Linux, AlmaLinux: `dnf`
 
-`
-if $COLORTERM == 'truecolor'
-    set termguicolors
-else
-    set term=xterm
-    set t_Co=256
-endif
-colorscheme solarized
-`
+On WSL, fonts are managed by Windows rather than installed inside the distro.
 
-Then modify the color file solarized.vim at line `243` to 
+## Install on macOS
 
-`
-if ((has("gui_running") && g:solarized_degrade ==0) || has('termguicolors'))
+```sh
+git clone https://github.com/daoye/.workspace.git ~/.workspace
+cd ~/.workspace
+./install.sh
+```
 
-`
+The installer bootstraps Homebrew when needed and installs the Nerd Font cask.
+Select **JetBrainsMono Nerd Font Mono** in the macOS terminal application if it
+does not pick up the font automatically.
 
+## Install on Windows
 
-sdfds
-sdfsdf
-    
+Open PowerShell 7:
+
+```powershell
+git clone https://github.com/daoye/.workspace.git "$HOME\.workspace"
+Set-Location "$HOME\.workspace"
+./install.ps1
+```
+
+The Windows installer uses `winget`, creates a Neovim directory junction,
+installs a small PowerShell loader, installs the font for the current user, and
+merges the managed font and color scheme into Windows Terminal without replacing
+unrelated profiles or key bindings.
+
+Restart Windows Terminal after installation.
+
+## Installer options
+
+POSIX:
+
+```sh
+./install.sh --no-packages
+./install.sh --no-nvim-sync
+```
+
+Windows:
+
+```powershell
+./install.ps1 -NoPackages
+./install.ps1 -NoNeovimSync
+```
+
+Both installers are idempotent. Existing unmanaged configuration is moved to a
+timestamped `*.backup.YYYYMMDD-HHMMSS` path before the managed configuration is
+installed.
+
+## Update
+
+```sh
+cd ~/.workspace
+git pull --ff-only
+./install.sh --no-packages
+```
+
+Windows:
+
+```powershell
+Set-Location "$HOME\.workspace"
+git pull --ff-only
+./install.ps1 -NoPackages
+```
+
+POSIX configuration is symlinked, so most repository changes are visible
+immediately. Reload tmux with either prefix followed by `r`.
+
+## Repository layout
+
+```text
+config/
+  nvim/             preserved Neovim configuration
+  powershell/       native Windows PowerShell profile
+  starship/         cross-platform prompt
+  tmux/             theme-free tmux configuration
+  windows-terminal/ declarative font and color scheme
+  zsh/              standalone Zsh configuration
+install.ps1         Windows bootstrap and configuration
+install.sh          Linux and macOS bootstrap and configuration
+```

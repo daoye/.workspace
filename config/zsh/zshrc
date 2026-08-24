@@ -1,0 +1,45 @@
+# Managed by ~/.workspace. Keep machine-specific secrets in ~/.zshrc.local.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+
+mkdir -p "$XDG_CACHE_HOME/zsh"
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
+
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INTERACTIVE_COMMENTS
+setopt SHARE_HISTORY
+
+HISTFILE="$XDG_CACHE_HOME/zsh/history"
+HISTSIZE=50000
+SAVEHIST=50000
+bindkey -e
+
+alias vim='nvim'
+alias vi='nvim'
+alias ll='ls -lah'
+alias la='ls -A'
+alias tc='tmux new-session -A -s code'
+alias tcx='tmux kill-session -t code'
+
+if command -v fzf >/dev/null 2>&1 && fzf --zsh >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi
+
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+else
+    PROMPT='%F{cyan}%n@%m%f:%F{blue}%~%f %# '
+fi
+
+[[ -r "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

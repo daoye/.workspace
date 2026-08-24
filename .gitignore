@@ -1,6 +1,5 @@
-.zshrc.work.local
 .DS_Store
-lazy-lock.json
-vim/sessions/
-spell/
-.vscode/
+Thumbs.db
+*.backup.*
+*.log
+.lazy-lock.json
