@@ -1,31 +1,18 @@
 add_newline = false
-command_timeout = 1000
-format = "$username$hostname$directory$git_branch$git_status$character"
-
-[username]
-show_always = false
-format = "[$user]($style)@"
-style_user = "bold cyan"
-
-[hostname]
-ssh_only = true
-format = "[$hostname]($style):"
-style = "bold cyan"
+command_timeout = 800
+format = "$directory$git_branch$character"
 
 [directory]
-truncation_length = 4
+format = "[$path]($style)"
+style = "cyan"
+truncation_length = 2
 truncate_to_repo = true
-style = "bold blue"
+home_symbol = "~"
 
 [git_branch]
-format = " [$symbol$branch]($style)"
-symbol = "git:"
-style = "bold purple"
-
-[git_status]
-format = " [$all_status$ahead_behind]($style)"
-style = "bold yellow"
+format = " [($branch)]($style)"
+style = "purple"
 
 [character]
-success_symbol = " [>]($bold_green)"
-error_symbol = " [>]($bold_red)"
+success_symbol = " [>](green)"
+error_symbol = " [>](red)"
