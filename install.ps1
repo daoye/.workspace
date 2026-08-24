@@ -101,6 +101,52 @@ function Install-NerdFont {
     Remove-Item -LiteralPath $temp -Recurse -Force
 }
 
+function Set-OpenSshDefaultShell {
+    if (-not (Get-Service sshd -ErrorAction SilentlyContinue)) {
+        Write-Log 'OpenSSH Server is not installed; skipping its default shell'
+        return
+    }
+    if (-not (Get-Command pwsh.exe -ErrorAction SilentlyContinue)) {
+        throw 'pwsh is required before configuring the OpenSSH default shell'
+    }
+
+    $registryPath = 'HKLM:\SOFTWARE\OpenSSH'
+    $shell = Join-Path $env:LOCALAPPDATA 'Microsoft\WindowsApps\pwsh.exe'
+    $current = Get-ItemProperty -Path $registryPath -ErrorAction SilentlyContinue
+    if ($current -and $current.DefaultShell -eq $shell -and $current.DefaultShellCommandOption -eq '-c') {
+        Write-Log "OpenSSH already uses PowerShell: $shell"
+        return
+    }
+
+    $tempScript = Join-Path ([IO.Path]::GetTempPath()) "workspace-openssh-$([guid]::NewGuid()).ps1"
+    $elevatedScript = @'
+param([string]$Shell)
+$ErrorActionPreference = 'Stop'
+$key = 'HKLM:\SOFTWARE\OpenSSH'
+New-Item -Path $key -Force | Out-Null
+New-ItemProperty -Path $key -Name DefaultShell -Value $Shell -PropertyType String -Force | Out-Null
+New-ItemProperty -Path $key -Name DefaultShellCommandOption -Value '-c' -PropertyType String -Force | Out-Null
+if ((Get-Service sshd).Status -eq 'Running') {
+    Restart-Service sshd
+}
+'@
+    [IO.File]::WriteAllText($tempScript, $elevatedScript, [Text.UTF8Encoding]::new($false))
+
+    try {
+        Write-Log 'requesting elevation to configure the OpenSSH PowerShell shell'
+        $powerShell = "$env:WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe"
+        $arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$tempScript`" -Shell `"$shell`""
+        $process = Start-Process $powerShell -Verb RunAs -Wait -PassThru -ArgumentList $arguments
+        if ($process.ExitCode -ne 0) {
+            throw "elevated OpenSSH configuration failed with exit code $($process.ExitCode)"
+        }
+    } finally {
+        Remove-Item -LiteralPath $tempScript -Force -ErrorAction SilentlyContinue
+    }
+
+    Write-Log "configured OpenSSH default shell: $shell"
+}
+
 function Get-WindowsTerminalSettingsPath {
     $candidates = @(
         "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json",
@@ -199,6 +245,7 @@ Set-ManagedFile $profileLoader $PROFILE.CurrentUserAllHosts
 Remove-Item -LiteralPath $profileLoader -Force
 
 Set-WindowsTerminal
+Set-OpenSshDefaultShell
 
 if (-not $NoNeovimSync) {
     if (-not (Get-Command nvim -ErrorAction SilentlyContinue)) {

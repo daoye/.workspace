@@ -18,6 +18,7 @@ Windows Terminal settings.
 - A PowerShell profile for native Windows terminals
 - JetBrainsMono Nerd Font Mono
 - Windows Terminal font and `Workspace Dark` color scheme
+- PowerShell 7 as the Windows OpenSSH default shell when SSH Server is installed
 
 Machine-specific secrets do not belong in this repository. Put local Zsh
 customizations in `~/.zshrc.local`.
@@ -61,9 +62,11 @@ Set-Location "$HOME\.workspace"
 ```
 
 The Windows installer uses `winget`, creates a Neovim directory junction,
-installs a small PowerShell loader, installs the font for the current user, and
+installs a small PowerShell loader, installs the font for the current user,
 merges the managed font and color scheme into Windows Terminal without replacing
-unrelated profiles or key bindings.
+unrelated profiles or key bindings, and configures OpenSSH to launch the current
+PowerShell 7 App Execution Alias. OpenSSH configuration requests UAC elevation
+only when the registry setting needs to change.
 
 Restart Windows Terminal after installation.
 
