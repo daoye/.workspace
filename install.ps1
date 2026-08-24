@@ -102,7 +102,8 @@ function Install-NerdFont {
 }
 
 function Set-OpenSshDefaultShell {
-    if (-not (Get-Service sshd -ErrorAction SilentlyContinue)) {
+    $service = Get-Service sshd -ErrorAction SilentlyContinue
+    if (-not $service) {
         Write-Log 'OpenSSH Server is not installed; skipping its default shell'
         return
     }
@@ -113,8 +114,10 @@ function Set-OpenSshDefaultShell {
     $registryPath = 'HKLM:\SOFTWARE\OpenSSH'
     $shell = Join-Path $env:LOCALAPPDATA 'Microsoft\WindowsApps\pwsh.exe'
     $current = Get-ItemProperty -Path $registryPath -ErrorAction SilentlyContinue
-    if ($current -and $current.DefaultShell -eq $shell -and $current.DefaultShellCommandOption -eq '-c') {
-        Write-Log "OpenSSH already uses PowerShell: $shell"
+    $registryReady = $current -and $current.DefaultShell -eq $shell -and $current.DefaultShellCommandOption -eq '-c'
+    $serviceReady = $service.Status -eq 'Running' -and $service.StartType -eq 'Automatic'
+    if ($registryReady -and $serviceReady) {
+        Write-Log "OpenSSH is running automatically with PowerShell: $shell"
         return
     }
 
@@ -126,14 +129,17 @@ $key = 'HKLM:\SOFTWARE\OpenSSH'
 New-Item -Path $key -Force | Out-Null
 New-ItemProperty -Path $key -Name DefaultShell -Value $Shell -PropertyType String -Force | Out-Null
 New-ItemProperty -Path $key -Name DefaultShellCommandOption -Value '-c' -PropertyType String -Force | Out-Null
+Set-Service sshd -StartupType Automatic
 if ((Get-Service sshd).Status -eq 'Running') {
     Restart-Service sshd
+} else {
+    Start-Service sshd
 }
 '@
     [IO.File]::WriteAllText($tempScript, $elevatedScript, [Text.UTF8Encoding]::new($false))
 
     try {
-        Write-Log 'requesting elevation to configure the OpenSSH PowerShell shell'
+        Write-Log 'requesting elevation to configure the OpenSSH PowerShell shell and service'
         $powerShell = "$env:WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe"
         $arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$tempScript`" -Shell `"$shell`""
         $process = Start-Process $powerShell -Verb RunAs -Wait -PassThru -ArgumentList $arguments
@@ -144,7 +150,7 @@ if ((Get-Service sshd).Status -eq 'Running') {
         Remove-Item -LiteralPath $tempScript -Force -ErrorAction SilentlyContinue
     }
 
-    Write-Log "configured OpenSSH default shell: $shell"
+    Write-Log "configured automatic OpenSSH service with PowerShell: $shell"
 }
 
 function Get-WindowsTerminalSettingsPath {
